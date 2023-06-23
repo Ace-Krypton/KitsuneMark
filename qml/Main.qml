@@ -120,6 +120,8 @@ ApplicationWindow {
     onAccepted: {
       mainPage.system.writeToAFile(utils.properties(mainPage),
                                    fileDialog.currentFile)
+
+      console.log("Data Written Successfully")
     }
   }
 
