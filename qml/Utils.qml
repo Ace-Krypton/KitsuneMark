@@ -21,7 +21,6 @@ QtObject {
                                     (cell, index) => cell.padEnd(
                                       columnWidths[index])).join(" ")
                                 }).join("\n")
-
     return properties
   }
 
