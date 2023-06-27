@@ -8,22 +8,19 @@ QtObject {
   }
 
   function properties(mainPage) {
-    const properties = `
-    * MB/s = 1,000,000 bytes/s [SATA/600 = 600,000,000 bytes/s]
-    * KB = 1000 bytes, KiB = 1024 bytes
+    const data = [["* MB/s = 1,000,000 bytes/s [SATA/600 = 600,000,000 bytes/s]"], ["* KB = 1000 bytes, KiB = 1024 bytes"], [""], ["[Read]"], ["Sequential 1 MiB (Q=8, T=1):", `${mainPage.seq1MRead} MB/s`, `[${mainPage.seq1MReadIOPS} IOPS]`, `<${mainPage.seq1MReadGB} GB>`], ["Sequential 128 KiB (Q=32, T=1):", `${mainPage.seq128KRead} MB/s`, `[${mainPage.seq128KReadIOPS} IOPS]`, `<${mainPage.seq128KReadGB} GB>`], ["Random 4 KiB (Q=32, T=16):", `${mainPage.rand4KQ32T1Read} MB/s`, `[${mainPage.rand4KQ32T1ReadIOPS} IOPS]`, `<${mainPage.rand4KQ32T1ReadGB} GB>`], ["Random 4 KiB (Q=1, T=1):", `${mainPage.rand4KQ1T1Read} MB/s`, `[${mainPage.rand4KQ1T1ReadIOPS} IOPS]`, `<${mainPage.rand4KQ1T1ReadGB} GB>`], [""], ["[Write]"], ["Sequential 1 MiB (Q=8, T=1):", `${mainPage.seq1MWrite} MB/s`, `[${mainPage.seq1MWriteIOPS} IOPS]`, `<${mainPage.seq1MWriteGB} GB>`], ["Sequential 128 KiB (Q=32, T=1):", `${mainPage.seq128KWrite} MB/s`, `[${mainPage.seq128KWriteIOPS} IOPS]`, `<${mainPage.seq128KWriteGB} GB>`], ["Random 4 KiB (Q=32, T=16):", `${mainPage.rand4KQ32T1Write} MB/s`, `[${mainPage.rand4KQ32T1WriteIOPS} IOPS]`, `<${mainPage.rand4KQ32T1WriteGB} GB>`], ["Random 4 KiB (Q= 1, T=1):", `${mainPage.rand4KQ1T1Write} MB/s`, `[${mainPage.rand4KQ1T1WriteIOPS} IOPS]`, `<${mainPage.rand4KQ1T1WriteGB} GB>`]]
 
-    [Read]
-    Sequential 1 MiB (Q=8, T=1): ${mainPage.seq1MRead} MB/s [${mainPage.seq1MReadIOPS} IOPS] <${mainPage.seq1MReadGB} GB>
-    Sequential 128 KiB (Q=32, T=1): ${mainPage.seq128KRead} MB/s [${mainPage.seq128KReadIOPS} IOPS] <${mainPage.seq128KReadGB} GB>
-    Random 4 KiB (Q=32, T=16): ${mainPage.rand4KQ32T1Read} MB/s [${mainPage.rand4KQ32T1ReadIOPS} IOPS] <${mainPage.rand4KQ32T1ReadGB} GB>
-    Random 4 KiB (Q=1, T=1): ${mainPage.rand4KQ1T1Read} MB/s [${mainPage.rand4KQ1T1ReadIOPS} IOPS] <${mainPage.rand4KQ1T1ReadGB} GB>
+    const columnWidths = data.reduce((widths, row) => {
+                                       return row.map((cell, index) => Math.max(
+                                                        widths[index] || 0,
+                                                        cell.length))
+                                     }, [])
 
-    [Write]
-    Sequential 1 MiB (Q=8, T=1): ${mainPage.seq1MWrite} MB/s [${mainPage.seq1MWriteIOPS} IOPS] <${mainPage.seq1MWriteGB} GB>
-    Sequential 128 KiB (Q=32, T=1): ${mainPage.seq128KWrite} MB/s [${mainPage.seq128KWriteIOPS} IOPS] <${mainPage.seq128KWriteGB} GB>
-    Random 4 KiB (Q=32, T=16): ${mainPage.rand4KQ32T1Write} MB/s [${mainPage.rand4KQ32T1WriteIOPS} IOPS] <${mainPage.rand4KQ32T1WriteGB} GB>
-    Random 4 KiB (Q= 1, T=1): ${mainPage.rand4KQ1T1Write} MB/s [${mainPage.rand4KQ1T1WriteIOPS} IOPS] <${mainPage.rand4KQ1T1WriteGB} GB>
-    `
+    const properties = data.map(row => {
+                                  return row.map(
+                                    (cell, index) => cell.padEnd(
+                                      columnWidths[index])).join(" ")
+                                }).join("\n")
 
     return properties
   }
