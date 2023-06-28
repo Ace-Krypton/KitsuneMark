@@ -352,50 +352,97 @@ Item {
                     }
 
                     Rectangle {
-                      border.color: "#ABABAB"
+                      id: comboStorage
                       width: 304
                       height: 50
+                      border.color: "#ABABAB"
+                      ToolTip.delay: 500
+                      ToolTip.timeout: 5000
+                      ToolTip.text: qsTr("Storage Info")
 
-                      ComboBox {
-                        id: comboStorage
-                        anchors.centerIn: parent
-                        width: 304
-                        height: 50
-                        ToolTip.delay: 500
-                        ToolTip.timeout: 5000
-                        ToolTip.visible: hovered
-                        ToolTip.text: qsTr("Storage Info")
-                        font.family: "Montserrat"
+                      property var options: [storage]
+                      property int currentIndex: 0
+                      property bool expanded: false
+
+                      MouseArea {
                         enabled: !isBenchmarkingInProgress
+                        anchors.fill: parent
 
-                        model: ListModel {
-                          Component.onCompleted: {
-                            append({
-                                     "text": storage
-                                   })
-                          }
+                        onClicked: {
+                          comboStorage.expanded = !comboStorage.expanded
                         }
 
-                        contentItem: Rectangle {
-                          implicitWidth: comboStorage.width
-                          implicitHeight: 10
+                        onEntered: {
+                          comboStorage.ToolTip.visible = true
+                        }
+
+                        onExited: {
+                          comboStorage.ToolTip.visible = false
+                        }
+                      }
+
+                      Rectangle {
+                        width: parent.width
+                        height: parent.height
+                        border.color: "#ABABAB"
+
+                        Text {
+                          id: chosenDisplay
+                          text: comboStorage.options[comboStorage.currentIndex]
+                          anchors.fill: parent
+                          anchors.leftMargin: 5
+                          horizontalAlignment: Text.AlignLeft
+                          verticalAlignment: Text.AlignVCenter
+                          font.pointSize: 15
+                          font.bold: true
+                          font.family: "Montserrat"
+                        }
+
+                        Rectangle {
+                          width: parent.width
+                          height: 0
+                          color: "#FFFFFF"
+                          visible: comboStorage.expanded
                           border.color: "#ABABAB"
 
-                          Text {
-                            text: comboStorage.currentText
-                            anchors.fill: parent
-                            anchors.leftMargin: 5
-                            horizontalAlignment: Text.AlignLeft
-                            verticalAlignment: Text.AlignVCenter
-                            font.pointSize: 15
-                            font.bold: true
-                            font.family: "Montserrat"
+                          Behavior on height {
+                            NumberAnimation {
+                              duration: 300
+                              easing.type: Easing.InOutQuad
+                            }
                           }
-                        }
 
-                        indicator: Item {
-                          width: 0
-                          height: 0
+                          ListView {
+                            width: parent.width
+                            height: 150
+                            model: comboStorage.options
+                            currentIndex: comboStorage.currentIndex
+
+                            delegate: Item {
+                              width: parent.width
+                              height: 50
+
+                              Rectangle {
+                                width: parent.width
+                                height: parent.height
+                                color: "#EFEFEF"
+                                border.color: "#ABABAB"
+
+                                Text {
+                                  text: modelData
+                                  anchors.centerIn: parent
+                                }
+
+                                MouseArea {
+                                  anchors.fill: parent
+                                  onClicked: {
+                                    comboStorage.currentIndex = index
+                                    comboStorage.expanded = false
+                                  }
+                                }
+                              }
+                            }
+                          }
                         }
                       }
                     }
