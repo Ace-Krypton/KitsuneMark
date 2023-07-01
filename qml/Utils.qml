@@ -9,37 +9,20 @@ QtObject {
 
   function properties(mainPage) {
     const properties = `
-    seq1MRead: "${mainPage.seq1MRead}"
-    seq1MReadIOPS: "${mainPage.seq1MReadIOPS}"
-    seq1MReadGB: "${mainPage.seq1MReadGB}"
+    * MB/s = 1,000,000 bytes/s [SATA/600 = 600,000,000 bytes/s]
+    * KB = 1000 bytes, KiB = 1024 bytes
 
-    seq1MWrite: "${mainPage.seq1MWrite}"
-    seq1MWriteIOPS: "${mainPage.seq1MWriteIOPS}"
-    seq1MWriteGB: "${mainPage.seq1MWriteGB}"
+    [Read]
+    Sequential 1 MiB (Q=8, T=1): ${mainPage.seq1MRead} MB/s [${mainPage.seq1MReadIOPS} IOPS] <${mainPage.seq1MReadGB} GB>
+    Sequential 128 KiB (Q=32, T=1): ${mainPage.seq128KRead} MB/s [${mainPage.seq128KReadIOPS} IOPS] <${mainPage.seq128KReadGB} GB>
+    Random 4 KiB (Q=32, T=16): ${mainPage.rand4KQ32T1Read} MB/s [${mainPage.rand4KQ32T1ReadIOPS} IOPS] <${mainPage.rand4KQ32T1ReadGB} GB>
+    Random 4 KiB (Q=1, T=1): ${mainPage.rand4KQ1T1Read} MB/s [${mainPage.rand4KQ1T1ReadIOPS} IOPS] <${mainPage.rand4KQ1T1ReadGB} GB>
 
-    seq128KRead: "${mainPage.seq128KRead}"
-    seq128KReadIOPS: "${mainPage.seq128KReadIOPS}"
-    seq128KReadGB: "${mainPage.seq128KReadGB}"
-
-    seq128KWrite: "${mainPage.seq128KWrite}"
-    seq128KWriteIOPS: "${mainPage.seq128KWriteIOPS}"
-    seq128KWriteGB: "${mainPage.seq128KWriteGB}"
-
-    rand4KQ32T1Read: "${mainPage.rand4KQ32T1Read}"
-    rand4KQ32T1ReadIOPS: "${mainPage.rand4KQ32T1ReadIOPS}"
-    rand4KQ32T1ReadGB: "${mainPage.rand4KQ32T1ReadGB}"
-
-    rand4KQ32T1Write: "${mainPage.rand4KQ32T1Write}"
-    rand4KQ32T1WriteIOPS: "${mainPage.rand4KQ32T1WriteIOPS}"
-    rand4KQ32T1WriteGB: "${mainPage.rand4KQ32T1WriteGB}"
-
-    rand4KQ1T1Read: "${mainPage.rand4KQ1T1Read}"
-    rand4KQ1T1ReadIOPS: "${mainPage.rand4KQ1T1ReadIOPS}"
-    rand4KQ1T1ReadGB: "${mainPage.rand4KQ1T1ReadGB}"
-
-    rand4KQ1T1Write: "${mainPage.rand4KQ1T1Write}"
-    rand4KQ1T1WriteIOPS: "${mainPage.rand4KQ1T1WriteIOPS}"
-    rand4KQ1T1WriteGB: "${mainPage.rand4KQ1T1WriteGB}"
+    [Write]
+    Sequential 1 MiB (Q=8, T=1): ${mainPage.seq1MWrite} MB/s [${mainPage.seq1MWriteIOPS} IOPS] <${mainPage.seq1MWriteGB} GB>
+    Sequential 128 KiB (Q=32, T=1): ${mainPage.seq128KWrite} MB/s [${mainPage.seq128KWriteIOPS} IOPS] <${mainPage.seq128KWriteGB} GB>
+    Random 4 KiB (Q=32, T=16): ${mainPage.rand4KQ32T1Write} MB/s [${mainPage.rand4KQ32T1WriteIOPS} IOPS] <${mainPage.rand4KQ32T1WriteGB} GB>
+    Random 4 KiB (Q= 1, T=1): ${mainPage.rand4KQ1T1Write} MB/s [${mainPage.rand4KQ1T1WriteIOPS} IOPS] <${mainPage.rand4KQ1T1WriteGB} GB>
     `
 
     return properties
