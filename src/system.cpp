@@ -1,5 +1,7 @@
 #include "../include/system.hpp"
 
+#include <QStandardPaths>
+
 System::System(QObject *parent) : QObject(parent) { }
 
 /**
@@ -172,4 +174,8 @@ void System::writeToAFile(const QString &data, const QString &fileUrl) {
             file.close();
         }
     }
+}
+
+QString System::getUser() {
+    return qgetenv("USER");
 }
