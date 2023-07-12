@@ -25,8 +25,7 @@ ApplicationWindow {
 
       Action {
         text: qsTr("Save")
-        //        onTriggered: mainPage.system.writeToAFile(utils.properties(mainPage))
-        onTriggered: fileDialogComponent.open()
+        onTriggered: fileDialog.open()
       }
 
       MenuSeparator {}
@@ -112,11 +111,15 @@ ApplicationWindow {
   }
 
   FileDialog {
-    id: fileDialogComponent
+    id: fileDialog
+
+    title: "Save Dialog"
+    fileMode: FileDialog.SaveFile
+    currentFolder: "file:///home/" + mainPage.system.getUser()
 
     onAccepted: {
       mainPage.system.writeToAFile(utils.properties(mainPage),
-                                   fileDialogComponent.currentFile)
+                                   fileDialog.currentFile)
     }
   }
 
