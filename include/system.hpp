@@ -2,6 +2,7 @@
 
 #include <regex>
 #include <fstream>
+#include <stdlib.h>
 #include <iostream>
 #include <filesystem>
 
@@ -17,6 +18,7 @@ class System : public QObject {
 public:
     explicit System(QObject *parent = nullptr);
 
+    Q_INVOKABLE QString getUser();
     Q_INVOKABLE QString extractSSD();
     Q_INVOKABLE QString extractCPU();
     Q_INVOKABLE QString extractStorage();
