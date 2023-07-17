@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Window
+import QtQuick.Dialogs
 import QtQuick.Controls
 
 ApplicationWindow {
@@ -24,7 +25,8 @@ ApplicationWindow {
 
       Action {
         text: qsTr("Save")
-        onTriggered: mainPage.system.writeToAFile(utils.properties(mainPage))
+        //        onTriggered: mainPage.system.writeToAFile(utils.properties(mainPage))
+        onTriggered: fileDialogComponent.open()
       }
 
       MenuSeparator {}
@@ -106,6 +108,15 @@ ApplicationWindow {
       Action {
         text: qsTr("Language")
       }
+    }
+  }
+
+  FileDialog {
+    id: fileDialogComponent
+
+    onAccepted: {
+      mainPage.system.writeToAFile(utils.properties(mainPage),
+                                   fileDialogComponent.currentFile)
     }
   }
 
