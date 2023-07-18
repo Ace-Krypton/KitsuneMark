@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Layouts
 import CustomTypes 1.0
+import QtQuick.Dialogs
 import QtQuick.Controls
 
 Item {
