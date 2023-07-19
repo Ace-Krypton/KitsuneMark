@@ -151,12 +151,25 @@ QString System::checkFIOVersion() {
     return QString::fromStdString(result);
 }
 
-void System::writeToAFile(const QString &data) {
-    QFile file("output.txt");
+/**
+ * @brief Writes data to a file.
+ *
+ * @param data The data to be written to the file.
+ * @param fileUrl The URL of the file to write to (can start with "file://").
+ */
+void System::writeToAFile(const QString &data, const QString &fileUrl) {
+    if (!fileUrl.isEmpty()) {
+        /// Remove "file://" prefix if present
+        QString filePath = fileUrl;
+        if (filePath.startsWith("file://")) {
+            filePath.remove(0, 7);
+        }
 
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        stream << data;
-        file.close();
+        QFile file(filePath);
+        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream stream(&file);
+            stream << data;
+            file.close();
+        }
     }
 }

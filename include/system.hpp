@@ -21,6 +21,6 @@ public:
     Q_INVOKABLE QString extractCPU();
     Q_INVOKABLE QString extractStorage();
     Q_INVOKABLE QString checkFIOVersion();
-    Q_INVOKABLE void writeToAFile(const QString &data);
     Q_INVOKABLE bool isSSD(const std::filesystem::path &path);
+    Q_INVOKABLE void writeToAFile(const QString &data, const QString &fileUrl);
 };
