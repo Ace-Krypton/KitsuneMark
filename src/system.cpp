@@ -150,3 +150,13 @@ QString System::checkFIOVersion() {
     /// Return the version
     return QString::fromStdString(result);
 }
+
+void System::writeToAFile(const QString &data) {
+    QFile file("output.txt");
+
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        stream << data;
+        file.close();
+    }
+}

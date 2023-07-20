@@ -5,8 +5,10 @@
 #include <iostream>
 #include <filesystem>
 
+#include <QFile>
 #include <QObject>
 #include <QString>
+#include <QIODevice>
 #include <QTextStream>
 
 class System : public QObject {
@@ -19,5 +21,6 @@ public:
     Q_INVOKABLE QString extractCPU();
     Q_INVOKABLE QString extractStorage();
     Q_INVOKABLE QString checkFIOVersion();
+    Q_INVOKABLE void writeToAFile(const QString &data);
     Q_INVOKABLE bool isSSD(const std::filesystem::path &path);
 };
