@@ -7,6 +7,44 @@ QtObject {
                        })
   }
 
+  function properties(mainPage) {
+    const properties = `
+    seq1MRead: "${mainPage.seq1MRead}"
+    seq1MReadIOPS: "${mainPage.seq1MReadIOPS}"
+    seq1MReadGB: "${mainPage.seq1MReadGB}"
+
+    seq1MWrite: "${mainPage.seq1MWrite}"
+    seq1MWriteIOPS: "${mainPage.seq1MWriteIOPS}"
+    seq1MWriteGB: "${mainPage.seq1MWriteGB}"
+
+    seq128KRead: "${mainPage.seq128KRead}"
+    seq128KReadIOPS: "${mainPage.seq128KReadIOPS}"
+    seq128KReadGB: "${mainPage.seq128KReadGB}"
+
+    seq128KWrite: "${mainPage.seq128KWrite}"
+    seq128KWriteIOPS: "${mainPage.seq128KWriteIOPS}"
+    seq128KWriteGB: "${mainPage.seq128KWriteGB}"
+
+    rand4KQ32T1Read: "${mainPage.rand4KQ32T1Read}"
+    rand4KQ32T1ReadIOPS: "${mainPage.rand4KQ32T1ReadIOPS}"
+    rand4KQ32T1ReadGB: "${mainPage.rand4KQ32T1ReadGB}"
+
+    rand4KQ32T1Write: "${mainPage.rand4KQ32T1Write}"
+    rand4KQ32T1WriteIOPS: "${mainPage.rand4KQ32T1WriteIOPS}"
+    rand4KQ32T1WriteGB: "${mainPage.rand4KQ32T1WriteGB}"
+
+    rand4KQ1T1Read: "${mainPage.rand4KQ1T1Read}"
+    rand4KQ1T1ReadIOPS: "${mainPage.rand4KQ1T1ReadIOPS}"
+    rand4KQ1T1ReadGB: "${mainPage.rand4KQ1T1ReadGB}"
+
+    rand4KQ1T1Write: "${mainPage.rand4KQ1T1Write}"
+    rand4KQ1T1WriteIOPS: "${mainPage.rand4KQ1T1WriteIOPS}"
+    rand4KQ1T1WriteGB: "${mainPage.rand4KQ1T1WriteGB}"
+    `
+
+    return properties
+  }
+
   function runAllBenchmarks(comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const benchmarksToReset = ["seq1MRead", "seq1MReadIOPS", "seq1MReadGB", "seq1MWrite", "seq1MWriteIOPS", "seq1MWriteGB"]
 

@@ -15,7 +15,6 @@ ApplicationWindow {
     spacing: 15
     font.family: "Montserrat"
 
-    //This is test for past commit
     Menu {
       title: qsTr("File")
 
@@ -25,12 +24,14 @@ ApplicationWindow {
 
       Action {
         text: qsTr("Save")
+        onTriggered: mainPage.system.writeToAFile(utils.properties(mainPage))
       }
 
       MenuSeparator {}
 
       Action {
         text: qsTr("Quit")
+        onTriggered: Qt.quit()
       }
     }
 
@@ -46,7 +47,7 @@ ApplicationWindow {
       }
 
       Action {
-        text: qsTr("Queues & Threads")
+        text: qsTr("Queues and Threads")
       }
     }
 
@@ -75,22 +76,22 @@ ApplicationWindow {
 
       Action {
         text: qsTr("Angel")
-        onTriggered: funcUtils.changeWallpaper("Angel", mainPage)
+        onTriggered: utils.changeWallpaper("Angel", mainPage)
       }
 
       Action {
         text: qsTr("Reki")
-        onTriggered: funcUtils.changeWallpaper("Reki", mainPage)
+        onTriggered: utils.changeWallpaper("Reki", mainPage)
       }
 
       Action {
         text: qsTr("Aria")
-        onTriggered: funcUtils.changeWallpaper("Aria", mainPage)
+        onTriggered: utils.changeWallpaper("Aria", mainPage)
       }
 
       Action {
         text: qsTr("Default")
-        onTriggered: funcUtils.changeWallpaper("Default", mainPage)
+        onTriggered: utils.changeWallpaper("Default", mainPage)
       }
     }
 
@@ -109,7 +110,7 @@ ApplicationWindow {
   }
 
   Utils {
-    id: funcUtils
+    id: utils
   }
 
   MainPage {
