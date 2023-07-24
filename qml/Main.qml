@@ -15,6 +15,7 @@ ApplicationWindow {
     spacing: 15
     font.family: "Montserrat"
 
+    //This is test for past commit
     Menu {
       title: qsTr("File")
 
