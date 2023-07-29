@@ -11,7 +11,7 @@ ApplicationWindow {
   title: qsTr("Kitsune Specs")
 
   flags: Qt.Window | Qt.WindowFixedSize
-  property string result: ""
+  property var result: ""
 
   menuBar: MenuBar {
     spacing: 15
@@ -390,14 +390,14 @@ ApplicationWindow {
 
                   onClicked: {
                     var options = "--randrepeat=1 --ioengine=libaio --direct=1 "
-                    "--name=test --filename=test --bs=4M --size=4G "
-                    "--readwrite=read --ramp_time=4 --numjobs=5"
+                        + "--name=test --filename=test --bs=1M --size=1G "
+                        + "--readwrite=read --ramp_time=4 --numjobs=5"
 
                     benchmark.start(options)
                     benchmark.stop()
 
-                    console.log(benchmark.extract_bandwidth(
-                                  benchmark.get_results()))
+                    window.result = benchmark.extract_bandwidth(
+                          benchmark.get_results())
                   }
                 }
               }
@@ -413,7 +413,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.result.toString())
+                    text: qsTr(window.result)
                     font.bold: true
                     font.pointSize: 40
                   }
