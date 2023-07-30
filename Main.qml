@@ -15,6 +15,14 @@ ApplicationWindow {
   property string result: ""
   property bool isBenchmarkingInProgress: false
 
+  Connections {
+    target: benchmark
+
+    function onBenchmarkFinished(bandwidth) {
+      window.result = bandwidth
+    }
+  }
+
   menuBar: MenuBar {
     spacing: 15
 
@@ -380,6 +388,8 @@ ApplicationWindow {
                   id: seq1M
                   anchors.fill: parent
 
+                  signal benchmarkFinished(string bandwidth)
+
                   Text {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
@@ -396,10 +406,10 @@ ApplicationWindow {
                         + "--readwrite=read --ramp_time=4 --numjobs=5"
 
                     benchmark.start(options)
-                    benchmark.stop()
+                  }
 
-                    window.result = benchmark.extract_bandwidth(
-                          benchmark.get_results())
+                  onBenchmarkFinished: {
+                    window.result = bandwidth
                   }
                 }
               }

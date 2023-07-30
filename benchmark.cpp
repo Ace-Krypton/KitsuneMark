@@ -30,6 +30,9 @@ void Benchmark::run(const QString &options) {
 
     std::remove("test");
     std::remove("fio_results.txt");
+
+    QString bandwidth = extract_bandwidth(_results);
+    emit benchmarkFinished(bandwidth);
 }
 
 QString Benchmark::extract_bandwidth(const std::vector<std::string> &results) {
