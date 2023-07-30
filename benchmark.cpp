@@ -1,34 +1,31 @@
 #include "benchmark.hpp"
-#include "qvariant.h"
 
 Benchmark::Benchmark(QObject *parent) : QObject(parent) { }
 
 void Benchmark::run(const QString &options) {
-    QString command = "sync;fio " + options + " > fio_results.txt";
+    QString command = "sync;/usr/bin/fio " + options + " > fio_results.txt";
 
-    QProcess process;
-    process.start("sync;fio --randrepeat=1 --ioengine=libaio --direct=1 --name=test --filename=test --bs=1M --size=1G --readwrite=read --ramp_time=4 --numjobs=5 > fio_results.txt");
-    process.waitForFinished(-1);
+    int result = std::system(command.toStdString().c_str());
+
+    if (result != 0) {
+        std::cout << "FIO benchmarking failed with exit code: " << result << std::endl;
+        return;
+    }
 
     std::cout << "FIO Command: " << command.toStdString() << std::endl;
 
-    int result = process.exitCode();
-
     if (result != 0) {
-        std::cout << result << std::endl;
-        std::cout << "FIO benchmarking failed!\n";
+        std::cout << "FIO benchmarking failed with exit code: " << result << std::endl;
     } else {
         std::ifstream file("fio_results.txt");
-
         if (file) {
             std::string line;
             while (std::getline(file, line)) {
                 _results.push_back(line);
             }
             file.close();
-
         } else {
-            std::cout << "Failed to read FIO results file.\n";
+            std::cout << "Failed to write FIO results to file.\n";
         }
     }
 
@@ -47,6 +44,7 @@ QString Benchmark::extract_bandwidth(const std::vector<std::string> &results) {
                 size_t end = line.find("MB/s", start);
                 if (start != std::string::npos && end != std::string::npos) {
                     std::string bandwidth = line.substr(start, end - start);
+                    std::cout << "\n\n\n\n" << bandwidth;
                     return QString::fromStdString(bandwidth);
                 }
             }
@@ -61,16 +59,17 @@ std::vector<std::string> Benchmark::get_results() {
 }
 
 void Benchmark::start(const QVariant &options) {
-    QString optionsString = extractQStringFromVariant(options);
+    QString optionsString = extract_qstring_from_variant(options);
 
     _thread = std::thread(&Benchmark::run, this, optionsString);
     std::this_thread::sleep_for(std::chrono::seconds(5));
 }
 
-QString Benchmark::extractQStringFromVariant(const QVariant &variant) const {
+QString Benchmark::extract_qstring_from_variant(const QVariant &variant) const {
     if (variant.canConvert<QString>()) {
         return variant.toString();
     }
+
     return {};
 }
 

@@ -11,7 +11,7 @@ ApplicationWindow {
   title: qsTr("Kitsune Specs")
 
   flags: Qt.Window | Qt.WindowFixedSize
-  property var result: ""
+  property string result: ""
 
   menuBar: MenuBar {
     spacing: 15

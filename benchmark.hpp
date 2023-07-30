@@ -23,7 +23,7 @@ public:
     Q_INVOKABLE void run(const QString &options);
     Q_INVOKABLE void start(const QVariant &options);
     Q_INVOKABLE std::vector<std::string> get_results();
-    Q_INVOKABLE QString extractQStringFromVariant(const QVariant &variant) const;
+    Q_INVOKABLE QString extract_qstring_from_variant(const QVariant &variant) const;
     Q_INVOKABLE static QString extract_bandwidth(const std::vector<std::string> &results);
 
 private:
