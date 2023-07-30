@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <future>
 #include <thread>
 #include <vector>
 #include <atomic>
@@ -27,7 +28,7 @@ public:
     Q_INVOKABLE static QString extract_bandwidth(const std::vector<std::string> &results);
 
 private:
-    std::thread _thread;
+    std::future<void> _future;
     std::atomic<bool> _exit = false;
     std::vector<std::string> _results;
 };

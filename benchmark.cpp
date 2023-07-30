@@ -1,4 +1,5 @@
 #include "benchmark.hpp"
+#include <thread>
 
 Benchmark::Benchmark(QObject *parent) : QObject(parent) { }
 
@@ -11,8 +12,6 @@ void Benchmark::run(const QString &options) {
         std::cout << "FIO benchmarking failed with exit code: " << result << std::endl;
         return;
     }
-
-    std::cout << "FIO Command: " << command.toStdString() << std::endl;
 
     if (result != 0) {
         std::cout << "FIO benchmarking failed with exit code: " << result << std::endl;
@@ -44,7 +43,6 @@ QString Benchmark::extract_bandwidth(const std::vector<std::string> &results) {
                 size_t end = line.find("MB/s", start);
                 if (start != std::string::npos && end != std::string::npos) {
                     std::string bandwidth = line.substr(start, end - start);
-                    std::cout << "\n\n\n\n" << bandwidth;
                     return QString::fromStdString(bandwidth);
                 }
             }
@@ -61,8 +59,7 @@ std::vector<std::string> Benchmark::get_results() {
 void Benchmark::start(const QVariant &options) {
     QString optionsString = extract_qstring_from_variant(options);
 
-    _thread = std::thread(&Benchmark::run, this, optionsString);
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    _future = std::async(std::launch::async, &Benchmark::run, this, optionsString);
 }
 
 QString Benchmark::extract_qstring_from_variant(const QVariant &variant) const {
@@ -74,8 +71,7 @@ QString Benchmark::extract_qstring_from_variant(const QVariant &variant) const {
 }
 
 void Benchmark::stop() {
-    if (_thread.joinable()) {
-        _exit = true;
-        _thread.join();
+    if (_future.valid()) {
+        _future.wait();
     }
 }
