@@ -123,9 +123,20 @@ ApplicationWindow {
                 width: 150
                 height: 100
 
+                BusyIndicator {
+                  width: 70
+                  height: 70
+                  Layout.fillWidth: true
+                  Layout.fillHeight: true
+                  anchors.centerIn: parent
+                  visible: isBenchmarkingInProgress
+                  running: isBenchmarkingInProgress
+                }
+
                 Button {
                   id: testAllButton
                   anchors.fill: parent
+                  visible: !isBenchmarkingInProgress
 
                   Text {
                     anchors.fill: parent
@@ -467,9 +478,20 @@ ApplicationWindow {
                 width: 150
                 height: 100
 
+                BusyIndicator {
+                  width: 70
+                  height: 70
+                  Layout.fillWidth: true
+                  Layout.fillHeight: true
+                  anchors.centerIn: parent
+                  visible: isBenchmarkingInProgress
+                  running: isBenchmarkingInProgress
+                }
+
                 Button {
                   id: seq1MT1
                   anchors.fill: parent
+                  visible: !isBenchmarkingInProgress
 
                   Text {
                     anchors.fill: parent
@@ -525,9 +547,20 @@ ApplicationWindow {
                 width: 150
                 height: 100
 
+                BusyIndicator {
+                  width: 70
+                  height: 70
+                  Layout.fillWidth: true
+                  Layout.fillHeight: true
+                  anchors.centerIn: parent
+                  visible: isBenchmarkingInProgress
+                  running: isBenchmarkingInProgress
+                }
+
                 Button {
                   id: rnd4K
                   anchors.fill: parent
+                  visible: !isBenchmarkingInProgress
 
                   Text {
                     anchors.fill: parent
@@ -583,9 +616,20 @@ ApplicationWindow {
                 width: 150
                 height: 100
 
+                BusyIndicator {
+                  width: 70
+                  height: 70
+                  Layout.fillWidth: true
+                  Layout.fillHeight: true
+                  anchors.centerIn: parent
+                  visible: isBenchmarkingInProgress
+                  running: isBenchmarkingInProgress
+                }
+
                 Button {
                   id: rnd4KQ1T1
                   anchors.fill: parent
+                  visible: !isBenchmarkingInProgress
 
                   Text {
                     anchors.fill: parent
