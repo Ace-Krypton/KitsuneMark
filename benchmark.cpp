@@ -33,7 +33,6 @@ void Benchmark::run(const QString &options) {
 
     QString bandwidth = extract_bandwidth(_results);
     emit benchmarkFinished(bandwidth);
-    stop();
 }
 
 QString Benchmark::extract_bandwidth(const std::vector<std::string> &results) {

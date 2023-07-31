@@ -19,9 +19,8 @@ ApplicationWindow {
     target: benchmark
 
     function onBenchmarkFinished(bandwidth) {
-      window.result = bandwidth
-      window.result = bandwidth
       isBenchmarkingInProgress = false
+      window.result = bandwidth
     }
   }
 
@@ -386,6 +385,16 @@ ApplicationWindow {
                 width: 150
                 height: 100
 
+                BusyIndicator {
+                  width: 70
+                  height: 70
+                  Layout.fillWidth: true
+                  Layout.fillHeight: true
+                  anchors.centerIn: parent
+                  visible: isBenchmarkingInProgress
+                  running: isBenchmarkingInProgress
+                }
+
                 Button {
                   id: seq1M
                   anchors.fill: parent
@@ -404,7 +413,9 @@ ApplicationWindow {
                   }
 
                   onClicked: {
+                    window.result = ""
                     isBenchmarkingInProgress = true
+
                     var options = "--randrepeat=1 --ioengine=libaio --direct=1 "
                         + "--name=test --filename=test --bs=1M --size=1G "
                         + "--readwrite=read --ramp_time=4 --numjobs=5"
