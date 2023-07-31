@@ -35,8 +35,9 @@ void Benchmark::run(const QString &options) {
     emit benchmarkFinished(bandwidth);
 }
 
-QString Benchmark::extract_bandwidth(const std::vector<std::string> &results) {
-    for (const std::string &logs : results) {
+QString Benchmark::extract_bandwidth(std::vector<std::string> &results) {
+    for (std::string &logs : results) {
+        std::cout << "Current log line: " << logs << std::endl;
         std::string line;
         std::istringstream log_stream(logs);
 
@@ -44,8 +45,13 @@ QString Benchmark::extract_bandwidth(const std::vector<std::string> &results) {
             if (line.find("READ: bw=") != std::string::npos) {
                 size_t start = line.find('(') + 1;
                 size_t end = line.find("MB/s", start);
+
+                std::cout << "Start: " << start << ", End: " << end << std::endl;
+
                 if (start != std::string::npos && end != std::string::npos) {
                     std::string bandwidth = line.substr(start, end - start);
+                    std::cout << "Bandwitdh on func => " << bandwidth << std::endl;
+                    results.clear();
                     return QString::fromStdString(bandwidth);
                 }
             }

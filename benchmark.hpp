@@ -25,7 +25,7 @@ public:
     Q_INVOKABLE void start(const QVariant &options);
     Q_INVOKABLE std::vector<std::string> get_results();
     Q_INVOKABLE QString extract_qstring_from_variant(const QVariant &variant) const;
-    Q_INVOKABLE static QString extract_bandwidth(const std::vector<std::string> &results);
+    Q_INVOKABLE static QString extract_bandwidth(std::vector<std::string> &results);
 
 signals:
     void benchmarkFinished(QString bandwidth);
