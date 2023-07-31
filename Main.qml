@@ -20,6 +20,8 @@ ApplicationWindow {
 
     function onBenchmarkFinished(bandwidth) {
       window.result = bandwidth
+      window.result = bandwidth
+      isBenchmarkingInProgress = false
     }
   }
 
@@ -387,6 +389,7 @@ ApplicationWindow {
                 Button {
                   id: seq1M
                   anchors.fill: parent
+                  visible: !isBenchmarkingInProgress
 
                   signal benchmarkFinished(string bandwidth)
 
@@ -401,15 +404,12 @@ ApplicationWindow {
                   }
 
                   onClicked: {
+                    isBenchmarkingInProgress = true
                     var options = "--randrepeat=1 --ioengine=libaio --direct=1 "
                         + "--name=test --filename=test --bs=1M --size=1G "
                         + "--readwrite=read --ramp_time=4 --numjobs=5"
 
                     benchmark.start(options)
-                  }
-
-                  onBenchmarkFinished: {
-                    window.result = bandwidth
                   }
                 }
               }
