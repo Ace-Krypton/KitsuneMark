@@ -418,7 +418,7 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     textFormat: Text.RichText
-                    text: qsTr("SEQ1M<br>Q8T1")
+                    text: qsTr("SEQUENTIAL")
                     font.bold: true
                     font.pointSize: 20
                   }
@@ -426,12 +426,7 @@ ApplicationWindow {
                   onClicked: {
                     window.result = ""
                     isBenchmarkingInProgress = true
-
-                    var options = "--randrepeat=1 --ioengine=libaio --direct=1 "
-                        + "--name=test --filename=test --bs=1M --size=1G "
-                        + "--readwrite=read --ramp_time=4 --numjobs=5"
-
-                    benchmark.start(options)
+                    builder.sequential_read(combo.currentText, benchmark)
                   }
                 }
               }

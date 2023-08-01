@@ -5,6 +5,7 @@
 #include <thread>
 #include <vector>
 #include <atomic>
+#include <thread>
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -22,7 +23,7 @@ public:
 
     Q_INVOKABLE void stop();
     Q_INVOKABLE void run(const QString &options);
-    Q_INVOKABLE void start(const QVariant &options);
+    Q_INVOKABLE void start(const QString &command);
     Q_INVOKABLE std::vector<std::string> get_results();
     Q_INVOKABLE QString extract_qstring_from_variant(const QVariant &variant) const;
     Q_INVOKABLE static QString extract_bandwidth(std::vector<std::string> &results);

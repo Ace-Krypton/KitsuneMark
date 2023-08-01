@@ -3,6 +3,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "builder.hpp"
 #include "benchmark.hpp"
 
 int main(int argc, char *argv[]) {
@@ -13,6 +14,9 @@ int main(int argc, char *argv[]) {
 
     Benchmark benchmark;
     rootContext->setContextProperty("benchmark", &benchmark);
+
+    Builder builder;
+    rootContext->setContextProperty("builder", &builder);
 
     const QUrl url(QStringLiteral("qrc:/KitsuneSpecs/Main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,

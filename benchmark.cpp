@@ -1,11 +1,9 @@
 #include "benchmark.hpp"
-#include <thread>
 
 Benchmark::Benchmark(QObject *parent) : QObject(parent) { }
 
 void Benchmark::run(const QString &options) {
-    QString command = "sync;/usr/bin/fio " + options + " > fio_results.txt";
-
+    QString command = options;
     int result = std::system(command.toStdString().c_str());
 
     if (result != 0) {
@@ -61,10 +59,8 @@ std::vector<std::string> Benchmark::get_results() {
     return _results;
 }
 
-void Benchmark::start(const QVariant &options) {
-    QString optionsString = extract_qstring_from_variant(options);
-
-    _future = std::async(std::launch::async, &Benchmark::run, this, optionsString);
+void Benchmark::start(const QString &command) {
+    _future = std::async(std::launch::async, &Benchmark::run, this, command);
 }
 
 QString Benchmark::extract_qstring_from_variant(const QVariant &variant) const {
