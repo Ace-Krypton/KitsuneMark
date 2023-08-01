@@ -22,14 +22,15 @@ public:
     explicit Benchmark(QObject *parent = nullptr);
 
     Q_INVOKABLE void stop();
-    Q_INVOKABLE void run(const QString &options);
-    Q_INVOKABLE void start(const QString &command);
     Q_INVOKABLE std::vector<std::string> get_results();
+    Q_INVOKABLE void run(const QString &options, const QString &detect);
+    Q_INVOKABLE void start(const QString &command, const QString &detect);
     Q_INVOKABLE QString extract_qstring_from_variant(const QVariant &variant) const;
-    Q_INVOKABLE static QString extract_bandwidth(std::vector<std::string> &results);
+    Q_INVOKABLE static QString extract_bandwidth(std::vector<std::string> &results, const QString &detect);
 
 signals:
-    void benchmarkFinished(QString bandwidth);
+    void readFinished(QString bandwidth);
+    void writeFinished(QString bandwidth);
 
 private:
     std::future<void> _future;

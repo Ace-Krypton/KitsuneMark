@@ -12,15 +12,21 @@ ApplicationWindow {
 
   flags: Qt.Window | Qt.WindowFixedSize
 
-  property string result: ""
+  property string read: ""
+  property string write: ""
   property bool isBenchmarkingInProgress: false
 
   Connections {
     target: benchmark
 
-    function onBenchmarkFinished(bandwidth) {
+    function onReadFinished(bandwidth) {
+      window.read = bandwidth
+      builder.sequential_write(combo.currentText, benchmark)
+    }
+
+    function onWriteFinished(bandwidth) {
       isBenchmarkingInProgress = false
-      window.result = bandwidth
+      window.write = bandwidth
     }
   }
 
@@ -418,13 +424,14 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     textFormat: Text.RichText
-                    text: qsTr("SEQUENTIAL")
+                    text: qsTr("SEQ")
                     font.bold: true
                     font.pointSize: 20
                   }
 
                   onClicked: {
-                    window.result = ""
+                    window.read = ""
+                    window.write = ""
                     isBenchmarkingInProgress = true
                     builder.sequential_read(combo.currentText, benchmark)
                   }
@@ -442,7 +449,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.result)
+                    text: qsTr(window.read)
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -458,7 +465,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr("4952.16")
+                    text: qsTr(window.write)
                     font.bold: true
                     font.pointSize: 40
                   }

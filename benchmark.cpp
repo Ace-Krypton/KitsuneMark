@@ -2,7 +2,7 @@
 
 Benchmark::Benchmark(QObject *parent) : QObject(parent) { }
 
-void Benchmark::run(const QString &options) {
+void Benchmark::run(const QString &options, const QString &detect) {
     QString command = options;
     int result = std::system(command.toStdString().c_str());
 
@@ -29,17 +29,22 @@ void Benchmark::run(const QString &options) {
     std::remove("test");
     std::remove("fio_results.txt");
 
-    QString bandwidth = extract_bandwidth(_results);
-    emit benchmarkFinished(bandwidth);
+    QString bandwidth = extract_bandwidth(_results, detect);
+
+    if (detect == "READ") {
+        emit readFinished(bandwidth);
+    } else if (detect == "WRITE") {
+        emit writeFinished(bandwidth);
+    }
 }
 
-QString Benchmark::extract_bandwidth(std::vector<std::string> &results) {
+QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QString &detect) {
     for (std::string &logs : results) {
         std::string line;
         std::istringstream log_stream(logs);
 
         while (std::getline(log_stream, line)) {
-            if (line.find("READ: bw=") != std::string::npos) {
+            if (line.find(detect.toStdString() + ": bw=") != std::string::npos) {
                 size_t start = line.find('(') + 1;
                 size_t end = line.find("MB/s", start);
 
@@ -59,8 +64,8 @@ std::vector<std::string> Benchmark::get_results() {
     return _results;
 }
 
-void Benchmark::start(const QString &command) {
-    _future = std::async(std::launch::async, &Benchmark::run, this, command);
+void Benchmark::start(const QString &command, const QString &detect) {
+    _future = std::async(std::launch::async, &Benchmark::run, this, command, detect);
 }
 
 QString Benchmark::extract_qstring_from_variant(const QVariant &variant) const {
