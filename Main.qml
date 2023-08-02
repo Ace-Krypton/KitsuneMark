@@ -15,6 +15,21 @@ ApplicationWindow {
   property string read: ""
   property string write: ""
   property bool isBenchmarkingInProgress: false
+  property string currentWallpaper: "file:///home/draco/Downloads/back.jpg"
+
+  function changeWallpaper(theme) {
+    switch (theme) {
+    case "Aria":
+      currentWallpaper = "file:///home/draco/Downloads/HYTGet.png"
+      break
+    case "Sukuna":
+      currentWallpaper = "file:///home/draco/Downloads/sukuna.jpg"
+      break
+    case "Default":
+      currentWallpaper = "file:///home/draco/Downloads/back.jpg"
+      break
+    }
+  }
 
   Connections {
     target: benchmark
@@ -81,6 +96,21 @@ ApplicationWindow {
 
     Menu {
       title: qsTr("Theme")
+
+      Action {
+        text: qsTr("Aria")
+        onTriggered: changeWallpaper("Aria")
+      }
+
+      Action {
+        text: qsTr("Sukuna")
+        onTriggered: changeWallpaper("Sukuna")
+      }
+
+      Action {
+        text: qsTr("Default")
+        onTriggered: changeWallpaper("Default")
+      }
     }
 
     Menu {
@@ -109,7 +139,7 @@ ApplicationWindow {
 
         Image {
           anchors.fill: parent
-          source: "file:///home/draco/Downloads/HYTGet.png"
+          source: currentWallpaper
         }
 
         Rectangle {
@@ -416,19 +446,19 @@ ApplicationWindow {
                   visible: isBenchmarkingInProgress
                   running: isBenchmarkingInProgress
 
-                  Rectangle {
-                    anchors.centerIn: parent
-                    width: 150
-                    height: 100
-                    color: "transparent"
+                  //                Rectangle {
+                  //                  anchors.centerIn: parent
+                  //                  width: 150
+                  //                  height: 100
+                  //                  color: "transparent"
 
-                    AnimatedImage {
-                      width: 150
-                      height: 100
-                      anchors.centerIn: parent
-                      source: "file:///home/draco/Downloads/aria.gif"
-                    }
-                  }
+                  //                  AnimatedImage {
+                  //                    width: 150
+                  //                    height: 100
+                  //                    anchors.centerIn: parent
+                  //                    source: "file:///home/draco/Downloads/sukuna.gif"
+                  //                  }
+                  //                }
                 }
 
                 Button {
