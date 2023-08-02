@@ -98,7 +98,7 @@ ApplicationWindow {
 
   Rectangle {
     anchors.fill: parent
-    color: "white"
+    color: "transparent"
 
     ColumnLayout {
       anchors.fill: parent
@@ -109,13 +109,14 @@ ApplicationWindow {
 
         Image {
           anchors.fill: parent
-          source: "file:///home/draco/Downloads/back.jpg"
+          source: "file:///home/draco/Downloads/HYTGet.png"
         }
 
         Rectangle {
           id: mainFrame
           x: 450
           y: 15
+          color: "transparent"
           width: window.width - 470
           height: window.height - 50
 
@@ -157,6 +158,7 @@ ApplicationWindow {
 
               ColumnLayout {
                 Rectangle {
+                  color: "transparent"
                   width: window.width - 630
                   height: 46
 
@@ -357,11 +359,13 @@ ApplicationWindow {
                 }
 
                 Rectangle {
+                  color: "transparent"
                   width: window.width - 630
                   height: 46
 
                   RowLayout {
                     Rectangle {
+                      color: "transparent"
                       width: (window.width - 630) / 2 - 3
                       height: 46
 
@@ -377,6 +381,7 @@ ApplicationWindow {
                     }
 
                     Rectangle {
+                      color: "transparent"
                       width: (window.width - 630) / 2 - 3
                       height: 46
 
@@ -410,6 +415,20 @@ ApplicationWindow {
                   anchors.centerIn: parent
                   visible: isBenchmarkingInProgress
                   running: isBenchmarkingInProgress
+
+                  Rectangle {
+                    anchors.centerIn: parent
+                    width: 150
+                    height: 100
+                    color: "transparent"
+
+                    AnimatedImage {
+                      width: 150
+                      height: 100
+                      anchors.centerIn: parent
+                      source: "file:///home/draco/Downloads/aria.gif"
+                    }
+                  }
                 }
 
                 Button {
