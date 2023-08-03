@@ -8,25 +8,35 @@ ApplicationWindow {
   width: 1221
   height: 674
   visible: true
+  color: "white"
   title: qsTr("Kitsune Specs")
 
   flags: Qt.Window | Qt.WindowFixedSize
 
   property string read: ""
   property string write: ""
+  property int themeHeight: window.height
   property bool isBenchmarkingInProgress: false
-  property string currentWallpaper: "file:///home/draco/Downloads/back.jpg"
+  property bool isAngelOrAria: false
+  property string currentWallpaper: "file:///home/draco/Downloads/default.jpg"
 
   function changeWallpaper(theme) {
     switch (theme) {
-    case "Waifu":
-      currentWallpaper = "file:///home/draco/Downloads/waifu.jpg"
+    case "Angel":
+      currentWallpaper = "file:///home/draco/Downloads/angel.jpg"
+      isAngelOrAria = true
       break
     case "Reki":
       currentWallpaper = "file:///home/draco/Downloads/reki.png"
+      isAngelOrAria = false
+      break
+    case "Aria":
+      currentWallpaper = "file:///home/draco/Downloads/aria.jpg"
+      isAngelOrAria = true
       break
     case "Default":
-      currentWallpaper = "file:///home/draco/Downloads/back.jpg"
+      currentWallpaper = "file:///home/draco/Downloads/default.jpg"
+      isAngelOrAria = false
       break
     }
   }
@@ -98,13 +108,18 @@ ApplicationWindow {
       title: qsTr("Theme")
 
       Action {
-        text: qsTr("Waifu")
-        onTriggered: changeWallpaper("Waifu")
+        text: qsTr("Angel")
+        onTriggered: changeWallpaper("Angel")
       }
 
       Action {
         text: qsTr("Reki")
         onTriggered: changeWallpaper("Reki")
+      }
+
+      Action {
+        text: qsTr("Aria")
+        onTriggered: changeWallpaper("Aria")
       }
 
       Action {
@@ -137,9 +152,37 @@ ApplicationWindow {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
+        states: [
+          State {
+            name: "angelOrAriaTrue"
+            when: isAngelOrAria
+            PropertyChanges {
+              target: firstImage
+              height: parent.height
+              visible: true
+            }
+          },
+          State {
+            name: "angelOrAriaFalse"
+            when: !isAngelOrAria
+            PropertyChanges {
+              target: secondImage
+              anchors.fill: parent
+              visible: true
+            }
+          }
+        ]
+
         Image {
-          anchors.fill: parent
+          id: firstImage
           source: currentWallpaper
+          visible: false
+        }
+
+        Image {
+          id: secondImage
+          source: currentWallpaper
+          visible: false
         }
 
         Rectangle {
