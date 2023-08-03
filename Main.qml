@@ -19,11 +19,11 @@ ApplicationWindow {
 
   function changeWallpaper(theme) {
     switch (theme) {
-    case "Aria":
-      currentWallpaper = "file:///home/draco/Downloads/HYTGet.png"
+    case "Waifu":
+      currentWallpaper = "file:///home/draco/Downloads/waifu.jpg"
       break
-    case "Sukuna":
-      currentWallpaper = "file:///home/draco/Downloads/sukuna.jpg"
+    case "Reki":
+      currentWallpaper = "file:///home/draco/Downloads/reki.png"
       break
     case "Default":
       currentWallpaper = "file:///home/draco/Downloads/back.jpg"
@@ -98,13 +98,13 @@ ApplicationWindow {
       title: qsTr("Theme")
 
       Action {
-        text: qsTr("Aria")
-        onTriggered: changeWallpaper("Aria")
+        text: qsTr("Waifu")
+        onTriggered: changeWallpaper("Waifu")
       }
 
       Action {
-        text: qsTr("Sukuna")
-        onTriggered: changeWallpaper("Sukuna")
+        text: qsTr("Reki")
+        onTriggered: changeWallpaper("Reki")
       }
 
       Action {
