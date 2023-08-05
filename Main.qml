@@ -8,13 +8,18 @@ ApplicationWindow {
   width: 1221
   height: 674
   visible: true
-  color: "white"
+  color: "#F66785"
   title: qsTr("Kitsune Specs")
+
+  Image {
+    anchors.fill: parent
+    source: "file:///home/draco/Downloads/pink.jpg"
+  }
 
   flags: Qt.Window | Qt.WindowFixedSize
 
-  property string read: ""
-  property string write: ""
+  property string read: "0.00"
+  property string write: "0.00"
   property int themeHeight: window.height
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
@@ -44,12 +49,12 @@ ApplicationWindow {
   Connections {
     target: benchmark
 
-    function onReadFinished(bandwidth) {
+    function onSeqReadFinished(bandwidth) {
       window.read = bandwidth
       builder.sequential_write(combo.currentText, benchmark)
     }
 
-    function onWriteFinished(bandwidth) {
+    function onSeqWriteFinished(bandwidth) {
       isBenchmarkingInProgress = false
       window.write = bandwidth
     }
@@ -488,20 +493,6 @@ ApplicationWindow {
                   anchors.centerIn: parent
                   visible: isBenchmarkingInProgress
                   running: isBenchmarkingInProgress
-
-                  //                Rectangle {
-                  //                  anchors.centerIn: parent
-                  //                  width: 150
-                  //                  height: 100
-                  //                  color: "transparent"
-
-                  //                  AnimatedImage {
-                  //                    width: 150
-                  //                    height: 100
-                  //                    anchors.centerIn: parent
-                  //                    source: "file:///home/draco/Downloads/sukuna.gif"
-                  //                  }
-                  //                }
                 }
 
                 Button {

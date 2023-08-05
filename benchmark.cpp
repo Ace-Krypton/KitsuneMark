@@ -31,10 +31,10 @@ void Benchmark::run(const QString &options, const QString &detect) {
 
     QString bandwidth = extract_bandwidth(_results, detect);
 
-    if (detect == "READ") {
-        emit readFinished(bandwidth);
-    } else if (detect == "WRITE") {
-        emit writeFinished(bandwidth);
+    if (detect == "SREAD") {
+        emit seqReadFinished(bandwidth);
+    } else if (detect == "SWRITE") {
+        emit seqWriteFinished(bandwidth);
     }
 }
 
@@ -44,7 +44,7 @@ QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QS
         std::istringstream log_stream(logs);
 
         while (std::getline(log_stream, line)) {
-            if (line.find(detect.toStdString() + ": bw=") != std::string::npos) {
+            if (line.find(detect.toStdString().substr(1) + ": bw=") != std::string::npos) {
                 size_t start = line.find('(') + 1;
                 size_t end = line.find("MB/s", start);
 

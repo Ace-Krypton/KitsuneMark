@@ -6,7 +6,7 @@ void Builder::sequential_read(const QString &block_size, Benchmark *benchmark) {
                       "--bs=" + block_size + "M --size=1G "
                       "--readwrite=read --ramp_time=4 --numjobs=5 > fio_results.txt";
 
-    benchmark->start(command, "READ");
+    benchmark->start(command, "SREAD");
 }
 
 void Builder::sequential_write(const QString &block_size, Benchmark *benchmark) {
@@ -15,5 +15,5 @@ void Builder::sequential_write(const QString &block_size, Benchmark *benchmark) 
                       "--bs=" + block_size + "M --size=1G "
                       "--readwrite=write --ramp_time=4 --numjobs=5 > fio_results.txt";
 
-    benchmark->start(command, "WRITE");
+    benchmark->start(command, "SWRITE");
 }
