@@ -18,8 +18,10 @@ ApplicationWindow {
 
   flags: Qt.Window | Qt.WindowFixedSize
 
-  property string read: "0.00"
-  property string write: "0.00"
+  property string seq1MRead: "0.00"
+  property string seq1MWrite: "0.00"
+  property string randRead: "0.00"
+  property string randWrite: "0.00"
   property int themeHeight: window.height
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
@@ -49,14 +51,24 @@ ApplicationWindow {
   Connections {
     target: benchmark
 
-    function onSeqReadFinished(bandwidth) {
-      window.read = bandwidth
-      builder.sequential_write(combo.currentText, benchmark)
+    function onSeq1MReadFinished(bandwidth) {
+      window.seq1MRead = bandwidth
+      builder.seq1mq8t1_write(combo.currentText, benchmark)
     }
 
-    function onSeqWriteFinished(bandwidth) {
+    function onSeq1MWriteFinished(bandwidth) {
       isBenchmarkingInProgress = false
-      window.write = bandwidth
+      window.seq1MWrite = bandwidth
+    }
+
+    function onRandReadFinished(bandwidth) {
+      window.randRead = bandwidth
+      builder.random_write(combo.currentText, benchmark)
+    }
+
+    function onRandWriteFinished(bandwidth) {
+      isBenchmarkingInProgress = false
+      window.randWrite = bandwidth
     }
   }
 
@@ -507,16 +519,16 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     textFormat: Text.RichText
-                    text: qsTr("SEQ")
+                    text: qsTr("SEQ1MQ8T1")
                     font.bold: true
                     font.pointSize: 20
                   }
 
                   onClicked: {
-                    window.read = ""
-                    window.write = ""
+                    window.seq1MRead = ""
+                    window.seq1MWrite = ""
                     isBenchmarkingInProgress = true
-                    builder.sequential_read(combo.currentText, benchmark)
+                    builder.seq1mq8t1_read(combo.currentText, benchmark)
                   }
                 }
               }
@@ -532,7 +544,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.read)
+                    text: qsTr(window.seq1MRead)
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -548,7 +560,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.write)
+                    text: qsTr(window.seq1MWrite)
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -647,14 +659,23 @@ ApplicationWindow {
                   anchors.fill: parent
                   visible: !isBenchmarkingInProgress
 
+                  signal benchmarkFinished(string bandwidth)
+
                   Text {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     textFormat: Text.RichText
-                    text: qsTr("RND4K<br>Q32T16")
+                    text: qsTr("RND")
                     font.bold: true
                     font.pointSize: 20
+                  }
+
+                  onClicked: {
+                    window.randRead = ""
+                    window.randWrite = ""
+                    isBenchmarkingInProgress = true
+                    builder.random_read(combo.currentText, benchmark)
                   }
                 }
               }
@@ -670,7 +691,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr("4194.95")
+                    text: qsTr(window.randRead)
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -686,7 +707,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr("4380.31")
+                    text: qsTr(window.randWrite)
                     font.bold: true
                     font.pointSize: 40
                   }

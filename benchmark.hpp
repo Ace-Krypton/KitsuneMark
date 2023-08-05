@@ -29,8 +29,10 @@ public:
     Q_INVOKABLE static QString extract_bandwidth(std::vector<std::string> &results, const QString &detect);
 
 signals:
-    void seqReadFinished(QString bandwidth);
-    void seqWriteFinished(QString bandwidth);
+    void seq1MReadFinished(QString bandwidth);
+    void seq1MWriteFinished(QString bandwidth);
+    void randReadFinished(QString bandwidth);
+    void randWriteFinished(QString bandwidth);
 
 private:
     std::future<void> _future;

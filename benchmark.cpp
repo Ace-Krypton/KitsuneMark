@@ -31,11 +31,15 @@ void Benchmark::run(const QString &options, const QString &detect) {
 
     QString bandwidth = extract_bandwidth(_results, detect);
 
-    if (detect == "SREAD") {
-        emit seqReadFinished(bandwidth);
-    } else if (detect == "SWRITE") {
-        emit seqWriteFinished(bandwidth);
-    }
+    std::unordered_map<QString, std::function<void(QString)>> map = {
+        {"SMREAD", [this](QString bandwidth) { emit seq1MReadFinished(bandwidth); }},
+        {"SMWRITE", [this](QString bandwidth) { emit seq1MWriteFinished(bandwidth); }},
+        {"RREAD", [this](QString bandwidth) { emit randReadFinished(bandwidth); }},
+        {"RWRITE", [this](QString bandwidth) { emit randWriteFinished(bandwidth); }}
+    };
+
+    auto it = map.find(detect);
+    if (it != map.end()) it->second(bandwidth);
 }
 
 QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QString &detect) {
@@ -44,7 +48,7 @@ QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QS
         std::istringstream log_stream(logs);
 
         while (std::getline(log_stream, line)) {
-            if (line.find(detect.toStdString().substr(1) + ": bw=") != std::string::npos) {
+            if (line.find(detect.toStdString().substr(2) + ": bw=") != std::string::npos) {
                 size_t start = line.find('(') + 1;
                 size_t end = line.find("MB/s", start);
 
