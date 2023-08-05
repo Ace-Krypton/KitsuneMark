@@ -37,7 +37,9 @@ void Benchmark::run(const QString &options, const QString &detect) {
         {"SKREAD", [this](QString bandwidth) { emit seq128KReadFinished(bandwidth); }},
         {"SKWRITE", [this](QString bandwidth) { emit seq128KWriteFinished(bandwidth); }},
         {"RGREAD", [this](QString bandwidth) { emit rand4KQ32T1ReadFinished(bandwidth); }},
-        {"RGWRITE", [this](QString bandwidth) { emit rand4KQ32T1WriteFinished(bandwidth); }}
+        {"RGWRITE", [this](QString bandwidth) { emit rand4KQ32T1WriteFinished(bandwidth); }},
+        {"RLREAD", [this](QString bandwidth) { emit rand4KQ1T1ReadFinished(bandwidth); }},
+        {"RLWRITE", [this](QString bandwidth) { emit rand4KQ1T1WriteFinished(bandwidth); }}
     };
 
     auto it = map.find(detect);

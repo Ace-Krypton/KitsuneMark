@@ -35,6 +35,8 @@ signals:
     void seq128KWriteFinished(QString bandwidth);
     void rand4KQ32T1ReadFinished(QString bandwidth);
     void rand4KQ32T1WriteFinished(QString bandwidth);
+    void rand4KQ1T1ReadFinished(QString bandwidth);
+    void rand4KQ1T1WriteFinished(QString bandwidth);
 
 private:
     std::future<void> _future;

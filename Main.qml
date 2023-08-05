@@ -11,11 +11,10 @@ ApplicationWindow {
   color: "#F66785"
   title: qsTr("Kitsune Specs")
 
-  Image {
-    anchors.fill: parent
-    source: "file:///home/draco/Downloads/pink.jpg"
-  }
-
+  //  Image {
+  //    anchors.fill: parent
+  //    source: "file:///home/draco/Downloads/pink.jpg"
+  //  }
   flags: Qt.Window | Qt.WindowFixedSize
 
   property string seq1MRead: "0.00"
@@ -24,6 +23,8 @@ ApplicationWindow {
   property string seq128KWrite: "0.00"
   property string rand4KQ32T1Read: "0.00"
   property string rand4KQ32T1Write: "0.00"
+  property string rand4KQ1T1Read: "0.00"
+  property string rand4KQ1T1Write: "0.00"
   property int themeHeight: window.height
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
@@ -64,7 +65,7 @@ ApplicationWindow {
     }
 
     function onSeq128KReadFinished(bandwidth) {
-      window.seq1MRead = bandwidth
+      window.seq128KRead = bandwidth
       builder.seq128Kq8t1_write(combo.currentText, benchmark)
     }
 
@@ -81,6 +82,16 @@ ApplicationWindow {
     function onRand4KQ32T1WriteFinished(bandwidth) {
       isBenchmarkingInProgress = false
       window.rand4KQ32T1Write = bandwidth
+    }
+
+    function onRand4KQ1T1ReadFinished(bandwidth) {
+      window.rand4KQ1T1Read = bandwidth
+      builder.rnd4kq1t1_write(combo.currentText, benchmark)
+    }
+
+    function onRand4KQ1T1WriteFinished(bandwidth) {
+      isBenchmarkingInProgress = false
+      window.rand4KQ1T1Write = bandwidth
     }
   }
 
@@ -758,6 +769,8 @@ ApplicationWindow {
                   anchors.fill: parent
                   visible: !isBenchmarkingInProgress
 
+                  signal benchmarkFinished(string bandwidth)
+
                   Text {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
@@ -766,6 +779,13 @@ ApplicationWindow {
                     text: qsTr("RND4K<br>Q1T1")
                     font.bold: true
                     font.pointSize: 20
+                  }
+
+                  onClicked: {
+                    window.rand4KQ1T1Read = ""
+                    window.rand4KQ1T1Write = ""
+                    isBenchmarkingInProgress = true
+                    builder.rnd4kq1t1_read(combo.currentText, benchmark)
                   }
                 }
               }
@@ -781,7 +801,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr("91.04")
+                    text: qsTr(window.rand4KQ1T1Read)
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -798,7 +818,7 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
                     font.bold: true
-                    text: qsTr("225.37")
+                    text: qsTr(window.rand4KQ1T1Write)
                     font.pointSize: 40
                   }
                 }
