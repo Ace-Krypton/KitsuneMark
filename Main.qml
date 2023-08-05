@@ -20,8 +20,10 @@ ApplicationWindow {
 
   property string seq1MRead: "0.00"
   property string seq1MWrite: "0.00"
-  property string randRead: "0.00"
-  property string randWrite: "0.00"
+  property string seq128KRead: "0.00"
+  property string seq128KWrite: "0.00"
+  property string rand4KQ32T1Read: "0.00"
+  property string rand4KQ32T1Write: "0.00"
   property int themeHeight: window.height
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
@@ -61,14 +63,24 @@ ApplicationWindow {
       window.seq1MWrite = bandwidth
     }
 
-    function onRandReadFinished(bandwidth) {
-      window.randRead = bandwidth
-      builder.random_write(combo.currentText, benchmark)
+    function onSeq128KReadFinished(bandwidth) {
+      window.seq1MRead = bandwidth
+      builder.seq128Kq8t1_write(combo.currentText, benchmark)
     }
 
-    function onRandWriteFinished(bandwidth) {
+    function onSeq128KWriteFinished(bandwidth) {
       isBenchmarkingInProgress = false
-      window.randWrite = bandwidth
+      window.seq128KWrite = bandwidth
+    }
+
+    function onRand4KQ32T1ReadFinished(bandwidth) {
+      window.rand4KQ32T1Read = bandwidth
+      builder.rnd4kq32t1_write(combo.currentText, benchmark)
+    }
+
+    function onRand4KQ32T1WriteFinished(bandwidth) {
+      isBenchmarkingInProgress = false
+      window.rand4KQ32T1Write = bandwidth
     }
   }
 
@@ -519,7 +531,7 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     textFormat: Text.RichText
-                    text: qsTr("SEQ1MQ8T1")
+                    text: qsTr("SEQ1M<br>Q8T1")
                     font.bold: true
                     font.pointSize: 20
                   }
@@ -590,14 +602,23 @@ ApplicationWindow {
                   anchors.fill: parent
                   visible: !isBenchmarkingInProgress
 
+                  signal benchmarkFinished(string bandwidth)
+
                   Text {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     textFormat: Text.RichText
-                    text: qsTr("SEQ1M<br>Q1T1")
+                    text: qsTr("SEQ128K<br>Q8T1")
                     font.bold: true
                     font.pointSize: 20
+                  }
+
+                  onClicked: {
+                    window.seq128KRead = ""
+                    window.seq128KWrite = ""
+                    isBenchmarkingInProgress = true
+                    builder.seq128Kq8t1_read(combo.currentText, benchmark)
                   }
                 }
               }
@@ -613,7 +634,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr("7126.02")
+                    text: qsTr(window.seq128KRead)
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -629,7 +650,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr("5238.12")
+                    text: qsTr(window.seq128KWrite)
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -666,16 +687,16 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     textFormat: Text.RichText
-                    text: qsTr("RND")
+                    text: qsTr("RND4K<br>Q32T1")
                     font.bold: true
                     font.pointSize: 20
                   }
 
                   onClicked: {
-                    window.randRead = ""
-                    window.randWrite = ""
+                    window.rand4KQ32T1Read = ""
+                    window.rand4KQ32T1Write = ""
                     isBenchmarkingInProgress = true
-                    builder.random_read(combo.currentText, benchmark)
+                    builder.rnd4kq32t1_read(combo.currentText, benchmark)
                   }
                 }
               }
@@ -691,7 +712,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.randRead)
+                    text: qsTr(window.rand4KQ32T1Read)
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -707,7 +728,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.randWrite)
+                    text: qsTr(window.rand4KQ32T1Write)
                     font.bold: true
                     font.pointSize: 40
                   }

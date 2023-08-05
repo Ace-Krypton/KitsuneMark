@@ -34,8 +34,10 @@ void Benchmark::run(const QString &options, const QString &detect) {
     std::unordered_map<QString, std::function<void(QString)>> map = {
         {"SMREAD", [this](QString bandwidth) { emit seq1MReadFinished(bandwidth); }},
         {"SMWRITE", [this](QString bandwidth) { emit seq1MWriteFinished(bandwidth); }},
-        {"RREAD", [this](QString bandwidth) { emit randReadFinished(bandwidth); }},
-        {"RWRITE", [this](QString bandwidth) { emit randWriteFinished(bandwidth); }}
+        {"SKREAD", [this](QString bandwidth) { emit seq128KReadFinished(bandwidth); }},
+        {"SKWRITE", [this](QString bandwidth) { emit seq128KWriteFinished(bandwidth); }},
+        {"RGREAD", [this](QString bandwidth) { emit rand4KQ32T1ReadFinished(bandwidth); }},
+        {"RGWRITE", [this](QString bandwidth) { emit rand4KQ32T1WriteFinished(bandwidth); }}
     };
 
     auto it = map.find(detect);
