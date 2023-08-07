@@ -10,4 +10,4 @@
 
 **Build Status**
 
-![example workflow](https://github.com/Ace-Krypton/KitsuneMark/actions/workflows/c-cpp.yml/badge.svg)
+![CPP/Qt Workflow](https://github.com/Ace-Krypton/KitsuneMark/actions/workflows/c-cpp.yml/badge.svg)
