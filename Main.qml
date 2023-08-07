@@ -78,8 +78,9 @@ ApplicationWindow {
       if (is_all) {
         isBenchmarkingInProgress = true
         builder.seq128Kq8t1_read(combo.currentText, benchmark, is_all)
+      } else {
+        isBenchmarkingInProgress = false
       }
-      isBenchmarkingInProgress = false
     }
 
     function onSeq128KReadFinished(bandwidth, is_all) {
@@ -92,8 +93,9 @@ ApplicationWindow {
       if (is_all) {
         isBenchmarkingInProgress = true
         builder.rnd4kq32t1_read(combo.currentText, benchmark, is_all)
+      } else {
+        isBenchmarkingInProgress = false
       }
-      isBenchmarkingInProgress = false
     }
 
     function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
@@ -106,8 +108,9 @@ ApplicationWindow {
       if (is_all) {
         isBenchmarkingInProgress = true
         builder.rnd4kq1t1_read(combo.currentText, benchmark, is_all)
+      } else {
+        isBenchmarkingInProgress = false
       }
-      isBenchmarkingInProgress = false
     }
 
     function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
