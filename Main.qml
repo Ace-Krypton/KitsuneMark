@@ -261,13 +261,15 @@ ApplicationWindow {
           height: window.height - 50
 
           ColumnLayout {
+            anchors.fill: parent
             spacing: 10
 
             RowLayout {
+              Layout.fillWidth: true
               spacing: 10
 
               Rectangle {
-                width: 150
+                Layout.preferredWidth: mainFrame.width * 0.2
                 height: 100
                 radius: height / 2
 
@@ -511,9 +513,11 @@ ApplicationWindow {
                   height: 46
 
                   RowLayout {
+                    Layout.fillWidth: true
+
                     Rectangle {
                       color: "transparent"
-                      width: (window.width - 630) / 2 - 3
+                      width: seq1MReadID.width
                       height: 46
 
                       Text {
@@ -529,7 +533,7 @@ ApplicationWindow {
 
                     Rectangle {
                       color: "transparent"
-                      width: (window.width - 630) / 2 - 3
+                      width: seq1MWriteID.width
                       height: 46
 
                       Text {
@@ -549,9 +553,10 @@ ApplicationWindow {
 
             RowLayout {
               spacing: 10
+              Layout.fillWidth: true
 
               Rectangle {
-                width: 150
+                Layout.preferredWidth: mainFrame.width * 0.2
                 height: 100
 
                 BusyIndicator {
@@ -591,7 +596,10 @@ ApplicationWindow {
               }
 
               RowLayout {
+                Layout.fillWidth: true
+
                 Rectangle {
+                  id: seq1MReadID
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
@@ -608,6 +616,7 @@ ApplicationWindow {
                 }
 
                 Rectangle {
+                  id: seq1MWriteID
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
@@ -626,10 +635,11 @@ ApplicationWindow {
             }
 
             RowLayout {
+              Layout.fillWidth: true
               spacing: 10
 
               Rectangle {
-                width: 150
+                Layout.preferredWidth: mainFrame.width * 0.2
                 height: 100
 
                 BusyIndicator {
@@ -670,6 +680,8 @@ ApplicationWindow {
               }
 
               RowLayout {
+                Layout.fillWidth: true
+
                 Rectangle {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
@@ -705,10 +717,11 @@ ApplicationWindow {
             }
 
             RowLayout {
+              Layout.fillWidth: true
               spacing: 10
 
               Rectangle {
-                width: 150
+                Layout.preferredWidth: mainFrame.width * 0.2
                 height: 100
 
                 BusyIndicator {
@@ -748,6 +761,8 @@ ApplicationWindow {
               }
 
               RowLayout {
+                Layout.fillWidth: true
+
                 Rectangle {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
@@ -783,10 +798,11 @@ ApplicationWindow {
             }
 
             RowLayout {
+              Layout.fillWidth: true
               spacing: 10
 
               Rectangle {
-                width: 150
+                Layout.preferredWidth: mainFrame.width * 0.2
                 height: 100
 
                 BusyIndicator {
@@ -826,6 +842,8 @@ ApplicationWindow {
               }
 
               RowLayout {
+                Layout.fillWidth: true
+
                 Rectangle {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
@@ -861,8 +879,9 @@ ApplicationWindow {
             }
 
             Rectangle {
+              id: infoBarID
+              Layout.fillWidth: true
               border.color: "#ABABAB"
-              width: window.width - 470
               height: 74
 
               Text {
