@@ -2,7 +2,7 @@
 
 Benchmark::Benchmark(QObject *parent) : QObject(parent) { }
 
-void Benchmark::run(const QString &options, const QString &detect) {
+void Benchmark::run(const QString &options, const QString &detect, bool is_all) {
     QString command = options;
     int result = std::system(command.toStdString().c_str());
 
@@ -31,19 +31,19 @@ void Benchmark::run(const QString &options, const QString &detect) {
 
     QString bandwidth = extract_bandwidth(_results, detect);
 
-    std::unordered_map<QString, std::function<void(QString)>> map = {
-        {"SMREAD", [this](QString bandwidth) { emit seq1MReadFinished(bandwidth); }},
-        {"SMWRITE", [this](QString bandwidth) { emit seq1MWriteFinished(bandwidth); }},
-        {"SKREAD", [this](QString bandwidth) { emit seq128KReadFinished(bandwidth); }},
-        {"SKWRITE", [this](QString bandwidth) { emit seq128KWriteFinished(bandwidth); }},
-        {"RGREAD", [this](QString bandwidth) { emit rand4KQ32T1ReadFinished(bandwidth); }},
-        {"RGWRITE", [this](QString bandwidth) { emit rand4KQ32T1WriteFinished(bandwidth); }},
-        {"RLREAD", [this](QString bandwidth) { emit rand4KQ1T1ReadFinished(bandwidth); }},
-        {"RLWRITE", [this](QString bandwidth) { emit rand4KQ1T1WriteFinished(bandwidth); }}
+    std::unordered_map<QString, std::function<void(QString, bool)>> map = {
+        {"SMREAD", [this](QString bandwidth, bool is_all) { emit seq1MReadFinished(bandwidth, is_all); }},
+        {"SMWRITE", [this](QString bandwidth, bool is_all) { emit seq1MWriteFinished(bandwidth, is_all); }},
+        {"SKREAD", [this](QString bandwidth, bool is_all) { emit seq128KReadFinished(bandwidth, is_all); }},
+        {"SKWRITE", [this](QString bandwidth, bool is_all) { emit seq128KWriteFinished(bandwidth, is_all); }},
+        {"RGREAD", [this](QString bandwidth, bool is_all) { emit rand4KQ32T1ReadFinished(bandwidth, is_all); }},
+        {"RGWRITE", [this](QString bandwidth, bool is_all) { emit rand4KQ32T1WriteFinished(bandwidth, is_all); }},
+        {"RLREAD", [this](QString bandwidth, bool is_all) { emit rand4KQ1T1ReadFinished(bandwidth, is_all); }},
+        {"RLWRITE", [this](QString bandwidth, bool is_all) { emit rand4KQ1T1WriteFinished(bandwidth, is_all); }}
     };
 
     auto it = map.find(detect);
-    if (it != map.end()) it->second(bandwidth);
+    if (it != map.end()) it->second(bandwidth, is_all);
 }
 
 QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QString &detect) {
@@ -72,8 +72,8 @@ std::vector<std::string> Benchmark::get_results() {
     return _results;
 }
 
-void Benchmark::start(const QString &command, const QString &detect) {
-    _future = std::async(std::launch::async, &Benchmark::run, this, command, detect);
+void Benchmark::start(const QString &command, const QString &detect, bool is_all) {
+    _future = std::async(std::launch::async, &Benchmark::run, this, command, detect, is_all);
 }
 
 QString Benchmark::extract_qstring_from_variant(const QVariant &variant) const {

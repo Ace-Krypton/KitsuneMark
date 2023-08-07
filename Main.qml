@@ -50,45 +50,72 @@ ApplicationWindow {
     }
   }
 
+  function runAllBenchmarks() {
+    seq1MRead = ""
+    seq1MWrite = ""
+    seq128KRead = ""
+    seq128KWrite = ""
+    rand4KQ32T1Read = ""
+    rand4KQ32T1Write = ""
+    rand4KQ1T1Read = ""
+    rand4KQ1T1Write = ""
+
+    isBenchmarkingInProgress = true
+
+    builder.seq1mq8t1_read(combo.currentText, benchmark, true)
+  }
+
   Connections {
     target: benchmark
 
-    function onSeq1MReadFinished(bandwidth) {
+    function onSeq1MReadFinished(bandwidth, is_all) {
       window.seq1MRead = bandwidth
-      builder.seq1mq8t1_write(combo.currentText, benchmark)
+      builder.seq1mq8t1_write(combo.currentText, benchmark, is_all)
     }
 
-    function onSeq1MWriteFinished(bandwidth) {
-      isBenchmarkingInProgress = false
+    function onSeq1MWriteFinished(bandwidth, is_all) {
       window.seq1MWrite = bandwidth
+      if (is_all) {
+        isBenchmarkingInProgress = true
+        builder.seq128Kq8t1_read(combo.currentText, benchmark, is_all)
+      }
+      isBenchmarkingInProgress = false
     }
 
-    function onSeq128KReadFinished(bandwidth) {
+    function onSeq128KReadFinished(bandwidth, is_all) {
       window.seq128KRead = bandwidth
-      builder.seq128Kq8t1_write(combo.currentText, benchmark)
+      builder.seq128Kq8t1_write(combo.currentText, benchmark, is_all)
     }
 
-    function onSeq128KWriteFinished(bandwidth) {
-      isBenchmarkingInProgress = false
+    function onSeq128KWriteFinished(bandwidth, is_all) {
       window.seq128KWrite = bandwidth
-    }
-
-    function onRand4KQ32T1ReadFinished(bandwidth) {
-      window.rand4KQ32T1Read = bandwidth
-      builder.rnd4kq32t1_write(combo.currentText, benchmark)
-    }
-
-    function onRand4KQ32T1WriteFinished(bandwidth) {
+      if (is_all) {
+        isBenchmarkingInProgress = true
+        builder.rnd4kq32t1_read(combo.currentText, benchmark, is_all)
+      }
       isBenchmarkingInProgress = false
+    }
+
+    function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
+      window.rand4KQ32T1Read = bandwidth
+      builder.rnd4kq32t1_write(combo.currentText, benchmark, is_all)
+    }
+
+    function onRand4KQ32T1WriteFinished(bandwidth, is_all) {
       window.rand4KQ32T1Write = bandwidth
+      if (is_all) {
+        isBenchmarkingInProgress = true
+        builder.rnd4kq1t1_read(combo.currentText, benchmark, is_all)
+      }
+      isBenchmarkingInProgress = false
     }
 
-    function onRand4KQ1T1ReadFinished(bandwidth) {
+    function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
       window.rand4KQ1T1Read = bandwidth
-      builder.rnd4kq1t1_write(combo.currentText, benchmark)
+      builder.rnd4kq1t1_write(combo.currentText, benchmark, is_all)
     }
 
-    function onRand4KQ1T1WriteFinished(bandwidth) {
+    function onRand4KQ1T1WriteFinished(bandwidth, is_all) {
       isBenchmarkingInProgress = false
       window.rand4KQ1T1Write = bandwidth
     }
@@ -258,6 +285,8 @@ ApplicationWindow {
                   anchors.fill: parent
                   visible: !isBenchmarkingInProgress
 
+                  signal benchmarkFinished(string bandwidth)
+
                   Text {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
@@ -265,6 +294,10 @@ ApplicationWindow {
                     text: qsTr("ALL")
                     font.bold: true
                     font.pointSize: 20
+                  }
+
+                  onClicked: {
+                    runAllBenchmarks()
                   }
                 }
               }
@@ -551,7 +584,7 @@ ApplicationWindow {
                     window.seq1MRead = ""
                     window.seq1MWrite = ""
                     isBenchmarkingInProgress = true
-                    builder.seq1mq8t1_read(combo.currentText, benchmark)
+                    builder.seq1mq8t1_read(combo.currentText, benchmark, false)
                   }
                 }
               }
@@ -629,7 +662,8 @@ ApplicationWindow {
                     window.seq128KRead = ""
                     window.seq128KWrite = ""
                     isBenchmarkingInProgress = true
-                    builder.seq128Kq8t1_read(combo.currentText, benchmark)
+                    builder.seq128Kq8t1_read(combo.currentText,
+                                             benchmark, false)
                   }
                 }
               }
@@ -707,7 +741,7 @@ ApplicationWindow {
                     window.rand4KQ32T1Read = ""
                     window.rand4KQ32T1Write = ""
                     isBenchmarkingInProgress = true
-                    builder.rnd4kq32t1_read(combo.currentText, benchmark)
+                    builder.rnd4kq32t1_read(combo.currentText, benchmark, false)
                   }
                 }
               }
@@ -785,7 +819,7 @@ ApplicationWindow {
                     window.rand4KQ1T1Read = ""
                     window.rand4KQ1T1Write = ""
                     isBenchmarkingInProgress = true
-                    builder.rnd4kq1t1_read(combo.currentText, benchmark)
+                    builder.rnd4kq1t1_read(combo.currentText, benchmark, false)
                   }
                 }
               }

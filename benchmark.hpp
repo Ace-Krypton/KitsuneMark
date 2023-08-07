@@ -23,20 +23,20 @@ public:
 
     Q_INVOKABLE void stop();
     Q_INVOKABLE std::vector<std::string> get_results();
-    Q_INVOKABLE void run(const QString &options, const QString &detect);
-    Q_INVOKABLE void start(const QString &command, const QString &detect);
     Q_INVOKABLE QString extract_qstring_from_variant(const QVariant &variant) const;
+    Q_INVOKABLE void run(const QString &options, const QString &detect, bool is_all);
+    Q_INVOKABLE void start(const QString &command, const QString &detect, bool is_all);
     Q_INVOKABLE static QString extract_bandwidth(std::vector<std::string> &results, const QString &detect);
 
 signals:
-    void seq1MReadFinished(QString bandwidth);
-    void seq1MWriteFinished(QString bandwidth);
-    void seq128KReadFinished(QString bandwidth);
-    void seq128KWriteFinished(QString bandwidth);
-    void rand4KQ32T1ReadFinished(QString bandwidth);
-    void rand4KQ32T1WriteFinished(QString bandwidth);
-    void rand4KQ1T1ReadFinished(QString bandwidth);
-    void rand4KQ1T1WriteFinished(QString bandwidth);
+    void seq1MReadFinished(QString bandwidth, bool is_all);
+    void seq1MWriteFinished(QString bandwidth, bool is_all);
+    void seq128KReadFinished(QString bandwidth, bool is_all);
+    void seq128KWriteFinished(QString bandwidth, bool is_all);
+    void rand4KQ32T1ReadFinished(QString bandwidth, bool is_all);
+    void rand4KQ32T1WriteFinished(QString bandwidth, bool is_all);
+    void rand4KQ1T1ReadFinished(QString bandwidth, bool is_all);
+    void rand4KQ1T1WriteFinished(QString bandwidth, bool is_all);
 
 private:
     std::future<void> _future;
