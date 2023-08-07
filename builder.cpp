@@ -61,7 +61,7 @@ void Builder::rnd4kq32t1_write(const QString &size, Benchmark *benchmark) {
 void Builder::rnd4kq1t1_read(const QString &size, Benchmark *benchmark) {
     QString command = "sync;fio --loops=5 --size=256m --stonewall --zero_buffers=0 "
                       "--randrepeat=1 --ioengine=libaio --direct=1 --name=test "
-                      "--filename=test --iodepth=1 --bs=4K --size=4G "
+                      "--filename=test --iodepth=1 --bs=4K --size=1G "
                       "--readwrite=randread --ramp_time=1 --numjobs=1 > fio_results.txt";
 
     benchmark->start(command, "RLREAD");
@@ -70,7 +70,7 @@ void Builder::rnd4kq1t1_read(const QString &size, Benchmark *benchmark) {
 void Builder::rnd4kq1t1_write(const QString &size, Benchmark *benchmark) {
     QString command = "sync;fio --loops=5 --size=256m --stonewall --zero_buffers=0 "
                       "--randrepeat=1 --ioengine=libaio --direct=1 --name=test "
-                      "--filename=test --iodepth=1 --bs=4K --size=4G "
+                      "--filename=test --iodepth=1 --bs=4K --size=1G "
                       "--readwrite=randwrite --ramp_time=1 --numjobs=1 > fio_results.txt";
 
     benchmark->start(command, "RLWRITE");

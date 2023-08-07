@@ -5,10 +5,12 @@
 
 #include "benchmark.hpp"
 
-class Builder : public QObject{
+class Builder : public QObject {
     Q_OBJECT
 
 public:
+    explicit Builder(QObject *parent = nullptr);
+
     Q_INVOKABLE void seq1mq8t1_read(const QString &size, Benchmark *benchmark);
     Q_INVOKABLE void seq1mq8t1_write(const QString &size, Benchmark *benchmark);
     Q_INVOKABLE void seq128Kq8t1_read(const QString &size, Benchmark *benchmark);

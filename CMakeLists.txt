@@ -18,6 +18,7 @@ qt_add_qml_module(appKitsuneSpecs
     QML_FILES Main.qml
     SOURCES benchmark.hpp benchmark.cpp
     SOURCES builder.hpp builder.cpp
+    SOURCES system.hpp system.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

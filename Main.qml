@@ -8,13 +8,8 @@ ApplicationWindow {
   width: 1221
   height: 674
   visible: true
-  color: "#F66785"
   title: qsTr("Kitsune Specs")
 
-  //  Image {
-  //    anchors.fill: parent
-  //    source: "file:///home/draco/Downloads/pink.jpg"
-  //  }
   flags: Qt.Window | Qt.WindowFixedSize
 
   property string seq1MRead: "0.00"
@@ -242,6 +237,7 @@ ApplicationWindow {
               Rectangle {
                 width: 150
                 height: 100
+                radius: height / 2
 
                 BusyIndicator {
                   width: 70
