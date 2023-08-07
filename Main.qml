@@ -53,15 +53,7 @@ ApplicationWindow {
   function runAllBenchmarks() {
     seq1MRead = ""
     seq1MWrite = ""
-    seq128KRead = ""
-    seq128KWrite = ""
-    rand4KQ32T1Read = ""
-    rand4KQ32T1Write = ""
-    rand4KQ1T1Read = ""
-    rand4KQ1T1Write = ""
-
     isBenchmarkingInProgress = true
-
     builder.seq1mq8t1_read(combo.currentText, benchmark, true)
   }
 
@@ -77,6 +69,8 @@ ApplicationWindow {
       window.seq1MWrite = bandwidth
       if (is_all) {
         isBenchmarkingInProgress = true
+        seq128KRead = ""
+        seq128KWrite = ""
         builder.seq128Kq8t1_read(combo.currentText, benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
@@ -92,6 +86,8 @@ ApplicationWindow {
       window.seq128KWrite = bandwidth
       if (is_all) {
         isBenchmarkingInProgress = true
+        rand4KQ32T1Read = ""
+        rand4KQ32T1Write = ""
         builder.rnd4kq32t1_read(combo.currentText, benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
@@ -107,6 +103,8 @@ ApplicationWindow {
       window.rand4KQ32T1Write = bandwidth
       if (is_all) {
         isBenchmarkingInProgress = true
+        rand4KQ1T1Read = ""
+        rand4KQ1T1Write = ""
         builder.rnd4kq1t1_read(combo.currentText, benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
