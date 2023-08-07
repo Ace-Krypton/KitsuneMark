@@ -42,6 +42,7 @@ void Benchmark::run(const QString &options, const QString &detect, bool is_all) 
         {"RLWRITE", [this](QString bandwidth, bool is_all) { emit rand4KQ1T1WriteFinished(bandwidth, is_all); }}
     };
 
+    this is just a test
     auto it = map.find(detect);
     if (it != map.end()) it->second(bandwidth, is_all);
 }
