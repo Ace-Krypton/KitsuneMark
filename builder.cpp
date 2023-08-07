@@ -1,5 +1,7 @@
 #include "builder.hpp"
 
+Builder::Builder(QObject *parent) : QObject(parent) { }
+
 void Builder::seq1mq8t1_read(const QString &block_size, Benchmark *benchmark) {
     QString command = "sync;fio --loops=5 --size=32m --stonewall --zero_buffers=0 "
                       "--randrepeat=1 --ioengine=libaio --direct=1 "

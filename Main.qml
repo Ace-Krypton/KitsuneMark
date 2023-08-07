@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Layouts
+import CustomTypes 1.0
 import QtQuick.Controls
 
 ApplicationWindow {
@@ -12,6 +13,7 @@ ApplicationWindow {
 
   flags: Qt.Window | Qt.WindowFixedSize
 
+  property System system: System {}
   property string seq1MRead: "0.00"
   property string seq1MWrite: "0.00"
   property string seq128KRead: "0.00"
@@ -20,6 +22,8 @@ ApplicationWindow {
   property string rand4KQ32T1Write: "0.00"
   property string rand4KQ1T1Read: "0.00"
   property string rand4KQ1T1Write: "0.00"
+  property string cpuName: system.extract_cpu()
+  property string ssdName: system.extract_ssd()
   property int themeHeight: window.height
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
@@ -831,7 +835,7 @@ ApplicationWindow {
                 anchors.leftMargin: 10
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
-                text: qsTr("Samsung SSD 980 PRO 1TB / AMD Ryzen 9 5950X")
+                text: qsTr(ssdName + ' / ' + cpuName)
                 font.bold: true
                 font.pointSize: 20
               }
