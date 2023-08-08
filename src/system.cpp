@@ -61,3 +61,23 @@ QString System::extract_ssd() {
 
     return "<unknown>";
 }
+
+QString System::extract_storage() {
+    std::filesystem::space_info storage_info = std::filesystem::space("/");
+
+    const double bytes_to_gib = 1024 * 1024 * 1024.0;
+    double available_gb = storage_info.available / bytes_to_gib;
+    double capacity_gb = storage_info.capacity / bytes_to_gib;
+    double percentage = (available_gb / capacity_gb) * 100.0;
+
+    QString result;
+    QTextStream stream(&result);
+    stream.setRealNumberPrecision(2);
+    stream.setRealNumberNotation(QTextStream::FixedNotation);
+
+    stream << '/' << ": " << percentage << "% "
+           << '(' << available_gb << '/'
+           << capacity_gb << " GiB" << ')';
+
+    return result;
+}

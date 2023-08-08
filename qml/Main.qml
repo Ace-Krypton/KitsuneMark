@@ -24,6 +24,7 @@ ApplicationWindow {
   property string rand4KQ32T1Write: "0.00"
   property string cpuName: system.extract_cpu()
   property string ssdName: system.extract_ssd()
+  property string storage: system.extract_storage()
   property int themeHeight: window.height
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
@@ -439,12 +440,10 @@ ApplicationWindow {
                         height: 50
 
                         model: ListModel {
-                          ListElement {
-                            text: qsTr("S: 0% (0/931GiB)")
-                          }
-
-                          ListElement {
-                            text: qsTr("D: 0% (0/486GiB)")
+                          Component.onCompleted: {
+                            append({
+                                     "text": storage
+                                   })
                           }
                         }
 
