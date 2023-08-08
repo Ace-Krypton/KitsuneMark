@@ -18,10 +18,10 @@ ApplicationWindow {
   property string seq1MWrite: "0.00"
   property string seq128KRead: "0.00"
   property string seq128KWrite: "0.00"
-  property string rand4KQ32T1Read: "0.00"
-  property string rand4KQ32T1Write: "0.00"
   property string rand4KQ1T1Read: "0.00"
   property string rand4KQ1T1Write: "0.00"
+  property string rand4KQ32T1Read: "0.00"
+  property string rand4KQ32T1Write: "0.00"
   property string cpuName: system.extract_cpu()
   property string ssdName: system.extract_ssd()
   property int themeHeight: window.height

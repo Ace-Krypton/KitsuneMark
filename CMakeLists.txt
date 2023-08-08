@@ -6,9 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
 
-# Set the Qt policy to suppress the warning about QML resource prefixes
-qt_policy(SET QTP0001 NEW)
-
 qt_standard_project_setup()
 
 qt_add_executable(appKitsuneSpecs
