@@ -361,8 +361,9 @@ ApplicationWindow {
 
                           Text {
                             text: combo.currentText
-                            font.pointSize: 20
+                            font.pointSize: 15
                             anchors.centerIn: parent
+                            font.bold: true
                           }
                         }
 
@@ -417,7 +418,8 @@ ApplicationWindow {
                             anchors.leftMargin: 5
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
-                            font.pointSize: 20
+                            font.pointSize: 15
+                            font.bold: true
                           }
                         }
 
@@ -458,7 +460,8 @@ ApplicationWindow {
                             anchors.leftMargin: 5
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
-                            font.pointSize: 20
+                            font.pointSize: 15
+                            font.bold: true
                           }
                         }
 
@@ -501,7 +504,8 @@ ApplicationWindow {
                             anchors.leftMargin: 5
                             horizontalAlignment: Text.AlignLeft
                             verticalAlignment: Text.AlignVCenter
-                            font.pointSize: 20
+                            font.pointSize: 15
+                            font.bold: true
                           }
                         }
 
