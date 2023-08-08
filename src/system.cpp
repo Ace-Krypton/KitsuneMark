@@ -1,4 +1,4 @@
-#include "system.hpp"
+#include "../include/system.hpp"
 
 System::System(QObject *parent) : QObject(parent) { }
 

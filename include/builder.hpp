@@ -3,7 +3,7 @@
 #include <QString>
 #include <QObject>
 
-#include "benchmark.hpp"
+#include "../include/benchmark.hpp"
 
 class Builder : public QObject {
     Q_OBJECT

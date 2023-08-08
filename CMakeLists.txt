@@ -6,19 +6,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
 
+# Set the Qt policy to suppress the warning about QML resource prefixes
+qt_policy(SET QTP0001 NEW)
+
 qt_standard_project_setup()
 
 qt_add_executable(appKitsuneSpecs
-    main.cpp
+    src/main.cpp
 )
 
 qt_add_qml_module(appKitsuneSpecs
     URI KitsuneSpecs
     VERSION 1.0
-    QML_FILES Main.qml
-    SOURCES benchmark.hpp benchmark.cpp
-    SOURCES builder.hpp builder.cpp
-    SOURCES system.hpp system.cpp
+    QML_FILES qml/Main.qml
+    SOURCES include/benchmark.hpp src/benchmark.cpp
+    SOURCES include/builder.hpp src/builder.cpp
+    SOURCES include/system.hpp src/system.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

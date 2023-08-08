@@ -1,4 +1,4 @@
-#include "builder.hpp"
+#include "../include/builder.hpp"
 
 Builder::Builder(QObject *parent) : QObject(parent) { }
 

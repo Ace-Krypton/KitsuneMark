@@ -3,9 +3,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "system.hpp"
-#include "builder.hpp"
-#include "benchmark.hpp"
+#include "../include/system.hpp"
+#include "../include/builder.hpp"
+#include "../include/benchmark.hpp"
 
 int main(int argc, char *argv[]) {
     QGuiApplication app(argc, argv);
@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 
     qmlRegisterType<System>("CustomTypes", 1, 0, "System");
 
-    const QUrl url(QStringLiteral("qrc:/KitsuneSpecs/Main.qml"));
+    const QUrl url(QStringLiteral("KitsuneSpecs/qml/Main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
         &app, []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);

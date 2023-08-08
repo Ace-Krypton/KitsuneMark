@@ -1,4 +1,4 @@
-#include "benchmark.hpp"
+#include "../include/benchmark.hpp"
 
 Benchmark::Benchmark(QObject *parent) : QObject(parent) { }
 
