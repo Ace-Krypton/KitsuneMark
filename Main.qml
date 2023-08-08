@@ -54,7 +54,8 @@ ApplicationWindow {
     seq1MRead = ""
     seq1MWrite = ""
     isBenchmarkingInProgress = true
-    builder.seq1mq8t1_read(combo.currentText, benchmark, true)
+    builder.seq1mq8t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
+                           benchmark, true)
   }
 
   Connections {
@@ -62,7 +63,8 @@ ApplicationWindow {
 
     function onSeq1MReadFinished(bandwidth, is_all) {
       window.seq1MRead = bandwidth
-      builder.seq1mq8t1_write(combo.currentText, benchmark, is_all)
+      builder.seq1mq8t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
+                              benchmark, is_all)
     }
 
     function onSeq1MWriteFinished(bandwidth, is_all) {
@@ -71,7 +73,8 @@ ApplicationWindow {
         isBenchmarkingInProgress = true
         seq128KRead = ""
         seq128KWrite = ""
-        builder.seq128Kq8t1_read(combo.currentText, benchmark, is_all)
+        builder.seq128Kq8t1_read(parseInt(comboGiB.currentText.match(
+                                            /\d+/)[0]), benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
       }
@@ -79,7 +82,8 @@ ApplicationWindow {
 
     function onSeq128KReadFinished(bandwidth, is_all) {
       window.seq128KRead = bandwidth
-      builder.seq128Kq8t1_write(combo.currentText, benchmark, is_all)
+      builder.seq128Kq8t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
+                                benchmark, is_all)
     }
 
     function onSeq128KWriteFinished(bandwidth, is_all) {
@@ -88,7 +92,8 @@ ApplicationWindow {
         isBenchmarkingInProgress = true
         rand4KQ32T1Read = ""
         rand4KQ32T1Write = ""
-        builder.rnd4kq32t1_read(combo.currentText, benchmark, is_all)
+        builder.rnd4kq32t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
+                                benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
       }
@@ -96,7 +101,8 @@ ApplicationWindow {
 
     function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
       window.rand4KQ32T1Read = bandwidth
-      builder.rnd4kq32t1_write(combo.currentText, benchmark, is_all)
+      builder.rnd4kq32t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
+                               benchmark, is_all)
     }
 
     function onRand4KQ32T1WriteFinished(bandwidth, is_all) {
@@ -105,7 +111,8 @@ ApplicationWindow {
         isBenchmarkingInProgress = true
         rand4KQ1T1Read = ""
         rand4KQ1T1Write = ""
-        builder.rnd4kq1t1_read(combo.currentText, benchmark, is_all)
+        builder.rnd4kq1t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
+                               benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
       }
@@ -113,7 +120,8 @@ ApplicationWindow {
 
     function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
       window.rand4KQ1T1Read = bandwidth
-      builder.rnd4kq1t1_write(combo.currentText, benchmark, is_all)
+      builder.rnd4kq1t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
+                              benchmark, is_all)
     }
 
     function onRand4KQ1T1WriteFinished(bandwidth, is_all) {
@@ -590,7 +598,9 @@ ApplicationWindow {
                     window.seq1MRead = ""
                     window.seq1MWrite = ""
                     isBenchmarkingInProgress = true
-                    builder.seq1mq8t1_read(combo.currentText, benchmark, false)
+                    builder.seq1mq8t1_read(parseInt(comboGiB.currentText.match(
+                                                      /\d+/)[0]),
+                                           benchmark, false)
                   }
                 }
               }
@@ -673,8 +683,9 @@ ApplicationWindow {
                     window.seq128KRead = ""
                     window.seq128KWrite = ""
                     isBenchmarkingInProgress = true
-                    builder.seq128Kq8t1_read(combo.currentText,
-                                             benchmark, false)
+                    builder.seq128Kq8t1_read(
+                          parseInt(comboGiB.currentText.match(/\d+/)[0]),
+                          benchmark, false)
                   }
                 }
               }
@@ -755,7 +766,9 @@ ApplicationWindow {
                     window.rand4KQ32T1Read = ""
                     window.rand4KQ32T1Write = ""
                     isBenchmarkingInProgress = true
-                    builder.rnd4kq32t1_read(combo.currentText, benchmark, false)
+                    builder.rnd4kq32t1_read(parseInt(comboGiB.currentText.match(
+                                                       /\d+/)[0]),
+                                            benchmark, false)
                   }
                 }
               }
@@ -836,7 +849,9 @@ ApplicationWindow {
                     window.rand4KQ1T1Read = ""
                     window.rand4KQ1T1Write = ""
                     isBenchmarkingInProgress = true
-                    builder.rnd4kq1t1_read(combo.currentText, benchmark, false)
+                    builder.rnd4kq1t1_read(parseInt(comboGiB.currentText.match(
+                                                      /\d+/)[0]),
+                                           benchmark, false)
                   }
                 }
               }
