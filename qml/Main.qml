@@ -332,6 +332,10 @@ ApplicationWindow {
                         anchors.centerIn: parent
                         width: 50
                         height: 50
+                        ToolTip.delay: 500
+                        ToolTip.timeout: 5000
+                        ToolTip.visible: hovered
+                        ToolTip.text: qsTr("Loop Count")
 
                         model: ListModel {
                           ListElement {
@@ -377,14 +381,18 @@ ApplicationWindow {
 
                     Rectangle {
                       border.color: "#ABABAB"
-                      width: 134
+                      width: 110
                       height: 50
 
                       ComboBox {
                         id: comboGiB
                         anchors.centerIn: parent
-                        width: 134
+                        width: 110
                         height: 50
+                        ToolTip.delay: 500
+                        ToolTip.timeout: 5000
+                        ToolTip.visible: hovered
+                        ToolTip.text: qsTr("Size")
 
                         model: ListModel {
                           ListElement {
@@ -416,8 +424,7 @@ ApplicationWindow {
                           Text {
                             text: comboGiB.currentText
                             anchors.fill: parent
-                            anchors.leftMargin: 5
-                            horizontalAlignment: Text.AlignLeft
+                            horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.pointSize: 15
                             font.bold: true
@@ -433,14 +440,18 @@ ApplicationWindow {
 
                     Rectangle {
                       border.color: "#ABABAB"
-                      width: 280
+                      width: 304
                       height: 50
 
                       ComboBox {
                         id: comboStorage
                         anchors.centerIn: parent
-                        width: 280
+                        width: 304
                         height: 50
+                        ToolTip.delay: 500
+                        ToolTip.timeout: 5000
+                        ToolTip.visible: hovered
+                        ToolTip.text: qsTr("Storage Info")
 
                         model: ListModel {
                           Component.onCompleted: {
@@ -483,6 +494,10 @@ ApplicationWindow {
                         anchors.centerIn: parent
                         width: 110
                         height: 50
+                        ToolTip.delay: 500
+                        ToolTip.timeout: 5000
+                        ToolTip.visible: hovered
+                        ToolTip.text: qsTr("Converter")
 
                         model: ListModel {
                           ListElement {
@@ -502,8 +517,7 @@ ApplicationWindow {
                           Text {
                             text: comboMB.currentText
                             anchors.fill: parent
-                            anchors.leftMargin: 5
-                            horizontalAlignment: Text.AlignLeft
+                            horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                             font.pointSize: 15
                             font.bold: true
