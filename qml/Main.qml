@@ -56,7 +56,7 @@ ApplicationWindow {
     seq1MWrite = ""
     isBenchmarkingInProgress = true
     builder.seq1mq8t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                           benchmark, true)
+                           combo.currentText, benchmark, true)
   }
 
   Connections {
@@ -65,7 +65,7 @@ ApplicationWindow {
     function onSeq1MReadFinished(bandwidth, is_all) {
       window.seq1MRead = bandwidth
       builder.seq1mq8t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                              benchmark, is_all)
+                              combo.currentText, benchmark, is_all)
     }
 
     function onSeq1MWriteFinished(bandwidth, is_all) {
@@ -75,7 +75,8 @@ ApplicationWindow {
         seq128KRead = ""
         seq128KWrite = ""
         builder.seq128Kq8t1_read(parseInt(comboGiB.currentText.match(
-                                            /\d+/)[0]), benchmark, is_all)
+                                            /\d+/)[0]), combo.currentText,
+                                 benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
       }
@@ -84,7 +85,7 @@ ApplicationWindow {
     function onSeq128KReadFinished(bandwidth, is_all) {
       window.seq128KRead = bandwidth
       builder.seq128Kq8t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                                benchmark, is_all)
+                                combo.currentText, benchmark, is_all)
     }
 
     function onSeq128KWriteFinished(bandwidth, is_all) {
@@ -94,7 +95,7 @@ ApplicationWindow {
         rand4KQ32T1Read = ""
         rand4KQ32T1Write = ""
         builder.rnd4kq32t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                                benchmark, is_all)
+                                combo.currentText, benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
       }
@@ -103,7 +104,7 @@ ApplicationWindow {
     function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
       window.rand4KQ32T1Read = bandwidth
       builder.rnd4kq32t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                               benchmark, is_all)
+                               combo.currentText, benchmark, is_all)
     }
 
     function onRand4KQ32T1WriteFinished(bandwidth, is_all) {
@@ -113,7 +114,7 @@ ApplicationWindow {
         rand4KQ1T1Read = ""
         rand4KQ1T1Write = ""
         builder.rnd4kq1t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                               benchmark, is_all)
+                               combo.currentText, benchmark, is_all)
       } else {
         isBenchmarkingInProgress = false
       }
@@ -122,7 +123,7 @@ ApplicationWindow {
     function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
       window.rand4KQ1T1Read = bandwidth
       builder.rnd4kq1t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                              benchmark, is_all)
+                              combo.currentText, benchmark, is_all)
     }
 
     function onRand4KQ1T1WriteFinished(bandwidth, is_all) {
@@ -603,7 +604,7 @@ ApplicationWindow {
                     isBenchmarkingInProgress = true
                     builder.seq1mq8t1_read(parseInt(comboGiB.currentText.match(
                                                       /\d+/)[0]),
-                                           benchmark, false)
+                                           combo.currentText, benchmark, false)
                   }
                 }
               }
@@ -688,7 +689,7 @@ ApplicationWindow {
                     isBenchmarkingInProgress = true
                     builder.seq128Kq8t1_read(
                           parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                          benchmark, false)
+                          combo.currentText, benchmark, false)
                   }
                 }
               }
@@ -771,7 +772,7 @@ ApplicationWindow {
                     isBenchmarkingInProgress = true
                     builder.rnd4kq32t1_read(parseInt(comboGiB.currentText.match(
                                                        /\d+/)[0]),
-                                            benchmark, false)
+                                            combo.currentText, benchmark, false)
                   }
                 }
               }
@@ -854,7 +855,7 @@ ApplicationWindow {
                     isBenchmarkingInProgress = true
                     builder.rnd4kq1t1_read(parseInt(comboGiB.currentText.match(
                                                       /\d+/)[0]),
-                                           benchmark, false)
+                                           combo.currentText, benchmark, false)
                   }
                 }
               }
