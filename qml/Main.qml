@@ -9,7 +9,7 @@ ApplicationWindow {
   width: 1221
   height: 674
   visible: true
-  title: qsTr("Kitsune Specs")
+  title: qsTr("Kitsune Mark")
 
   flags: Qt.Window | Qt.WindowFixedSize
 
@@ -28,24 +28,24 @@ ApplicationWindow {
   property int themeHeight: window.height
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
-  property string currentWallpaper: "file:///home/draco/Downloads/default.jpg"
+  property string currentWallpaper: "../img/default.jpg"
 
   function changeWallpaper(theme) {
     switch (theme) {
     case "Angel":
-      currentWallpaper = "file:///home/draco/Downloads/angel.jpg"
+      currentWallpaper = "../img/angel.jpg"
       isAngelOrAria = true
       break
     case "Reki":
-      currentWallpaper = "file:///home/draco/Downloads/reki.png"
+      currentWallpaper = "../img/reki.png"
       isAngelOrAria = false
       break
     case "Aria":
-      currentWallpaper = "file:///home/draco/Downloads/aria.jpg"
+      currentWallpaper = "../img/aria.jpg"
       isAngelOrAria = true
       break
     case "Default":
-      currentWallpaper = "file:///home/draco/Downloads/default.jpg"
+      currentWallpaper = "../img/default.jpg"
       isAngelOrAria = false
       break
     }
