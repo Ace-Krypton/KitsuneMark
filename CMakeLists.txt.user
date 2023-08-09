@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 11.0.0, 2023-08-09T00:00:55. -->
+<!-- Written by QtCreator 11.0.0, 2023-08-09T22:23:46. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -393,13 +393,12 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="bool" key="PE.EnvironmentAspect.PrintOnRun">false</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">appKitsuneSpecs</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.appKitsuneSpecs</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">appKitsuneSpecs</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">kitsune-mark</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.kitsune-mark</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">kitsune-mark</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="bool" key="RunConfiguration.UseTerminal">false</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/draco/QtProjects/build-KitsuneSpecs-Desktop_Qt_6_5_1_GCC_64bit-Debug</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>

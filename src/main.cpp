@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 
     qmlRegisterType<System>("CustomTypes", 1, 0, "System");
 
-    const QUrl url(QStringLiteral("KitsuneSpecs/qml/Main.qml"));
+    const QUrl url(QStringLiteral("KitsuneMark/qml/Main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
         &app, []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
