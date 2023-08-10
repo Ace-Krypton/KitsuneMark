@@ -599,6 +599,11 @@ ApplicationWindow {
                   id: seq1M
                   anchors.fill: parent
                   visible: !isBenchmarkingInProgress
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  ToolTip.visible: hovered
+                  ToolTip.text: qsTr(
+                                  "Sequential 1MiB<br>Queues=8<br>Threads=1<br>(MB/s)")
 
                   signal benchmarkFinished(string bandwidth)
 
@@ -684,6 +689,11 @@ ApplicationWindow {
                   id: seq1MT1
                   anchors.fill: parent
                   visible: !isBenchmarkingInProgress
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  ToolTip.visible: hovered
+                  ToolTip.text: qsTr(
+                                  "Sequential 128K<br>Queues=8<br>Threads=1<br>(MB/s)")
 
                   signal benchmarkFinished(string bandwidth)
 
@@ -767,6 +777,11 @@ ApplicationWindow {
                   id: rnd4K
                   anchors.fill: parent
                   visible: !isBenchmarkingInProgress
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  ToolTip.visible: hovered
+                  ToolTip.text: qsTr(
+                                  "Random 4KiB<br>Queues=32<br>Threads=1<br>(MB/s)")
 
                   signal benchmarkFinished(string bandwidth)
 
@@ -850,6 +865,11 @@ ApplicationWindow {
                   id: rnd4KQ1T1
                   anchors.fill: parent
                   visible: !isBenchmarkingInProgress
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  ToolTip.visible: hovered
+                  ToolTip.text: qsTr(
+                                  "Random 4KiB<br>Queues=1<br>Threads=1<br>(MB/s)")
 
                   signal benchmarkFinished(string bandwidth)
 
