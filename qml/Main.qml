@@ -746,11 +746,12 @@ ApplicationWindow {
                   }
 
                   Text {
+                    id: seq1MReadTextID
                     anchors.fill: parent
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.seq1MRead)
+                    text: comboMB.currentText === "IOPS" ? window.seq1MReadIOPS : window.seq1MRead
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -779,7 +780,7 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.seq1MWrite)
+                    text: comboMB.currentText === "IOPS" ? window.seq1MWriteIOPS : window.seq1MWrite
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -865,7 +866,8 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.seq128KRead)
+                    text: comboMB.currentText
+                          === "IOPS" ? window.seq128KReadIOPS : window.seq128KRead
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -893,7 +895,8 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.seq128KWrite)
+                    text: comboMB.currentText
+                          === "IOPS" ? window.seq128KWriteIOPS : window.seq128KWrite
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -979,7 +982,8 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.rand4KQ32T1Read)
+                    text: comboMB.currentText
+                          === "IOPS" ? window.rand4KQ32T1ReadIOPS : window.rand4KQ32T1Read
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -1007,7 +1011,8 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.rand4KQ32T1Write)
+                    text: comboMB.currentText
+                          === "IOPS" ? window.rand4KQ32T1WriteIOPS : window.rand4KQ32T1Write
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -1094,7 +1099,8 @@ ApplicationWindow {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: qsTr(window.rand4KQ1T1Read)
+                    text: comboMB.currentText
+                          === "IOPS" ? window.rand4KQ1T1ReadIOPS : window.rand4KQ1T1Read
                     font.bold: true
                     font.pointSize: 40
                   }
@@ -1123,7 +1129,8 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
                     font.bold: true
-                    text: qsTr(window.rand4KQ1T1Write)
+                    text: comboMB.currentText
+                          === "IOPS" ? window.rand4KQ1T1WriteIOPS : window.rand4KQ1T1Write
                     font.pointSize: 40
                   }
                 }
