@@ -341,21 +341,29 @@ ApplicationWindow {
                           ListElement {
                             text: qsTr("1")
                           }
-
                           ListElement {
                             text: qsTr("2")
                           }
-
                           ListElement {
                             text: qsTr("3")
                           }
-
                           ListElement {
                             text: qsTr("4")
                           }
-
                           ListElement {
                             text: qsTr("5")
+                          }
+                          ListElement {
+                            text: qsTr("6")
+                          }
+                          ListElement {
+                            text: qsTr("7")
+                          }
+                          ListElement {
+                            text: qsTr("8")
+                          }
+                          ListElement {
+                            text: qsTr("9")
                           }
                         }
 
@@ -398,21 +406,23 @@ ApplicationWindow {
                           ListElement {
                             text: qsTr("1 GiB")
                           }
-
                           ListElement {
                             text: qsTr("2 GiB")
                           }
-
-                          ListElement {
-                            text: qsTr("3 GiB")
-                          }
-
                           ListElement {
                             text: qsTr("4 GiB")
                           }
-
                           ListElement {
-                            text: qsTr("5 GiB")
+                            text: qsTr("8 GiB")
+                          }
+                          ListElement {
+                            text: qsTr("16 GiB")
+                          }
+                          ListElement {
+                            text: qsTr("32 GiB")
+                          }
+                          ListElement {
+                            text: qsTr("64 GiB")
                           }
                         }
 
@@ -503,9 +513,14 @@ ApplicationWindow {
                           ListElement {
                             text: qsTr("MB/s")
                           }
-
                           ListElement {
-                            text: qsTr("MiB/s")
+                            text: qsTr("GB/s")
+                          }
+                          ListElement {
+                            text: qsTr("IOPS")
+                          }
+                          ListElement {
+                            text: qsTr("μs")
                           }
                         }
 
@@ -551,7 +566,7 @@ ApplicationWindow {
                         anchors.fill: parent
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignBottom
-                        text: qsTr("Read (MB/s)")
+                        text: qsTr("Read [" + comboMB.currentText + ']')
                         font.bold: true
                         font.pointSize: 20
                       }
@@ -567,7 +582,7 @@ ApplicationWindow {
                         anchors.fill: parent
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignBottom
-                        text: qsTr("Write (MB/s)")
+                        text: qsTr("Write [" + comboMB.currentText + ']')
                         font.bold: true
                         font.pointSize: 20
                       }
@@ -636,6 +651,18 @@ ApplicationWindow {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  property string toolTipText: window.seq1MRead
+                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  ToolTip.visible: toolTipText ? read1MArea.containsMouse : false
+                  ToolTip.text: toolTipText
+
+                  MouseArea {
+                    id: read1MArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                  }
 
                   Text {
                     anchors.fill: parent
@@ -653,6 +680,18 @@ ApplicationWindow {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  property string toolTipText: window.seq1MWrite
+                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  ToolTip.visible: toolTipText ? write1MArea.containsMouse : false
+                  ToolTip.text: toolTipText
+
+                  MouseArea {
+                    id: write1MArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                  }
 
                   Text {
                     anchors.fill: parent
@@ -725,6 +764,18 @@ ApplicationWindow {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  property string toolTipText: window.seq128KRead
+                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  ToolTip.visible: toolTipText ? read128KArea.containsMouse : false
+                  ToolTip.text: toolTipText
+
+                  MouseArea {
+                    id: read128KArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                  }
 
                   Text {
                     anchors.fill: parent
@@ -741,6 +792,18 @@ ApplicationWindow {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  property string toolTipText: window.seq128KWrite
+                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  ToolTip.visible: toolTipText ? write128KArea.containsMouse : false
+                  ToolTip.text: toolTipText
+
+                  MouseArea {
+                    id: write128KArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                  }
 
                   Text {
                     anchors.fill: parent
@@ -813,6 +876,18 @@ ApplicationWindow {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  property string toolTipText: window.rand4KQ32T1Read
+                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  ToolTip.visible: toolTipText ? read4KQ32Area.containsMouse : false
+                  ToolTip.text: toolTipText
+
+                  MouseArea {
+                    id: read4KQ32Area
+                    anchors.fill: parent
+                    hoverEnabled: true
+                  }
 
                   Text {
                     anchors.fill: parent
@@ -829,6 +904,18 @@ ApplicationWindow {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  property string toolTipText: window.rand4KQ32T1Write
+                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  ToolTip.visible: toolTipText ? write4KQ32Area.containsMouse : false
+                  ToolTip.text: toolTipText
+
+                  MouseArea {
+                    id: write4KQ32Area
+                    anchors.fill: parent
+                    hoverEnabled: true
+                  }
 
                   Text {
                     anchors.fill: parent
@@ -901,6 +988,18 @@ ApplicationWindow {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  property string toolTipText: window.rand4KQ1T1Read
+                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  ToolTip.visible: toolTipText ? read4KQ1Area.containsMouse : false
+                  ToolTip.text: toolTipText
+
+                  MouseArea {
+                    id: read4KQ1Area
+                    anchors.fill: parent
+                    hoverEnabled: true
+                  }
 
                   Text {
                     anchors.fill: parent
@@ -917,6 +1016,18 @@ ApplicationWindow {
                   border.color: "#ABABAB"
                   width: (window.width - 630) / 2 - 3
                   height: 100
+                  ToolTip.delay: 500
+                  ToolTip.timeout: 5000
+                  property string toolTipText: window.rand4KQ1T1Write
+                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  ToolTip.visible: toolTipText ? write4KQ1Area.containsMouse : false
+                  ToolTip.text: toolTipText
+
+                  MouseArea {
+                    id: write4KQ1Area
+                    anchors.fill: parent
+                    hoverEnabled: true
+                  }
 
                   Text {
                     anchors.fill: parent
