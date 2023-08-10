@@ -14,14 +14,31 @@ ApplicationWindow {
   flags: Qt.Window | Qt.WindowFixedSize
 
   property System system: System {}
+
   property string seq1MRead: "0.00"
+  property string seq1MReadIOPS: "0.00"
+
   property string seq1MWrite: "0.00"
+  property string seq1MWriteIOPS: "0.00"
+
   property string seq128KRead: "0.00"
+  property string seq128KReadIOPS: "0.00"
+
   property string seq128KWrite: "0.00"
-  property string rand4KQ1T1Read: "0.00"
-  property string rand4KQ1T1Write: "0.00"
+  property string seq128KWriteIOPS: "0.00"
+
   property string rand4KQ32T1Read: "0.00"
+  property string rand4KQ32T1ReadIOPS: "0.00"
+
   property string rand4KQ32T1Write: "0.00"
+  property string rand4KQ32T1WriteIOPS: "0.00"
+
+  property string rand4KQ1T1Read: "0.00"
+  property string rand4KQ1T1ReadIOPS: "0.00"
+
+  property string rand4KQ1T1Write: "0.00"
+  property string rand4KQ1T1WriteIOPS: "0.00"
+
   property string cpuName: system.extract_cpu()
   property string ssdName: system.extract_ssd()
   property string storage: system.extract_storage()
@@ -53,7 +70,9 @@ ApplicationWindow {
 
   function runAllBenchmarks() {
     seq1MRead = ""
+    seq1MReadIOPS = ""
     seq1MWrite = ""
+    seq1MWriteIOPS = ""
     isBenchmarkingInProgress = true
     builder.seq1mq8t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
                            combo.currentText, benchmark, true)
@@ -63,13 +82,28 @@ ApplicationWindow {
     target: benchmark
 
     function onSeq1MReadFinished(bandwidth, is_all) {
-      window.seq1MRead = bandwidth
+      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      if (values) {
+        var readBandwidth = values[1]
+        var iops = values[2]
+      }
+
+      window.seq1MRead = readBandwidth
+      window.seq1MReadIOPS = iops
       builder.seq1mq8t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
                               combo.currentText, benchmark, is_all)
     }
 
     function onSeq1MWriteFinished(bandwidth, is_all) {
-      window.seq1MWrite = bandwidth
+      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      if (values) {
+        var readBandwidth = values[1]
+        var iops = values[2]
+      }
+
+      window.seq1MWrite = readBandwidth
+      window.seq1MWriteIOPS = iops
+
       if (is_all) {
         isBenchmarkingInProgress = true
         seq128KRead = ""
@@ -83,13 +117,28 @@ ApplicationWindow {
     }
 
     function onSeq128KReadFinished(bandwidth, is_all) {
-      window.seq128KRead = bandwidth
+      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      if (values) {
+        var readBandwidth = values[1]
+        var iops = values[2]
+      }
+
+      window.seq128KRead = readBandwidth
+      window.seq128KReadIOPS = iops
       builder.seq128Kq8t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
                                 combo.currentText, benchmark, is_all)
     }
 
     function onSeq128KWriteFinished(bandwidth, is_all) {
-      window.seq128KWrite = bandwidth
+      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      if (values) {
+        var readBandwidth = values[1]
+        var iops = values[2]
+      }
+
+      window.seq128KWrite = readBandwidth
+      window.seq128KWriteIOPS = iops
+
       if (is_all) {
         isBenchmarkingInProgress = true
         rand4KQ32T1Read = ""
@@ -102,13 +151,28 @@ ApplicationWindow {
     }
 
     function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
-      window.rand4KQ32T1Read = bandwidth
+      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      if (values) {
+        var readBandwidth = values[1]
+        var iops = values[2]
+      }
+
+      window.rand4KQ32T1Read = readBandwidth
+      window.rand4KQ32T1ReadIOPS = iops
       builder.rnd4kq32t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
                                combo.currentText, benchmark, is_all)
     }
 
     function onRand4KQ32T1WriteFinished(bandwidth, is_all) {
-      window.rand4KQ32T1Write = bandwidth
+      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      if (values) {
+        var readBandwidth = values[1]
+        var iops = values[2]
+      }
+
+      window.rand4KQ32T1Write = readBandwidth
+      window.rand4KQ32T1WriteIOPS = iops
+
       if (is_all) {
         isBenchmarkingInProgress = true
         rand4KQ1T1Read = ""
@@ -121,14 +185,29 @@ ApplicationWindow {
     }
 
     function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
-      window.rand4KQ1T1Read = bandwidth
+      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      if (values) {
+        var readBandwidth = values[1]
+        var iops = values[2]
+      }
+
+      window.rand4KQ1T1Read = readBandwidth
+      window.rand4KQ1T1ReadIOPS = iops
+
       builder.rnd4kq1t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
                               combo.currentText, benchmark, is_all)
     }
 
     function onRand4KQ1T1WriteFinished(bandwidth, is_all) {
       isBenchmarkingInProgress = false
-      window.rand4KQ1T1Write = bandwidth
+      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      if (values) {
+        var readBandwidth = values[1]
+        var iops = values[2]
+      }
+
+      window.rand4KQ1T1Write = readBandwidth
+      window.rand4KQ1T1WriteIOPS = iops
     }
   }
 
@@ -634,7 +713,9 @@ ApplicationWindow {
 
                   onClicked: {
                     window.seq1MRead = ""
+                    window.seq1MReadIOPS = ""
                     window.seq1MWrite = ""
+                    window.seq1MWriteIOPS = ""
                     isBenchmarkingInProgress = true
                     builder.seq1mq8t1_read(parseInt(comboGiB.currentText.match(
                                                       /\d+/)[0]),
@@ -653,8 +734,8 @@ ApplicationWindow {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: window.seq1MRead
-                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  property string toolTipText: window.seq1MRead + " MB/s<br>0.000 GB/s<br> "
+                                               + seq1MReadIOPS + " IOPS<br>0.000 μs"
                   ToolTip.visible: toolTipText ? read1MArea.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -682,8 +763,8 @@ ApplicationWindow {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: window.seq1MWrite
-                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  property string toolTipText: window.seq1MWrite + " MB/s<br>0.000 GB/s<br> "
+                                               + seq1MWriteIOPS + " IOPS<br>0.000 μs"
                   ToolTip.visible: toolTipText ? write1MArea.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -748,7 +829,9 @@ ApplicationWindow {
 
                   onClicked: {
                     window.seq128KRead = ""
+                    window.seq128KReadIOPS = ""
                     window.seq128KWrite = ""
+                    window.seq128KWriteIOPS = ""
                     isBenchmarkingInProgress = true
                     builder.seq128Kq8t1_read(
                           parseInt(comboGiB.currentText.match(/\d+/)[0]),
@@ -766,8 +849,8 @@ ApplicationWindow {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: window.seq128KRead
-                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  property string toolTipText: window.seq128KRead + " MB/s<br>0.000 GB/s<br> "
+                                               + seq128KReadIOPS + " IOPS<br>0.000 μs"
                   ToolTip.visible: toolTipText ? read128KArea.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -794,8 +877,8 @@ ApplicationWindow {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: window.seq128KWrite
-                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  property string toolTipText: window.seq128KWrite + " MB/s<br>0.000 GB/s<br> "
+                                               + seq128KWriteIOPS + " IOPS<br>0.000 μs"
                   ToolTip.visible: toolTipText ? write128KArea.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -860,7 +943,9 @@ ApplicationWindow {
 
                   onClicked: {
                     window.rand4KQ32T1Read = ""
+                    window.rand4KQ32T1ReadIOPS = ""
                     window.rand4KQ32T1Write = ""
+                    window.rand4KQ32T1WriteIOPS = ""
                     isBenchmarkingInProgress = true
                     builder.rnd4kq32t1_read(parseInt(comboGiB.currentText.match(
                                                        /\d+/)[0]),
@@ -878,8 +963,8 @@ ApplicationWindow {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: window.rand4KQ32T1Read
-                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  property string toolTipText: window.rand4KQ32T1Read + " MB/s<br>0.000 GB/s<br> "
+                                               + rand4KQ32T1ReadIOPS + " IOPS<br>0.000 μs"
                   ToolTip.visible: toolTipText ? read4KQ32Area.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -906,8 +991,8 @@ ApplicationWindow {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: window.rand4KQ32T1Write
-                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  property string toolTipText: window.rand4KQ32T1Write + " MB/s<br>0.000 GB/s<br> "
+                                               + rand4KQ32T1WriteIOPS + " IOPS<br>0.000 μs"
                   ToolTip.visible: toolTipText ? write4KQ32Area.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -972,7 +1057,9 @@ ApplicationWindow {
 
                   onClicked: {
                     window.rand4KQ1T1Read = ""
+                    window.rand4KQ1T1ReadIOPS = ""
                     window.rand4KQ1T1Write = ""
+                    window.rand4KQ1T1WriteIOPS = ""
                     isBenchmarkingInProgress = true
                     builder.rnd4kq1t1_read(parseInt(comboGiB.currentText.match(
                                                       /\d+/)[0]),
@@ -990,8 +1077,9 @@ ApplicationWindow {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: window.rand4KQ1T1Read
-                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  property string toolTipText: window.rand4KQ1T1Read + " MB/s<br>0.000 GB/s<br> "
+                                               + rand4KQ1T1ReadIOPS + " IOPS<br>0.000 μs"
+
                   ToolTip.visible: toolTipText ? read4KQ1Area.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -1018,8 +1106,8 @@ ApplicationWindow {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: window.rand4KQ1T1Write
-                                               + " MB/s<br>0.000 GB/s<br>0.000 IOPS<br>0.000 μs"
+                  property string toolTipText: window.rand4KQ1T1Write + " MB/s<br>0.000 GB/s<br> "
+                                               + rand4KQ1T1WriteIOPS + " IOPS<br>0.000 μs"
                   ToolTip.visible: toolTipText ? write4KQ1Area.containsMouse : false
                   ToolTip.text: toolTipText
 

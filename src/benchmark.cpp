@@ -40,7 +40,8 @@ void Benchmark::run(const QString &options, const QString &detect, bool is_all) 
     std::remove("fio_results.txt");
 
     /// Extract bandwidth information from results.
-    QString bandwidth = extract_bandwidth(_results, detect);
+    QString bandwidth = extract_bandwidth(_results, detect)
+                        + " = " + extract_iops(_results, detect);
 
     /// Define a map of benchmark types to corresponding signals.
     std::unordered_map<QString, std::function<void(QString, bool)>> map = {
@@ -57,6 +58,9 @@ void Benchmark::run(const QString &options, const QString &detect, bool is_all) 
     /// Find the corresponding signal and emit it with the extracted bandwidth.
     auto it = map.find(detect);
     if (it != map.end()) it->second(bandwidth, is_all);
+
+    /// Clear the results vector after extracting necessary information.
+    _results.clear();
 }
 
 /**
@@ -79,8 +83,6 @@ QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QS
                 /// Extract the bandwidth value if the necessary markers are found.
                 if (start != std::string::npos && end != std::string::npos) {
                     std::string bandwidth = line.substr(start, end - start);
-                    /// Clear the results vector and return the extracted bandwidth.
-                    results.clear();
                     return QString::fromStdString(bandwidth);
                 }
             }
@@ -88,6 +90,36 @@ QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QS
     }
 
     /// Return an empty QString if the bandwidth information is not found.
+    return {};
+}
+
+/**
+ * @brief Extracts the IOPS information from the FIO results for a specific benchmark type.
+ *
+ * @param results The vector of FIO result logs.
+ * @param detect The type of benchmark being extracted (e.g., "SMREAD").
+ * @return The extracted bandwidth as a QString, or an empty QString if not found.
+ */
+QString Benchmark::extract_iops(std::vector<std::string> &results, const QString &detect) {
+    for (std::string &logs : results) {
+        std::string line;
+        std::istringstream log_stream(logs);
+
+        while (std::getline(log_stream, line)) {
+            /// Check if the line contains the IOPS information.
+            if (line.find(": IOPS=") != std::string::npos) {
+                size_t start = line.find("IOPS=") + 5;
+                size_t end = line.find(',', start);
+                /// Extract the IOPS value if the necessary markers are found.
+                if (start != std::string::npos && end != std::string::npos) {
+                    std::string iops = line.substr(start, end - start);
+                    return QString::fromStdString(iops);
+                }
+            }
+        }
+    }
+
+    /// Return an empty QString if the IOPS information is not found.
     return {};
 }
 

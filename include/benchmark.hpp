@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE QString extract_qstring_from_variant(const QVariant &variant) const;
     Q_INVOKABLE void run(const QString &options, const QString &detect, bool is_all);
     Q_INVOKABLE void start(const QString &command, const QString &detect, bool is_all);
+    Q_INVOKABLE static QString extract_iops(std::vector<std::string> &results, const QString &detect);
     Q_INVOKABLE static QString extract_bandwidth(std::vector<std::string> &results, const QString &detect);
 
 signals:
