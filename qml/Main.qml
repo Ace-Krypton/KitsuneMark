@@ -42,7 +42,9 @@ ApplicationWindow {
   property string cpuName: system.extract_cpu()
   property string ssdName: system.extract_ssd()
   property string storage: system.extract_storage()
+
   property int themeHeight: window.height
+
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
   property string currentWallpaper: "../img/default.jpg"
@@ -82,7 +84,7 @@ ApplicationWindow {
     target: benchmark
 
     function onSeq1MReadFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {
         var readBandwidth = values[1]
         var iops = values[2]
@@ -95,7 +97,7 @@ ApplicationWindow {
     }
 
     function onSeq1MWriteFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {
         var readBandwidth = values[1]
         var iops = values[2]
@@ -117,7 +119,7 @@ ApplicationWindow {
     }
 
     function onSeq128KReadFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {
         var readBandwidth = values[1]
         var iops = values[2]
@@ -130,7 +132,7 @@ ApplicationWindow {
     }
 
     function onSeq128KWriteFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {
         var readBandwidth = values[1]
         var iops = values[2]
@@ -151,7 +153,7 @@ ApplicationWindow {
     }
 
     function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {
         var readBandwidth = values[1]
         var iops = values[2]
@@ -164,7 +166,7 @@ ApplicationWindow {
     }
 
     function onRand4KQ32T1WriteFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {
         var readBandwidth = values[1]
         var iops = values[2]
@@ -185,7 +187,7 @@ ApplicationWindow {
     }
 
     function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {
         var readBandwidth = values[1]
         var iops = values[2]
@@ -200,7 +202,7 @@ ApplicationWindow {
 
     function onRand4KQ1T1WriteFinished(bandwidth, is_all) {
       isBenchmarkingInProgress = false
-      var values = bandwidth.match(/(\d+)\s*=\s*(\d+)/)
+      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {
         var readBandwidth = values[1]
         var iops = values[2]
