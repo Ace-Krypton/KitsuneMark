@@ -71,6 +71,8 @@ Popup {
 
     Button {
       text: qsTr("Close")
+      font.family: "Montserrat"
+
       anchors {
         horizontalCenter: parent.horizontalCenter
         bottom: parent.bottom

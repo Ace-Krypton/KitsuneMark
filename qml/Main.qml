@@ -14,6 +14,7 @@ ApplicationWindow {
 
   menuBar: MenuBar {
     spacing: 15
+    font.family: "Montserrat"
 
     Menu {
       title: qsTr("File")

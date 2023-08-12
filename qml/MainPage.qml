@@ -398,6 +398,7 @@ Item {
                     text: qsTr("ALL")
                     font.bold: true
                     font.pointSize: 20
+                    font.family: "Montserrat"
                   }
 
                   onClicked: {
@@ -427,6 +428,7 @@ Item {
                         ToolTip.timeout: 5000
                         ToolTip.visible: hovered
                         ToolTip.text: qsTr("Loop Count")
+                        font.family: "Montserrat"
 
                         model: ListModel {
                           ListElement {
@@ -468,6 +470,7 @@ Item {
                             font.pointSize: 15
                             anchors.centerIn: parent
                             font.bold: true
+                            font.family: "Montserrat"
                           }
                         }
 
@@ -492,6 +495,7 @@ Item {
                         ToolTip.timeout: 5000
                         ToolTip.visible: hovered
                         ToolTip.text: qsTr("Size")
+                        font.family: "Montserrat"
 
                         model: ListModel {
                           ListElement {
@@ -529,6 +533,7 @@ Item {
                             verticalAlignment: Text.AlignVCenter
                             font.pointSize: 15
                             font.bold: true
+                            font.family: "Montserrat"
                           }
                         }
 
@@ -553,6 +558,7 @@ Item {
                         ToolTip.timeout: 5000
                         ToolTip.visible: hovered
                         ToolTip.text: qsTr("Storage Info")
+                        font.family: "Montserrat"
 
                         model: ListModel {
                           Component.onCompleted: {
@@ -575,6 +581,7 @@ Item {
                             verticalAlignment: Text.AlignVCenter
                             font.pointSize: 15
                             font.bold: true
+                            font.family: "Montserrat"
                           }
                         }
 
@@ -599,6 +606,7 @@ Item {
                         ToolTip.timeout: 5000
                         ToolTip.visible: hovered
                         ToolTip.text: qsTr("Converter")
+                        font.family: "Montserrat"
 
                         model: ListModel {
                           ListElement {
@@ -624,6 +632,7 @@ Item {
                             verticalAlignment: Text.AlignVCenter
                             font.pointSize: 15
                             font.bold: true
+                            font.family: "Montserrat"
                           }
                         }
 
@@ -657,6 +666,7 @@ Item {
                         text: qsTr("Read [" + comboMB.currentText + ']')
                         font.bold: true
                         font.pointSize: 20
+                        font.family: "Montserrat"
                       }
                     }
 
@@ -673,6 +683,7 @@ Item {
                         text: qsTr("Write [" + comboMB.currentText + ']')
                         font.bold: true
                         font.pointSize: 20
+                        font.family: "Montserrat"
                       }
                     }
                   }
@@ -708,6 +719,7 @@ Item {
                   ToolTip.text: qsTr(
                                   "Sequential 1MiB<br>Queues=8<br>Threads=1<br>("
                                   + comboMB.currentText) + ')'
+                  font.family: "Montserrat"
 
                   signal benchmarkFinished(string bandwidth)
 
@@ -719,6 +731,7 @@ Item {
                     text: qsTr("SEQ1M<br>Q8T1")
                     font.bold: true
                     font.pointSize: 20
+                    font.family: "Montserrat"
                   }
 
                   onClicked: {
@@ -768,6 +781,7 @@ Item {
                     text: textChanger("seq1MRead")
                     font.bold: true
                     font.pointSize: 40
+                    font.family: "Montserrat"
                   }
                 }
 
@@ -799,6 +813,7 @@ Item {
                     text: textChanger("seq1MWrite")
                     font.bold: true
                     font.pointSize: 40
+                    font.family: "Montserrat"
                   }
                 }
               }
@@ -843,6 +858,7 @@ Item {
                     text: qsTr("SEQ128K<br>Q8T1")
                     font.bold: true
                     font.pointSize: 20
+                    font.family: "Montserrat"
                   }
 
                   onClicked: {
@@ -890,6 +906,7 @@ Item {
                     text: textChanger("seq128KRead")
                     font.bold: true
                     font.pointSize: 40
+                    font.family: "Montserrat"
                   }
                 }
 
@@ -920,6 +937,7 @@ Item {
                     text: textChanger("seq128KWrite")
                     font.bold: true
                     font.pointSize: 40
+                    font.family: "Montserrat"
                   }
                 }
               }
@@ -964,6 +982,7 @@ Item {
                     text: qsTr("RND4K<br>Q32T1")
                     font.bold: true
                     font.pointSize: 20
+                    font.family: "Montserrat"
                   }
 
                   onClicked: {
@@ -1012,6 +1031,7 @@ Item {
                     text: textChanger("rand4KQ32T1Read")
                     font.bold: true
                     font.pointSize: 40
+                    font.family: "Montserrat"
                   }
                 }
 
@@ -1043,6 +1063,7 @@ Item {
                     text: textChanger("rand4KQ32T1Write")
                     font.bold: true
                     font.pointSize: 40
+                    font.family: "Montserrat"
                   }
                 }
               }
@@ -1087,6 +1108,7 @@ Item {
                     text: qsTr("RND4K<br>Q1T1")
                     font.bold: true
                     font.pointSize: 20
+                    font.family: "Montserrat"
                   }
 
                   onClicked: {
@@ -1136,6 +1158,7 @@ Item {
                     text: textChanger("rand4KQ1T1Read")
                     font.bold: true
                     font.pointSize: 40
+                    font.family: "Montserrat"
                   }
                 }
 
@@ -1167,6 +1190,7 @@ Item {
                     font.bold: true
                     text: textChanger("rand4KQ1T1Write")
                     font.pointSize: 40
+                    font.family: "Montserrat"
                   }
                 }
               }
@@ -1186,6 +1210,7 @@ Item {
                 text: qsTr(ssdName + ' / ' + cpuName)
                 font.bold: true
                 font.pointSize: 20
+                font.family: "Montserrat"
               }
             }
           }
