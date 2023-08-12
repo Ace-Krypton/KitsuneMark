@@ -27,7 +27,7 @@ Popup {
         Image {
           width: imageContainer.width
           height: imageContainer.height
-          source: "file:////home/draco/Downloads/key-performance-indicator.png"
+          source: "../img/about.png"
           anchors.centerIn: parent
           fillMode: Image.PreserveAspectFit
         }
