@@ -90,6 +90,7 @@ ApplicationWindow {
 
       Action {
         text: qsTr("About")
+        onTriggered: aboutPage.visible = true
       }
 
       Action {
@@ -98,6 +99,11 @@ ApplicationWindow {
     }
   }
 
-  MainPage {}
-  About {}
+  MainPage {
+    id: mainPage
+  }
+
+  About {
+    id: aboutPage
+  }
 }

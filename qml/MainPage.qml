@@ -990,7 +990,8 @@ Item {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: mainPage.rand4KQ32T1Read + " MB/s<br>" + convertMBtoGB(
+                  property string toolTipText: mainPage.rand4KQ32T1Read
+                                               + " MB/s<br>" + convertMBtoGB(
                                                  mainPage.rand4KQ32T1Read,
                                                  "rand4KQ32T1Read") + " GB/s<br>"
                                                + rand4KQ32T1ReadIOPS + " IOPS"
@@ -1112,7 +1113,8 @@ Item {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: mainPage.rand4KQ1T1Read + " MB/s<br>" + convertMBtoGB(
+                  property string toolTipText: mainPage.rand4KQ1T1Read
+                                               + " MB/s<br>" + convertMBtoGB(
                                                  mainPage.rand4KQ1T1Read,
                                                  "rand4KQ1T1Read") + " GB/s<br>"
                                                + rand4KQ1T1ReadIOPS + " IOPS"
@@ -1143,7 +1145,8 @@ Item {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: mainPage.rand4KQ1T1Write + " MB/s<br>" + convertMBtoGB(
+                  property string toolTipText: mainPage.rand4KQ1T1Write
+                                               + " MB/s<br>" + convertMBtoGB(
                                                  mainPage.rand4KQ1T1Write,
                                                  "rand4KQ1T1Write") + " GB/s<br>"
                                                + rand4KQ1T1WriteIOPS + " IOPS"
