@@ -5,4 +5,8 @@
         <file>img/default.jpg</file>
         <file>img/reki.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>qml/About.qml</file>
+        <file>qml/Main.qml</file>
+    </qresource>
 </RCC>
