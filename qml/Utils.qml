@@ -1,6 +1,12 @@
 import QtQuick
 
 QtObject {
+  function resetBenchmarking(mainPage, benchmarks) {
+    benchmarks.forEach(benchmark => {
+                         mainPage[benchmark] = ""
+                       })
+  }
+
   function runAllBenchmarks(comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const benchmarksToReset = ["seq1MRead", "seq1MReadIOPS", "seq1MReadGB", "seq1MWrite", "seq1MWriteIOPS", "seq1MWriteGB"]
 

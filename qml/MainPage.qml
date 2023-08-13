@@ -61,52 +61,42 @@ Item {
       utils.handlingFailure(detect, mainPage)
     }
 
+    function handleFinishedBenchmark(bandwidth, is_all, runFunction) {
+      const gibText = comboGiB.currentText.match(/\d+/)[0]
+      const comboText = combo.currentText
+      runFunction(bandwidth, is_all, gibText, comboText, mainPage)
+    }
+
     function onSeq1MReadFinished(bandwidth, is_all) {
-      utils.runSeq1MRead(bandwidth, is_all,
-                         comboGiB.currentText.match(/\d+/)[0],
-                         combo.currentText, mainPage)
+      handleFinishedBenchmark(bandwidth, is_all, utils.runSeq1MRead)
     }
 
     function onSeq1MWriteFinished(bandwidth, is_all) {
-      utils.runSeq1MWrite(bandwidth, is_all,
-                          comboGiB.currentText.match(/\d+/)[0],
-                          combo.currentText, mainPage)
+      handleFinishedBenchmark(bandwidth, is_all, utils.runSeq1MWrite)
     }
 
     function onSeq128KReadFinished(bandwidth, is_all) {
-      utils.runSeq128KRead(bandwidth, is_all,
-                           comboGiB.currentText.match(/\d+/)[0],
-                           combo.currentText, mainPage)
+      handleFinishedBenchmark(bandwidth, is_all, utils.runSeq128KRead)
     }
 
     function onSeq128KWriteFinished(bandwidth, is_all) {
-      utils.runSeq128KWrite(bandwidth, is_all,
-                            comboGiB.currentText.match(/\d+/)[0],
-                            combo.currentText, mainPage)
+      handleFinishedBenchmark(bandwidth, is_all, utils.runSeq128KWrite)
     }
 
     function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
-      utils.runRand4KQ32T1Read(bandwidth, is_all,
-                               comboGiB.currentText.match(/\d+/)[0],
-                               combo.currentText, mainPage)
+      handleFinishedBenchmark(bandwidth, is_all, utils.runRand4KQ32T1Read)
     }
 
     function onRand4KQ32T1WriteFinished(bandwidth, is_all) {
-      utils.runRand4KQ32T1Write(bandwidth, is_all,
-                                comboGiB.currentText.match(/\d+/)[0],
-                                combo.currentText, mainPage)
+      handleFinishedBenchmark(bandwidth, is_all, utils.runRand4KQ32T1Write)
     }
 
     function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
-      utils.runRand4KQ1T1Read(bandwidth, is_all,
-                              comboGiB.currentText.match(/\d+/)[0],
-                              combo.currentText, mainPage)
+      handleFinishedBenchmark(bandwidth, is_all, utils.runRand4KQ1T1Read)
     }
 
     function onRand4KQ1T1WriteFinished(bandwidth, is_all) {
-      utils.runRand4KQ1T1Write(bandwidth, is_all,
-                               comboGiB.currentText.match(/\d+/)[0],
-                               combo.currentText, mainPage)
+      handleFinishedBenchmark(bandwidth, is_all, utils.runRand4KQ1T1Write)
     }
   }
 
@@ -541,16 +531,15 @@ Item {
                   }
 
                   onClicked: {
-                    mainPage.seq1MRead = ""
-                    mainPage.seq1MReadIOPS = ""
-                    mainPage.seq1MReadGB = ""
-                    mainPage.seq1MWrite = ""
-                    mainPage.seq1MWriteIOPS = ""
-                    mainPage.seq1MWriteGB = ""
+                    utils.resetBenchmarking(
+                          mainPage,
+                          ["seq1MRead", "seq1MReadIOPS", "seq1MReadGB", "seq1MWrite", "seq1MWriteIOPS", "seq1MWriteGB"])
+
                     isBenchmarkingInProgress = true
-                    builder.seq1mq8t1_read(parseInt(comboGiB.currentText.match(
-                                                      /\d+/)[0]),
-                                           combo.currentText, benchmark, false)
+                    const gibText = comboGiB.currentText.match(/\d+/)[0]
+                    const comboText = combo.currentText
+                    builder.seq1mq8t1_read(parseInt(gibText), comboText,
+                                           benchmark, false)
                   }
                 }
               }
@@ -672,16 +661,15 @@ Item {
                   }
 
                   onClicked: {
-                    mainPage.seq128KRead = ""
-                    mainPage.seq128KReadIOPS = ""
-                    mainPage.seq128KReadGB = ""
-                    mainPage.seq128KWrite = ""
-                    mainPage.seq128KWriteIOPS = ""
-                    mainPage.seq128KWriteGB = ""
+                    utils.resetBenchmarking(
+                          mainPage,
+                          ["seq128KRead", "seq128KReadIOPS", "seq128KReadGB", "seq128KWrite", "seq128KWriteIOPS", "seq128KWriteGB"])
+
                     isBenchmarkingInProgress = true
-                    builder.seq128Kq8t1_read(
-                          parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                          combo.currentText, benchmark, false)
+                    const gibText = comboGiB.currentText.match(/\d+/)[0]
+                    const comboText = combo.currentText
+                    builder.seq128Kq8t1_read(parseInt(gibText), comboText,
+                                             benchmark, false)
                   }
                 }
               }
@@ -801,16 +789,15 @@ Item {
                   }
 
                   onClicked: {
-                    mainPage.rand4KQ32T1Read = ""
-                    mainPage.rand4KQ32T1ReadIOPS = ""
-                    mainPage.rand4KQ32T1ReadGB = ""
-                    mainPage.rand4KQ32T1Write = ""
-                    mainPage.rand4KQ32T1WriteIOPS = ""
-                    mainPage.rand4KQ32T1WriteGB = ""
+                    resetBenchmarking(
+                          mainPage,
+                          ["rand4KQ32T1Read", "rand4KQ32T1ReadIOPS", "rand4KQ32T1ReadGB", "rand4KQ32T1Write", "rand4KQ32T1WriteIOPS", "rand4KQ32T1WriteGB"])
+
                     isBenchmarkingInProgress = true
-                    builder.rnd4kq32t1_read(parseInt(comboGiB.currentText.match(
-                                                       /\d+/)[0]),
-                                            combo.currentText, benchmark, false)
+                    const gibText = comboGiB.currentText.match(/\d+/)[0]
+                    const comboText = combo.currentText
+                    builder.rnd4kq32t1_read(parseInt(gibText), comboText,
+                                            benchmark, false)
                   }
                 }
               }
@@ -931,16 +918,15 @@ Item {
                   }
 
                   onClicked: {
-                    mainPage.rand4KQ1T1Read = ""
-                    mainPage.rand4KQ1T1ReadIOPS = ""
-                    mainPage.rand4KQ1T1ReadGB = ""
-                    mainPage.rand4KQ1T1Write = ""
-                    mainPage.rand4KQ1T1WriteIOPS = ""
-                    mainPage.rand4KQ1T1WriteGB = ""
+                    resetBenchmarking(
+                          mainPage,
+                          ["rand4KQ1T1Read", "rand4KQ1T1ReadIOPS", "rand4KQ1T1ReadGB", "rand4KQ1T1Write", "rand4KQ1T1WriteIOPS", "rand4KQ1T1WriteGB"])
+
                     isBenchmarkingInProgress = true
-                    builder.rnd4kq1t1_read(parseInt(comboGiB.currentText.match(
-                                                      /\d+/)[0]),
-                                           combo.currentText, benchmark, false)
+                    const gibText = comboGiB.currentText.match(/\d+/)[0]
+                    const comboText = combo.currentText
+                    builder.rnd4kq1t1_read(parseInt(gibText), comboText,
+                                           benchmark, false)
                   }
                 }
               }
