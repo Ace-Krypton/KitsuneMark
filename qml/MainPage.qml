@@ -429,6 +429,7 @@ Item {
                         ToolTip.visible: hovered
                         ToolTip.text: qsTr("Loop Count")
                         font.family: "Montserrat"
+                        enabled: !isBenchmarkingInProgress
 
                         model: ListModel {
                           ListElement {
@@ -496,6 +497,7 @@ Item {
                         ToolTip.visible: hovered
                         ToolTip.text: qsTr("Size")
                         font.family: "Montserrat"
+                        enabled: !isBenchmarkingInProgress
 
                         model: ListModel {
                           ListElement {
@@ -559,6 +561,7 @@ Item {
                         ToolTip.visible: hovered
                         ToolTip.text: qsTr("Storage Info")
                         font.family: "Montserrat"
+                        enabled: !isBenchmarkingInProgress
 
                         model: ListModel {
                           Component.onCompleted: {
