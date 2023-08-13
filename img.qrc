@@ -8,5 +8,6 @@
     <qresource prefix="/">
         <file>qml/About.qml</file>
         <file>qml/Main.qml</file>
+        <file>qml/Utils.qml</file>
     </qresource>
 </RCC>

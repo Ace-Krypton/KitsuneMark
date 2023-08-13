@@ -67,22 +67,22 @@ ApplicationWindow {
 
       Action {
         text: qsTr("Angel")
-        onTriggered: mainPage.changeWallpaper("Angel")
+        onTriggered: funcUtils.changeWallpaper("Angel", mainPage)
       }
 
       Action {
         text: qsTr("Reki")
-        onTriggered: mainPage.changeWallpaper("Reki")
+        onTriggered: funcUtils.changeWallpaper("Reki", mainPage)
       }
 
       Action {
         text: qsTr("Aria")
-        onTriggered: mainPage.changeWallpaper("Aria")
+        onTriggered: funcUtils.changeWallpaper("Aria", mainPage)
       }
 
       Action {
         text: qsTr("Default")
-        onTriggered: mainPage.changeWallpaper("Default")
+        onTriggered: funcUtils.changeWallpaper("Default", mainPage)
       }
     }
 
@@ -98,6 +98,10 @@ ApplicationWindow {
         text: qsTr("Language")
       }
     }
+  }
+
+  Utils {
+    id: funcUtils
   }
 
   MainPage {

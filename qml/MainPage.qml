@@ -9,6 +9,7 @@ Item {
   width: 1221
   height: 674
 
+  property Utils utils: Utils {}
   property System system: System {}
 
   property string seq1MRead: "0.00"
@@ -52,129 +53,6 @@ Item {
   property bool isBenchmarkingInProgress: false
   property bool isAngelOrAria: false
   property string currentWallpaper: "../img/default.jpg"
-
-  function changeWallpaper(theme) {
-    switch (theme) {
-    case "Angel":
-      currentWallpaper = "../img/angel.jpg"
-      isAngelOrAria = true
-      break
-    case "Reki":
-      currentWallpaper = "../img/reki.png"
-      isAngelOrAria = false
-      break
-    case "Aria":
-      currentWallpaper = "../img/aria.jpg"
-      isAngelOrAria = true
-      break
-    case "Default":
-      currentWallpaper = "../img/default.jpg"
-      isAngelOrAria = false
-      break
-    }
-  }
-
-  function convertMBtoGB(speedInMBps, type) {
-    if (speedInMBps === "")
-      return ""
-    const speedInGBps = speedInMBps / 1024
-
-    switch (type) {
-    case "seq1MRead":
-      return seq1MReadGB = speedInGBps.toFixed(3)
-    case "seq1MWrite":
-      return seq1MWriteGB = speedInGBps.toFixed(3)
-    case "seq128KRead":
-      return seq128KReadGB = speedInGBps.toFixed(3)
-    case "seq128KWrite":
-      return seq128KWriteGB = speedInGBps.toFixed(3)
-    case "rand4KQ32T1Read":
-      return rand4KQ32T1ReadGB = speedInGBps.toFixed(3)
-    case "rand4KQ32T1Write":
-      return rand4KQ32T1WriteGB = speedInGBps.toFixed(3)
-    case "rand4KQ1T1Read":
-      return rand4KQ1T1ReadGB = speedInGBps.toFixed(3)
-    case "rand4KQ1T1Write":
-      return rand4KQ1T1WriteGB = speedInGBps.toFixed(3)
-    }
-  }
-
-  function textChanger(type) {
-    switch (comboMB.currentText) {
-    case "MB/s":
-      switch (type) {
-      case "seq1MRead":
-        return seq1MRead
-      case "seq1MWrite":
-        return seq1MWrite
-      case "seq128KRead":
-        return seq128KRead
-      case "seq128KWrite":
-        return seq128KWrite
-      case "rand4KQ32T1Read":
-        return rand4KQ32T1Read
-      case "rand4KQ32T1Write":
-        return rand4KQ32T1Write
-      case "rand4KQ1T1Read":
-        return rand4KQ1T1Read
-      case "rand4KQ1T1Write":
-        return rand4KQ1T1Write
-      }
-      break
-    case "GB/s":
-      switch (type) {
-      case "seq1MRead":
-        return seq1MReadGB
-      case "seq1MWrite":
-        return seq1MWriteGB
-      case "seq128KRead":
-        return convertMBtoGB(seq128KRead, "seq128KRead")
-      case "seq128KWrite":
-        return convertMBtoGB(seq128KWrite, "seq128KWrite")
-      case "rand4KQ32T1Read":
-        return convertMBtoGB(rand4KQ32T1Read, "rand4KQ32T1Read")
-      case "rand4KQ32T1Write":
-        return convertMBtoGB(rand4KQ32T1Write, "rand4KQ32T1Write")
-      case "rand4KQ1T1Read":
-        return convertMBtoGB(rand4KQ1T1Read, "rand4KQ1T1Read")
-      case "rand4KQ1T1Write":
-        return convertMBtoGB(rand4KQ1T1Write, "rand4KQ1T1Write")
-      }
-      break
-    case "IOPS":
-      switch (type) {
-      case "seq1MRead":
-        return seq1MReadIOPS
-      case "seq1MWrite":
-        return seq1MWriteIOPS
-      case "seq128KRead":
-        return seq128KReadIOPS
-      case "seq128KWrite":
-        return seq128KWriteIOPS
-      case "rand4KQ32T1Read":
-        return rand4KQ32T1ReadIOPS
-      case "rand4KQ32T1Write":
-        return rand4KQ32T1WriteIOPS
-      case "rand4KQ1T1Read":
-        return rand4KQ1T1ReadIOPS
-      case "rand4KQ1T1Write":
-        return rand4KQ1T1WriteIOPS
-      }
-      break
-    }
-  }
-
-  function runAllBenchmarks() {
-    seq1MRead = ""
-    seq1MReadIOPS = ""
-    seq1MReadGB = ""
-    seq1MWrite = ""
-    seq1MWriteIOPS = ""
-    seq1MWriteGB = ""
-    isBenchmarkingInProgress = true
-    builder.seq1mq8t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                           combo.currentText, benchmark, true)
-  }
 
   Connections {
     target: benchmark
@@ -244,7 +122,9 @@ Item {
       if (is_all) {
         isBenchmarkingInProgress = true
         seq128KRead = ""
+        seq128KReadIOPS = ""
         seq128KWrite = ""
+        seq128KWriteIOPS = ""
         builder.seq128Kq8t1_read(parseInt(comboGiB.currentText.match(
                                             /\d+/)[0]), combo.currentText,
                                  benchmark, is_all)
@@ -279,7 +159,9 @@ Item {
       if (is_all) {
         isBenchmarkingInProgress = true
         rand4KQ32T1Read = ""
+        rand4KQ32T1ReadIOPS = ""
         rand4KQ32T1Write = ""
+        rand4KQ32T1WriteIOPS = ""
         builder.rnd4kq32t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
                                 combo.currentText, benchmark, is_all)
       } else {
@@ -313,7 +195,9 @@ Item {
       if (is_all) {
         isBenchmarkingInProgress = true
         rand4KQ1T1Read = ""
+        rand4KQ1T1ReadIOPS = ""
         rand4KQ1T1Write = ""
+        rand4KQ1T1WriteIOPS = ""
         builder.rnd4kq1t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
                                combo.currentText, benchmark, is_all)
       } else {
@@ -441,7 +325,9 @@ Item {
                   }
 
                   onClicked: {
-                    runAllBenchmarks()
+                    utils.runAllBenchmarks(comboGiB.currentText.match(
+                                             /\d+/)[0],
+                                           combo.currentText, mainPage)
                   }
                 }
               }
@@ -801,10 +687,11 @@ Item {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: mainPage.seq1MRead + " MB/s<br>" + convertMBtoGB(
+                  property string toolTipText: mainPage.seq1MRead + " MB/s<br>"
+                                               + utils.convertMBtoGB(
                                                  mainPage.seq1MRead,
-                                                 "seq1MRead") + " GB/s<br>"
-                                               + seq1MReadIOPS + " IOPS"
+                                                 "seq1MRead",
+                                                 mainPage) + " GB/s<br>" + seq1MReadIOPS + " IOPS"
                   ToolTip.visible: toolTipText ? read1MArea.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -820,7 +707,8 @@ Item {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: textChanger("seq1MRead")
+                    text: utils.textChanger("seq1MRead", mainPage,
+                                            comboMB.currentText)
                     font.bold: true
                     font.pointSize: 40
                     font.family: "Montserrat"
@@ -834,10 +722,11 @@ Item {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: mainPage.seq1MWrite + " MB/s<br>" + convertMBtoGB(
+                  property string toolTipText: mainPage.seq1MWrite + " MB/s<br>"
+                                               + utils.convertMBtoGB(
                                                  mainPage.seq1MWrite,
-                                                 "seq1MWrite") + " GB/s<br>"
-                                               + seq1MWriteIOPS + " IOPS"
+                                                 "seq1MWrite",
+                                                 mainPage) + " GB/s<br>" + seq1MWriteIOPS + " IOPS"
                   ToolTip.visible: toolTipText ? write1MArea.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -852,7 +741,8 @@ Item {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: textChanger("seq1MWrite")
+                    text: utils.textChanger("seq1MWrite", mainPage,
+                                            comboMB.currentText)
                     font.bold: true
                     font.pointSize: 40
                     font.family: "Montserrat"
@@ -927,10 +817,11 @@ Item {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: mainPage.seq128KRead + " MB/s<br>" + convertMBtoGB(
+                  property string toolTipText: mainPage.seq128KRead + " MB/s<br>"
+                                               + utils.convertMBtoGB(
                                                  mainPage.seq128KRead,
-                                                 "seq128KRead") + " GB/s<br>"
-                                               + seq128KReadIOPS + " IOPS"
+                                                 "seq128KRead",
+                                                 mainPage) + " GB/s<br>" + seq128KReadIOPS + " IOPS"
                   ToolTip.visible: toolTipText ? read128KArea.containsMouse : false
                   ToolTip.text: toolTipText
 
@@ -945,7 +836,8 @@ Item {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: textChanger("seq128KRead")
+                    text: utils.textChanger("seq128KRead", mainPage,
+                                            comboMB.currentText)
                     font.bold: true
                     font.pointSize: 40
                     font.family: "Montserrat"
@@ -958,9 +850,11 @@ Item {
                   height: 100
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
-                  property string toolTipText: mainPage.seq128KWrite + " MB/s<br>" + convertMBtoGB(
+                  property string toolTipText: mainPage.seq128KWrite + " MB/s<br>"
+                                               + utils.convertMBtoGB(
                                                  mainPage.seq128KWrite,
-                                                 "seq128KWrite") + " GB/s<br>"
+                                                 "seq128KWrite",
+                                                 mainPage) + " GB/s<br>"
                                                + seq128KWriteIOPS + " IOPS"
                   ToolTip.visible: toolTipText ? write128KArea.containsMouse : false
                   ToolTip.text: toolTipText
@@ -976,7 +870,8 @@ Item {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: textChanger("seq128KWrite")
+                    text: utils.textChanger("seq128KWrite", mainPage,
+                                            comboMB.currentText)
                     font.bold: true
                     font.pointSize: 40
                     font.family: "Montserrat"
@@ -1052,9 +947,10 @@ Item {
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
                   property string toolTipText: mainPage.rand4KQ32T1Read
-                                               + " MB/s<br>" + convertMBtoGB(
+                                               + " MB/s<br>" + utils.convertMBtoGB(
                                                  mainPage.rand4KQ32T1Read,
-                                                 "rand4KQ32T1Read") + " GB/s<br>"
+                                                 "rand4KQ32T1Read",
+                                                 mainPage) + " GB/s<br>"
                                                + rand4KQ32T1ReadIOPS + " IOPS"
                   ToolTip.visible: toolTipText ? read4KQ32Area.containsMouse : false
                   ToolTip.text: toolTipText
@@ -1070,7 +966,8 @@ Item {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: textChanger("rand4KQ32T1Read")
+                    text: utils.textChanger("rand4KQ32T1Read", mainPage,
+                                            comboMB.currentText)
                     font.bold: true
                     font.pointSize: 40
                     font.family: "Montserrat"
@@ -1084,9 +981,10 @@ Item {
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
                   property string toolTipText: mainPage.rand4KQ32T1Write
-                                               + " MB/s<br>" + convertMBtoGB(
+                                               + " MB/s<br>" + utils.convertMBtoGB(
                                                  mainPage.rand4KQ32T1Write,
-                                                 "rand4KQ32T1Write") + " GB/s<br>"
+                                                 "rand4KQ32T1Write",
+                                                 mainPage) + " GB/s<br>"
                                                + rand4KQ32T1WriteIOPS + " IOPS"
                   ToolTip.visible: toolTipText ? write4KQ32Area.containsMouse : false
                   ToolTip.text: toolTipText
@@ -1102,7 +1000,8 @@ Item {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: textChanger("rand4KQ32T1Write")
+                    text: utils.textChanger("rand4KQ32T1Write", mainPage,
+                                            comboMB.currentText)
                     font.bold: true
                     font.pointSize: 40
                     font.family: "Montserrat"
@@ -1178,9 +1077,10 @@ Item {
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
                   property string toolTipText: mainPage.rand4KQ1T1Read
-                                               + " MB/s<br>" + convertMBtoGB(
+                                               + " MB/s<br>" + utils.convertMBtoGB(
                                                  mainPage.rand4KQ1T1Read,
-                                                 "rand4KQ1T1Read") + " GB/s<br>"
+                                                 "rand4KQ1T1Read",
+                                                 mainPage) + " GB/s<br>"
                                                + rand4KQ1T1ReadIOPS + " IOPS"
 
                   ToolTip.visible: toolTipText ? read4KQ1Area.containsMouse : false
@@ -1197,7 +1097,8 @@ Item {
                     anchors.rightMargin: 10
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
-                    text: textChanger("rand4KQ1T1Read")
+                    text: utils.textChanger("rand4KQ1T1Read", mainPage,
+                                            comboMB.currentText)
                     font.bold: true
                     font.pointSize: 40
                     font.family: "Montserrat"
@@ -1211,9 +1112,10 @@ Item {
                   ToolTip.delay: 500
                   ToolTip.timeout: 5000
                   property string toolTipText: mainPage.rand4KQ1T1Write
-                                               + " MB/s<br>" + convertMBtoGB(
+                                               + " MB/s<br>" + utils.convertMBtoGB(
                                                  mainPage.rand4KQ1T1Write,
-                                                 "rand4KQ1T1Write") + " GB/s<br>"
+                                                 "rand4KQ1T1Write",
+                                                 mainPage) + " GB/s<br>"
                                                + rand4KQ1T1WriteIOPS + " IOPS"
                   ToolTip.visible: toolTipText ? write4KQ1Area.containsMouse : false
                   ToolTip.text: toolTipText
@@ -1230,7 +1132,8 @@ Item {
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment: Text.AlignVCenter
                     font.bold: true
-                    text: textChanger("rand4KQ1T1Write")
+                    text: utils.textChanger("rand4KQ1T1Write", mainPage,
+                                            comboMB.currentText)
                     font.pointSize: 40
                     font.family: "Montserrat"
                   }
