@@ -58,177 +58,55 @@ Item {
     target: benchmark
 
     function onExitWithFailure(detect) {
-      isBenchmarkingInProgress = false
-
-      switch (detect) {
-      case "SMREAD":
-        seq1MRead = "0.00"
-        seq1MReadIOPS = "0.00"
-        seq1MReadGB = "0.00"
-        seq1MWrite = "0.00"
-        seq1MWriteIOPS = "0.00"
-        seq1MWriteGB = "0.00"
-        break
-      case "SKREAD":
-        seq128KRead = "0.00"
-        seq128KReadIOPS = "0.00"
-        seq128KReadGB = "0.00"
-        seq128KWrite = "0.00"
-        seq128KWriteIOPS = "0.00"
-        seq128KWriteGB = "0.00"
-        break
-      case "RGREAD":
-        rand4KQ32T1Read = "0.00"
-        rand4KQ32T1ReadIOPS = "0.00"
-        rand4KQ32T1ReadGB = "0.00"
-        rand4KQ32T1Write = "0.00"
-        rand4KQ32T1WriteIOPS = "0.00"
-        rand4KQ32T1WriteGB = "0.00"
-        break
-      case "RLREAD":
-        rand4KQ1T1Read = "0.00"
-        rand4KQ1T1ReadIOPS = "0.00"
-        rand4KQ1T1ReadGB = "0.00"
-        rand4KQ1T1Write = "0.00"
-        rand4KQ1T1WriteIOPS = "0.00"
-        rand4KQ1T1WriteGB = "0.00"
-        break
-      }
+      utils.handlingFailure(detect, mainPage)
     }
 
     function onSeq1MReadFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
-      if (values) {
-        var readBandwidth = values[1]
-        var iops = values[2]
-      }
-
-      mainPage.seq1MRead = readBandwidth
-      mainPage.seq1MReadIOPS = iops
-      builder.seq1mq8t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                              combo.currentText, benchmark, is_all)
+      utils.runSeq1MRead(bandwidth, is_all,
+                         comboGiB.currentText.match(/\d+/)[0],
+                         combo.currentText, mainPage)
     }
 
     function onSeq1MWriteFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
-      if (values) {
-        var readBandwidth = values[1]
-        var iops = values[2]
-      }
-
-      mainPage.seq1MWrite = readBandwidth
-      mainPage.seq1MWriteIOPS = iops
-
-      if (is_all) {
-        isBenchmarkingInProgress = true
-        seq128KRead = ""
-        seq128KReadIOPS = ""
-        seq128KWrite = ""
-        seq128KWriteIOPS = ""
-        builder.seq128Kq8t1_read(parseInt(comboGiB.currentText.match(
-                                            /\d+/)[0]), combo.currentText,
-                                 benchmark, is_all)
-      } else {
-        isBenchmarkingInProgress = false
-      }
+      utils.runSeq1MWrite(bandwidth, is_all,
+                          comboGiB.currentText.match(/\d+/)[0],
+                          combo.currentText, mainPage)
     }
 
     function onSeq128KReadFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
-      if (values) {
-        var readBandwidth = values[1]
-        var iops = values[2]
-      }
-
-      mainPage.seq128KRead = readBandwidth
-      mainPage.seq128KReadIOPS = iops
-      builder.seq128Kq8t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                                combo.currentText, benchmark, is_all)
+      utils.runSeq128KRead(bandwidth, is_all,
+                           comboGiB.currentText.match(/\d+/)[0],
+                           combo.currentText, mainPage)
     }
 
     function onSeq128KWriteFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
-      if (values) {
-        var readBandwidth = values[1]
-        var iops = values[2]
-      }
-
-      mainPage.seq128KWrite = readBandwidth
-      mainPage.seq128KWriteIOPS = iops
-
-      if (is_all) {
-        isBenchmarkingInProgress = true
-        rand4KQ32T1Read = ""
-        rand4KQ32T1ReadIOPS = ""
-        rand4KQ32T1Write = ""
-        rand4KQ32T1WriteIOPS = ""
-        builder.rnd4kq32t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                                combo.currentText, benchmark, is_all)
-      } else {
-        isBenchmarkingInProgress = false
-      }
+      utils.runSeq128KWrite(bandwidth, is_all,
+                            comboGiB.currentText.match(/\d+/)[0],
+                            combo.currentText, mainPage)
     }
 
     function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
-      if (values) {
-        var readBandwidth = values[1]
-        var iops = values[2]
-      }
-
-      mainPage.rand4KQ32T1Read = readBandwidth
-      mainPage.rand4KQ32T1ReadIOPS = iops
-      builder.rnd4kq32t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                               combo.currentText, benchmark, is_all)
+      utils.runRand4KQ32T1Read(bandwidth, is_all,
+                               comboGiB.currentText.match(/\d+/)[0],
+                               combo.currentText, mainPage)
     }
 
     function onRand4KQ32T1WriteFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
-      if (values) {
-        var readBandwidth = values[1]
-        var iops = values[2]
-      }
-
-      mainPage.rand4KQ32T1Write = readBandwidth
-      mainPage.rand4KQ32T1WriteIOPS = iops
-
-      if (is_all) {
-        isBenchmarkingInProgress = true
-        rand4KQ1T1Read = ""
-        rand4KQ1T1ReadIOPS = ""
-        rand4KQ1T1Write = ""
-        rand4KQ1T1WriteIOPS = ""
-        builder.rnd4kq1t1_read(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                               combo.currentText, benchmark, is_all)
-      } else {
-        isBenchmarkingInProgress = false
-      }
+      utils.runRand4KQ32T1Write(bandwidth, is_all,
+                                comboGiB.currentText.match(/\d+/)[0],
+                                combo.currentText, mainPage)
     }
 
     function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
-      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
-      if (values) {
-        var readBandwidth = values[1]
-        var iops = values[2]
-      }
-
-      mainPage.rand4KQ1T1Read = readBandwidth
-      mainPage.rand4KQ1T1ReadIOPS = iops
-
-      builder.rnd4kq1t1_write(parseInt(comboGiB.currentText.match(/\d+/)[0]),
-                              combo.currentText, benchmark, is_all)
+      utils.runRand4KQ1T1Read(bandwidth, is_all,
+                              comboGiB.currentText.match(/\d+/)[0],
+                              combo.currentText, mainPage)
     }
 
     function onRand4KQ1T1WriteFinished(bandwidth, is_all) {
-      isBenchmarkingInProgress = false
-      var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
-      if (values) {
-        var readBandwidth = values[1]
-        var iops = values[2]
-      }
-
-      mainPage.rand4KQ1T1Write = readBandwidth
-      mainPage.rand4KQ1T1WriteIOPS = iops
+      utils.runRand4KQ1T1Write(bandwidth, is_all,
+                               comboGiB.currentText.match(/\d+/)[0],
+                               combo.currentText, mainPage)
     }
   }
 

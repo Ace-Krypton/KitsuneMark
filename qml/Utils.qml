@@ -127,4 +127,177 @@ QtObject {
       break
     }
   }
+
+  function handlingFailure(detect, mainPage) {
+    mainPage.isBenchmarkingInProgress = false
+
+    switch (detect) {
+    case "SMREAD":
+      mainPage.seq1MRead = "0.00"
+      mainPage.seq1MReadIOPS = "0.00"
+      mainPage.seq1MReadGB = "0.00"
+      mainPage.seq1MWrite = "0.00"
+      mainPage.seq1MWriteIOPS = "0.00"
+      mainPage.seq1MWriteGB = "0.00"
+      break
+    case "SKREAD":
+      mainPage.seq128KRead = "0.00"
+      mainPage.seq128KReadIOPS = "0.00"
+      mainPage.seq128KReadGB = "0.00"
+      mainPage.seq128KWrite = "0.00"
+      mainPage.seq128KWriteIOPS = "0.00"
+      mainPage.seq128KWriteGB = "0.00"
+      break
+    case "RGREAD":
+      mainPage.rand4KQ32T1Read = "0.00"
+      mainPage.rand4KQ32T1ReadIOPS = "0.00"
+      mainPage.rand4KQ32T1ReadGB = "0.00"
+      mainPage.rand4KQ32T1Write = "0.00"
+      mainPage.rand4KQ32T1WriteIOPS = "0.00"
+      mainPage.rand4KQ32T1WriteGB = "0.00"
+      break
+    case "RLREAD":
+      mainPage.rand4KQ1T1Read = "0.00"
+      mainPage.rand4KQ1T1ReadIOPS = "0.00"
+      mainPage.rand4KQ1T1ReadGB = "0.00"
+      mainPage.rand4KQ1T1Write = "0.00"
+      mainPage.rand4KQ1T1WriteIOPS = "0.00"
+      mainPage.rand4KQ1T1WriteGB = "0.00"
+      break
+    }
+  }
+
+  function runSeq1MRead(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+    var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
+    if (values) {
+      var readBandwidth = values[1]
+      var iops = values[2]
+    }
+
+    mainPage.seq1MRead = readBandwidth
+    mainPage.seq1MReadIOPS = iops
+    builder.seq1mq8t1_write(parseInt(comboGibCurrentText),
+                            comboLoopCurrentText, benchmark, is_all)
+  }
+
+  function runSeq1MWrite(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+    var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
+    if (values) {
+      var readBandwidth = values[1]
+      var iops = values[2]
+    }
+
+    mainPage.seq1MWrite = readBandwidth
+    mainPage.seq1MWriteIOPS = iops
+
+    if (is_all) {
+      isBenchmarkingInProgress = true
+      mainPage.seq128KRead = ""
+      mainPage.seq128KReadIOPS = ""
+      mainPage.seq128KWrite = ""
+      mainPage.seq128KWriteIOPS = ""
+      builder.seq128Kq8t1_read(parseInt(comboGibCurrentText),
+                               comboLoopCurrentText, benchmark, is_all)
+    } else {
+      mainPage.isBenchmarkingInProgress = false
+    }
+  }
+
+  function runSeq128KRead(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+    var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
+    if (values) {
+      var readBandwidth = values[1]
+      var iops = values[2]
+    }
+
+    mainPage.seq128KRead = readBandwidth
+    mainPage.seq128KReadIOPS = iops
+    builder.seq128Kq8t1_write(parseInt(comboGibCurrentText),
+                              comboLoopCurrentText, benchmark, is_all)
+  }
+
+  function runSeq128KWrite(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+    var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
+    if (values) {
+      var readBandwidth = values[1]
+      var iops = values[2]
+    }
+
+    mainPage.seq128KWrite = readBandwidth
+    mainPage.seq128KWriteIOPS = iops
+
+    if (is_all) {
+      mainPage.isBenchmarkingInProgress = true
+      mainPage.rand4KQ32T1Read = ""
+      mainPage.rand4KQ32T1ReadIOPS = ""
+      mainPage.rand4KQ32T1Write = ""
+      mainPage.rand4KQ32T1WriteIOPS = ""
+      builder.rnd4kq32t1_read(parseInt(comboGibCurrentText),
+                              comboLoopCurrentText, benchmark, is_all)
+    } else {
+      mainPage.isBenchmarkingInProgress = false
+    }
+  }
+
+  function runRand4KQ32T1Read(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+    var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
+    if (values) {
+      var readBandwidth = values[1]
+      var iops = values[2]
+    }
+
+    mainPage.rand4KQ32T1Read = readBandwidth
+    mainPage.rand4KQ32T1ReadIOPS = iops
+    builder.rnd4kq32t1_write(parseInt(comboGibCurrentText),
+                             comboLoopCurrentText, benchmark, is_all)
+  }
+
+  function runRand4KQ32T1Write(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+    var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
+    if (values) {
+      var readBandwidth = values[1]
+      var iops = values[2]
+    }
+
+    mainPage.rand4KQ32T1Write = readBandwidth
+    mainPage.rand4KQ32T1WriteIOPS = iops
+
+    if (is_all) {
+      mainPage.isBenchmarkingInProgress = true
+      mainPage.rand4KQ1T1Read = ""
+      mainPage.rand4KQ1T1ReadIOPS = ""
+      mainPage.rand4KQ1T1Write = ""
+      mainPage.rand4KQ1T1WriteIOPS = ""
+      builder.rnd4kq1t1_read(parseInt(comboGibCurrentText),
+                             comboLoopCurrentText, benchmark, is_all)
+    } else {
+      mainPage.isBenchmarkingInProgress = false
+    }
+  }
+
+  function runRand4KQ1T1Read(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+    var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
+    if (values) {
+      var readBandwidth = values[1]
+      var iops = values[2]
+    }
+
+    mainPage.rand4KQ1T1Read = readBandwidth
+    mainPage.rand4KQ1T1ReadIOPS = iops
+
+    builder.rnd4kq1t1_write(parseInt(comboGibCurrentText),
+                            comboLoopCurrentText, benchmark, is_all)
+  }
+
+  function runRand4KQ1T1Write(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+    mainPage.isBenchmarkingInProgress = false
+    var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
+    if (values) {
+      var readBandwidth = values[1]
+      var iops = values[2]
+    }
+
+    mainPage.rand4KQ1T1Write = readBandwidth
+    mainPage.rand4KQ1T1WriteIOPS = iops
+  }
 }
