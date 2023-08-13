@@ -179,6 +179,45 @@ Item {
   Connections {
     target: benchmark
 
+    function onExitWithFailure(detect) {
+      isBenchmarkingInProgress = false
+
+      switch (detect) {
+      case "SMREAD":
+        seq1MRead = "0.00"
+        seq1MReadIOPS = "0.00"
+        seq1MReadGB = "0.00"
+        seq1MWrite = "0.00"
+        seq1MWriteIOPS = "0.00"
+        seq1MWriteGB = "0.00"
+        break
+      case "SKREAD":
+        seq128KRead = "0.00"
+        seq128KReadIOPS = "0.00"
+        seq128KReadGB = "0.00"
+        seq128KWrite = "0.00"
+        seq128KWriteIOPS = "0.00"
+        seq128KWriteGB = "0.00"
+        break
+      case "RGREAD":
+        rand4KQ32T1Read = "0.00"
+        rand4KQ32T1ReadIOPS = "0.00"
+        rand4KQ32T1ReadGB = "0.00"
+        rand4KQ32T1Write = "0.00"
+        rand4KQ32T1WriteIOPS = "0.00"
+        rand4KQ32T1WriteGB = "0.00"
+        break
+      case "RLREAD":
+        rand4KQ1T1Read = "0.00"
+        rand4KQ1T1ReadIOPS = "0.00"
+        rand4KQ1T1ReadGB = "0.00"
+        rand4KQ1T1Write = "0.00"
+        rand4KQ1T1WriteIOPS = "0.00"
+        rand4KQ1T1WriteGB = "0.00"
+        break
+      }
+    }
+
     function onSeq1MReadFinished(bandwidth, is_all) {
       var values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
       if (values) {

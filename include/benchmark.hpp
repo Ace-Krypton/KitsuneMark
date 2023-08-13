@@ -30,6 +30,7 @@ public:
     Q_INVOKABLE static QString extract_bandwidth(std::vector<std::string> &results, const QString &detect);
 
 signals:
+    void exitWithFailure(QString detect);
     void seq1MReadFinished(QString bandwidth, bool is_all);
     void seq1MWriteFinished(QString bandwidth, bool is_all);
     void seq128KReadFinished(QString bandwidth, bool is_all);

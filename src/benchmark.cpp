@@ -16,12 +16,14 @@ void Benchmark::run(const QString &options, const QString &detect, bool is_all) 
     /// Check if the FIO benchmarking failed.
     if (result != 0) {
         std::cout << "FIO benchmarking failed with exit code: " << result << std::endl;
+        emit exitWithFailure(detect);
         return;
     }
 
     /// Read FIO results from file and store them.
     if (result != 0) {
         std::cout << "FIO benchmarking failed with exit code: " << result << std::endl;
+        emit exitWithFailure(detect);
     } else {
         std::ifstream file("fio_results.txt");
         if (file) {
@@ -32,6 +34,7 @@ void Benchmark::run(const QString &options, const QString &detect, bool is_all) 
             file.close();
         } else {
             std::cout << "Failed to write FIO results to file.\n";
+            emit exitWithFailure(detect);
         }
     }
 
