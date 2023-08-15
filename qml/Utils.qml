@@ -10,9 +10,7 @@ QtObject {
   function runAllBenchmarks(comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const benchmarksToReset = ["seq1MRead", "seq1MReadIOPS", "seq1MReadGB", "seq1MWrite", "seq1MWriteIOPS", "seq1MWriteGB"]
 
-    benchmarksToReset.forEach(benchmark => {
-                                mainPage[benchmark] = ""
-                              })
+    resetBenchmarking(mainPage, benchmarksToReset)
 
     mainPage.isBenchmarkingInProgress = true
     builder.seq1mq8t1_read(parseInt(comboGibCurrentText), comboLoopCurrentText,
