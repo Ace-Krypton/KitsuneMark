@@ -39,7 +39,7 @@ Popup {
         Layout.fillHeight: true
 
         RowLayout {
-          spacing: 95
+          spacing: 105
 
           Text {
             text: "Version"
@@ -59,6 +59,7 @@ Popup {
 
           Text {
             text: "Flexible I/O Tester"
+            font.bold: true
             font.pointSize: 10
             font.family: "Montserrat"
           }
@@ -72,10 +73,11 @@ Popup {
         }
 
         RowLayout {
-          spacing: 90
+          spacing: 96
 
           Text {
             text: "LICENSE"
+            font.bold: true
             font.pointSize: 10
             font.family: "Montserrat"
           }
@@ -88,10 +90,11 @@ Popup {
         }
 
         RowLayout {
-          spacing: 105
+          spacing: 111
 
           Text {
             text: "Author"
+            font.bold: true
             font.pointSize: 10
             font.family: "Montserrat"
           }
@@ -104,10 +107,11 @@ Popup {
         }
 
         RowLayout {
-          spacing: 107
+          spacing: 115
 
           Text {
             text: "E-Mail"
+            font.bold: true
             font.pointSize: 10
             font.family: "Montserrat"
           }

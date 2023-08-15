@@ -50,7 +50,7 @@ Dialog {
       color: "transparent"
 
       RowLayout {
-        spacing: 5
+        spacing: 8
 
         Item {
           width: 16
@@ -63,7 +63,6 @@ Dialog {
         }
 
         Rectangle {
-          x: 2
           width: warningDialog.width - 24
           height: textItem.implicitHeight
           color: "transparent"
