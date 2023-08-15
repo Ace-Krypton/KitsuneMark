@@ -7,6 +7,7 @@ ApplicationWindow {
   title: qsTr("Kitsune Mark")
   width: 1221
   height: 674
+  color: "white"
 
   flags: Qt.Window | Qt.WindowFixedSize
 
@@ -103,6 +104,7 @@ ApplicationWindow {
   }
 
   MainPage {
+    anchors.fill: parent
     id: mainPage
   }
 

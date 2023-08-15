@@ -54,6 +54,11 @@ Item {
   property bool isAngelOrAria: false
   property string currentWallpaper: "../img/default.jpg"
 
+  Warning {
+    width: 500
+    height: 500
+  }
+
   Connections {
     target: benchmark
 

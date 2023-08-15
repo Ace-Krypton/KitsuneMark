@@ -15,7 +15,7 @@ qt_add_executable(kitsune-mark
 qt_add_qml_module(kitsune-mark
     URI KitsuneMark
     VERSION 1.0
-    QML_FILES qml/MainPage.qml qml/About.qml qml/Main.qml qml/Utils.qml
+    QML_FILES qml/MainPage.qml qml/About.qml qml/Main.qml qml/Utils.qml qml/Warning.qml
     SOURCES include/benchmark.hpp src/benchmark.cpp
     SOURCES include/builder.hpp src/builder.cpp
     SOURCES include/system.hpp src/system.cpp

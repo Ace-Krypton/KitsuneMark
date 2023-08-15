@@ -9,5 +9,6 @@
         <file>qml/About.qml</file>
         <file>qml/Main.qml</file>
         <file>qml/Utils.qml</file>
+        <file>qml/Warning.qml</file>
     </qresource>
 </RCC>
