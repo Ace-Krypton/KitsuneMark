@@ -17,19 +17,16 @@ Popup {
 
     RowLayout {
       anchors.centerIn: parent
-      spacing: 130
+      spacing: 100
 
       Item {
         id: imageContainer
-        width: 100
-        height: 100
+        width: 128
+        height: 128
 
         Image {
-          width: imageContainer.width
-          height: imageContainer.height
-          source: "../img/about.png"
-          anchors.centerIn: parent
-          fillMode: Image.PreserveAspectFit
+          anchors.fill: parent
+          source: "../img/hannya.png"
         }
       }
 

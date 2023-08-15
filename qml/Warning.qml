@@ -22,7 +22,7 @@ Dialog {
         height: 24
 
         Image {
-          source: "file:///home/draco/Downloads/warning(1).png"
+          source: "../img/warning.png"
           anchors.fill: parent
         }
       }
@@ -57,7 +57,7 @@ Dialog {
           height: 16
 
           Image {
-            source: "file:///home/draco/Downloads/information-button(1).png"
+            source: "../img/info.png"
             anchors.fill: parent
           }
         }

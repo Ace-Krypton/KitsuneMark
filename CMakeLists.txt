@@ -19,7 +19,7 @@ qt_add_qml_module(kitsune-mark
     SOURCES include/benchmark.hpp src/benchmark.cpp
     SOURCES include/builder.hpp src/builder.cpp
     SOURCES include/system.hpp src/system.cpp
-    RESOURCES img.qrc img/angel.jpg img/default.jpg img/aria.jpg img/reki.png img/about.png
+    RESOURCES img.qrc img/angel.jpg img/default.jpg img/aria.jpg img/reki.png img/hannya.png img/warning.png img/info.png
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
