@@ -55,8 +55,8 @@ Item {
   property string currentWallpaper: "../img/default.jpg"
 
   Warning {
-    width: 500
-    height: 500
+    width: 550
+    height: 220
   }
 
   Connections {
