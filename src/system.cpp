@@ -129,7 +129,7 @@ QString System::extract_storage() {
 QString System::check_fio_version() {
     std::string command = "fio --version";
 
-    std::ostringstream outputStream;
+    std::ostringstream output_stream;
     std::array<char, 128> buffer;
     std::string result;
 
@@ -141,11 +141,11 @@ QString System::check_fio_version() {
 
     /// Read the command output into the output stream
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-        outputStream << buffer.data();
+        output_stream << buffer.data();
     }
 
     /// Extract the result from the output stream
-    result = outputStream.str();
+    result = output_stream.str();
 
     /// Return the version
     return QString::fromStdString(result);
