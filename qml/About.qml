@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import CustomTypes 1.0
 import QtQuick.Controls
 
 Popup {
@@ -10,6 +11,9 @@ Popup {
   modal: true
   visible: false
   closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+
+  property System system: System {}
+  property string fioVersion: system.check_fio_version()
 
   contentItem: Rectangle {
     width: parent.width
@@ -34,34 +38,85 @@ Popup {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        Text {
-          text: "Version: 3.1.3"
-          font.bold: true
-          font.pointSize: 10
-          font.family: "Montserrat"
+        RowLayout {
+          spacing: 95
+
+          Text {
+            text: "Version"
+            font.bold: true
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
+          Text {
+            text: "3.1.3"
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
         }
-        Text {
-          text: "Flexible I/O Tester: fio-3.35"
-          font.pointSize: 10
-          font.family: "Montserrat"
+
+        RowLayout {
+          spacing: 40
+
+          Text {
+            text: "Flexible I/O Tester"
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
+          Text {
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+            text: qsTr(fioVersion)
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
         }
-        Text {
-          text: 'LICENSE: <html><style type="text/css"></style><a href="https://opensource.org/license/bsd-2-clause">BSD-2-Clause</a></html>'
-          onLinkActivated: link => Qt.openUrlExternally(link)
-          font.pointSize: 10
-          font.family: "Montserrat"
+
+        RowLayout {
+          spacing: 90
+
+          Text {
+            text: "LICENSE"
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
+          Text {
+            text: '<html><style type="text/css"></style><a href="https://opensource.org/license/bsd-2-clause">BSD-2-Clause</a></html>'
+            onLinkActivated: link => Qt.openUrlExternally(link)
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
         }
-        Text {
-          text: 'Author: <html><style type="text/css"></style><a href="https://ramizabbasov.com/">Ramiz Abbasov</a></html>'
-          onLinkActivated: link => Qt.openUrlExternally(link)
-          font.pointSize: 10
-          font.family: "Montserrat"
+
+        RowLayout {
+          spacing: 105
+
+          Text {
+            text: "Author"
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
+          Text {
+            text: '<html><style type="text/css"></style><a href="https://ramizabbasov.com/">Ramiz Abbasov</a></html>'
+            onLinkActivated: link => Qt.openUrlExternally(link)
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
         }
-        Text {
-          text: 'E-Mail: <html><style type="text/css"></style><a href="mailto:ramizna@code.edu.az">ramizna@code.edu.az</a></html>'
-          onLinkActivated: link => Qt.openUrlExternally(link)
-          font.pointSize: 10
-          font.family: "Montserrat"
+
+        RowLayout {
+          spacing: 107
+
+          Text {
+            text: "E-Mail"
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
+          Text {
+            text: '<html><style type="text/css"></style><a href="mailto:ramizna@code.edu.az">ramizna@code.edu.az</a></html>'
+            onLinkActivated: link => Qt.openUrlExternally(link)
+            font.pointSize: 10
+            font.family: "Montserrat"
+          }
         }
       }
     }

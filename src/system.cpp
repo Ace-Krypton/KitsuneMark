@@ -120,3 +120,33 @@ QString System::extract_storage() {
 
     return result;
 }
+
+/**
+ * @brief Checks the Flexible I/O Tester's version
+ *
+ * @return Version string
+ */
+QString System::check_fio_version() {
+    std::string command = "fio --version";
+
+    std::ostringstream outputStream;
+    std::array<char, 128> buffer;
+    std::string result;
+
+    /// Open a pipe and execute the command
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+    if (!pipe) {
+        return "<unknown>";
+    }
+
+    /// Read the command output into the output stream
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        outputStream << buffer.data();
+    }
+
+    /// Extract the result from the output stream
+    result = outputStream.str();
+
+    /// Return the version
+    return QString::fromStdString(result);
+}
