@@ -13,8 +13,8 @@ QtObject {
     resetBenchmarking(mainPage, benchmarksToReset)
 
     mainPage.isBenchmarkingInProgress = true
-    builder.seq1mq8t1_read(parseInt(comboGibCurrentText), comboLoopCurrentText,
-                           benchmark, true)
+    builder.seq1mq8t1Read(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                          benchmark, true)
   }
 
   function changeWallpaper(theme, mainPage) {
@@ -137,7 +137,7 @@ QtObject {
     }
   }
 
-  function runSeq1MRead(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+  function runSeq1MRead(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
 
     if (values) {
@@ -148,11 +148,11 @@ QtObject {
       mainPage.seq1MReadIOPS = iops
     }
 
-    builder.seq1mq8t1_write(parseInt(comboGibCurrentText),
-                            comboLoopCurrentText, benchmark, is_all)
+    builder.seq1mq8t1Write(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                           benchmark, isAll)
   }
 
-  function runSeq1MWrite(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+  function runSeq1MWrite(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
 
     if (values) {
@@ -163,7 +163,7 @@ QtObject {
       mainPage.seq1MWriteIOPS = iops
     }
 
-    if (is_all) {
+    if (isAll) {
       mainPage.isBenchmarkingInProgress = true
 
       const benchmarksToReset = ["seq128KRead", "seq128KReadIOPS", "seq128KWrite", "seq128KWriteIOPS"]
@@ -172,14 +172,14 @@ QtObject {
                                   mainPage[benchmark] = ""
                                 })
 
-      builder.seq128Kq8t1_read(parseInt(comboGibCurrentText),
-                               comboLoopCurrentText, benchmark, is_all)
+      builder.seq128Kq8t1Read(parseInt(comboGibCurrentText),
+                              comboLoopCurrentText, benchmark, isAll)
     } else {
       mainPage.isBenchmarkingInProgress = false
     }
   }
 
-  function runSeq128KRead(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+  function runSeq128KRead(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
 
     if (values) {
@@ -190,11 +190,11 @@ QtObject {
       mainPage.seq128KReadIOPS = iops
     }
 
-    builder.seq128Kq8t1_write(parseInt(comboGibCurrentText),
-                              comboLoopCurrentText, benchmark, is_all)
+    builder.seq128Kq8t1Write(parseInt(comboGibCurrentText),
+                             comboLoopCurrentText, benchmark, isAll)
   }
 
-  function runSeq128KWrite(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+  function runSeq128KWrite(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
 
     if (values) {
@@ -205,7 +205,7 @@ QtObject {
       mainPage.seq128KWriteIOPS = iops
     }
 
-    if (is_all) {
+    if (isAll) {
       mainPage.isBenchmarkingInProgress = true
 
       const benchmarksToReset = ["rand4KQ32T1Read", "rand4KQ32T1ReadIOPS", "rand4KQ32T1Write", "rand4KQ32T1WriteIOPS"]
@@ -214,14 +214,14 @@ QtObject {
                                   mainPage[benchmark] = ""
                                 })
 
-      builder.rnd4kq32t1_read(parseInt(comboGibCurrentText),
-                              comboLoopCurrentText, benchmark, is_all)
+      builder.rnd4kq32t1Read(parseInt(comboGibCurrentText),
+                             comboLoopCurrentText, benchmark, isAll)
     } else {
       mainPage.isBenchmarkingInProgress = false
     }
   }
 
-  function runRand4KQ32T1Read(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+  function runRand4KQ32T1Read(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
 
     if (values) {
@@ -232,11 +232,11 @@ QtObject {
       mainPage.rand4KQ32T1ReadIOPS = iops
     }
 
-    builder.rnd4kq32t1_write(parseInt(comboGibCurrentText),
-                             comboLoopCurrentText, benchmark, is_all)
+    builder.rnd4kq32t1Write(parseInt(comboGibCurrentText),
+                            comboLoopCurrentText, benchmark, isAll)
   }
 
-  function runRand4KQ32T1Write(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+  function runRand4KQ32T1Write(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
 
     if (values) {
@@ -247,7 +247,7 @@ QtObject {
       mainPage.rand4KQ32T1WriteIOPS = iops
     }
 
-    if (is_all) {
+    if (isAll) {
       mainPage.isBenchmarkingInProgress = true
 
       const benchmarksToReset = ["rand4KQ1T1Read", "rand4KQ1T1ReadIOPS", "rand4KQ1T1Write", "rand4KQ1T1WriteIOPS"]
@@ -256,14 +256,14 @@ QtObject {
                                   mainPage[benchmark] = ""
                                 })
 
-      builder.rnd4kq1t1_read(parseInt(comboGibCurrentText),
-                             comboLoopCurrentText, benchmark, is_all)
+      builder.rnd4kq1t1Read(parseInt(comboGibCurrentText),
+                            comboLoopCurrentText, benchmark, isAll)
     } else {
       mainPage.isBenchmarkingInProgress = false
     }
   }
 
-  function runRand4KQ1T1Read(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+  function runRand4KQ1T1Read(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
     const values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)
 
     if (values) {
@@ -274,11 +274,11 @@ QtObject {
       mainPage.rand4KQ1T1ReadIOPS = iops
     }
 
-    builder.rnd4kq1t1_write(parseInt(comboGibCurrentText),
-                            comboLoopCurrentText, benchmark, is_all)
+    builder.rnd4kq1t1Write(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                           benchmark, isAll)
   }
 
-  function runRand4KQ1T1Write(bandwidth, is_all, comboGibCurrentText, comboLoopCurrentText, mainPage) {
+  function runRand4KQ1T1Write(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
     mainPage.isBenchmarkingInProgress = false
 
     const values = bandwidth.match(/(\d+(?:\.\d*)?)\s*=\s*(\d+(?:\.\d*)?)/)

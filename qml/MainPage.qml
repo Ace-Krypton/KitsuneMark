@@ -44,9 +44,9 @@ Item {
   property string rand4KQ1T1WriteIOPS: "0.00"
   property string rand4KQ1T1WriteGB: "0.00"
 
-  property string cpuName: system.extract_cpu()
-  property string ssdName: system.extract_ssd()
-  property string storage: system.extract_storage()
+  property string cpuName: system.extractCPU()
+  property string ssdName: system.extractSSD()
+  property string storage: system.extractStorage()
 
   property int themeHeight: mainPage.height
 
@@ -66,42 +66,42 @@ Item {
       utils.handlingFailure(detect, mainPage)
     }
 
-    function handleFinishedBenchmark(bandwidth, is_all, runFunction) {
+    function handleFinishedBenchmark(bandwidth, isAll, runFunction) {
       const gibText = comboGiB.currentText.match(/\d+/)[0]
       const comboText = combo.currentText
-      runFunction(bandwidth, is_all, gibText, comboText, mainPage)
+      runFunction(bandwidth, isAll, gibText, comboText, mainPage)
     }
 
-    function onSeq1MReadFinished(bandwidth, is_all) {
-      handleFinishedBenchmark(bandwidth, is_all, utils.runSeq1MRead)
+    function onSeq1MReadFinished(bandwidth, isAll) {
+      handleFinishedBenchmark(bandwidth, isAll, utils.runSeq1MRead)
     }
 
-    function onSeq1MWriteFinished(bandwidth, is_all) {
-      handleFinishedBenchmark(bandwidth, is_all, utils.runSeq1MWrite)
+    function onSeq1MWriteFinished(bandwidth, isAll) {
+      handleFinishedBenchmark(bandwidth, isAll, utils.runSeq1MWrite)
     }
 
-    function onSeq128KReadFinished(bandwidth, is_all) {
-      handleFinishedBenchmark(bandwidth, is_all, utils.runSeq128KRead)
+    function onSeq128KReadFinished(bandwidth, isAll) {
+      handleFinishedBenchmark(bandwidth, isAll, utils.runSeq128KRead)
     }
 
-    function onSeq128KWriteFinished(bandwidth, is_all) {
-      handleFinishedBenchmark(bandwidth, is_all, utils.runSeq128KWrite)
+    function onSeq128KWriteFinished(bandwidth, isAll) {
+      handleFinishedBenchmark(bandwidth, isAll, utils.runSeq128KWrite)
     }
 
-    function onRand4KQ32T1ReadFinished(bandwidth, is_all) {
-      handleFinishedBenchmark(bandwidth, is_all, utils.runRand4KQ32T1Read)
+    function onRand4KQ32T1ReadFinished(bandwidth, isAll) {
+      handleFinishedBenchmark(bandwidth, isAll, utils.runRand4KQ32T1Read)
     }
 
-    function onRand4KQ32T1WriteFinished(bandwidth, is_all) {
-      handleFinishedBenchmark(bandwidth, is_all, utils.runRand4KQ32T1Write)
+    function onRand4KQ32T1WriteFinished(bandwidth, isAll) {
+      handleFinishedBenchmark(bandwidth, isAll, utils.runRand4KQ32T1Write)
     }
 
-    function onRand4KQ1T1ReadFinished(bandwidth, is_all) {
-      handleFinishedBenchmark(bandwidth, is_all, utils.runRand4KQ1T1Read)
+    function onRand4KQ1T1ReadFinished(bandwidth, isAll) {
+      handleFinishedBenchmark(bandwidth, isAll, utils.runRand4KQ1T1Read)
     }
 
-    function onRand4KQ1T1WriteFinished(bandwidth, is_all) {
-      handleFinishedBenchmark(bandwidth, is_all, utils.runRand4KQ1T1Write)
+    function onRand4KQ1T1WriteFinished(bandwidth, isAll) {
+      handleFinishedBenchmark(bandwidth, isAll, utils.runRand4KQ1T1Write)
     }
   }
 
@@ -543,8 +543,8 @@ Item {
                     isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.seq1mq8t1_read(parseInt(gibText), comboText,
-                                           benchmark, false)
+                    builder.seq1mq8t1Read(parseInt(gibText), comboText,
+                                          benchmark, false)
                   }
                 }
               }
@@ -673,8 +673,8 @@ Item {
                     isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.seq128Kq8t1_read(parseInt(gibText), comboText,
-                                             benchmark, false)
+                    builder.seq128Kq8t1Read(parseInt(gibText), comboText,
+                                            benchmark, false)
                   }
                 }
               }
@@ -801,8 +801,8 @@ Item {
                     isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.rnd4kq32t1_read(parseInt(gibText), comboText,
-                                            benchmark, false)
+                    builder.rnd4kq32t1Read(parseInt(gibText), comboText,
+                                           benchmark, false)
                   }
                 }
               }
@@ -930,8 +930,8 @@ Item {
                     isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.rnd4kq1t1_read(parseInt(gibText), comboText,
-                                           benchmark, false)
+                    builder.rnd4kq1t1Read(parseInt(gibText), comboText,
+                                          benchmark, false)
                   }
                 }
               }

@@ -13,7 +13,7 @@ Popup {
   closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
   property System system: System {}
-  property string fioVersion: system.check_fio_version()
+  property string fioVersion: system.checkFIOVersion()
 
   contentItem: Rectangle {
     width: parent.width

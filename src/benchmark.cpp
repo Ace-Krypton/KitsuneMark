@@ -7,9 +7,9 @@ Benchmark::Benchmark(QObject *parent) : QObject(parent) { }
  *
  * @param options The FIO command-line options for the benchmark.
  * @param detect The type of benchmark being run.
- * @param is_all If true, the benchmark includes all data; otherwise, it includes important data only.
+ * @param isAll If true, the benchmark includes all data; otherwise, it includes important data only.
  */
-void Benchmark::run(const QString &options, const QString &detect, bool is_all) {
+void Benchmark::run(const QString &options, const QString &detect, bool isAll) {
     QString command = options;
     int result = std::system(command.toStdString().c_str());
 
@@ -43,24 +43,24 @@ void Benchmark::run(const QString &options, const QString &detect, bool is_all) 
     std::remove("fio_results.txt");
 
     /// Extract bandwidth information from results.
-    QString bandwidth = extract_bandwidth(_results, detect)
-                        + " = " + extract_iops(_results, detect);
+    QString bandwidth = extractBandwidth(_results, detect)
+                        + " = " + extractIOPS(_results, detect);
 
     /// Define a map of benchmark types to corresponding signals.
     std::unordered_map<QString, std::function<void(QString, bool)>> map = {
-        {"SMREAD", [this](QString bandwidth, bool is_all) { emit seq1MReadFinished(bandwidth, is_all); }},
-        {"SMWRITE", [this](QString bandwidth, bool is_all) { emit seq1MWriteFinished(bandwidth, is_all); }},
-        {"SKREAD", [this](QString bandwidth, bool is_all) { emit seq128KReadFinished(bandwidth, is_all); }},
-        {"SKWRITE", [this](QString bandwidth, bool is_all) { emit seq128KWriteFinished(bandwidth, is_all); }},
-        {"RGREAD", [this](QString bandwidth, bool is_all) { emit rand4KQ32T1ReadFinished(bandwidth, is_all); }},
-        {"RGWRITE", [this](QString bandwidth, bool is_all) { emit rand4KQ32T1WriteFinished(bandwidth, is_all); }},
-        {"RLREAD", [this](QString bandwidth, bool is_all) { emit rand4KQ1T1ReadFinished(bandwidth, is_all); }},
-        {"RLWRITE", [this](QString bandwidth, bool is_all) { emit rand4KQ1T1WriteFinished(bandwidth, is_all); }}
+        {"SMREAD", [this](QString bandwidth, bool isAll) { emit seq1MReadFinished(bandwidth, isAll); }},
+        {"SMWRITE", [this](QString bandwidth, bool isAll) { emit seq1MWriteFinished(bandwidth, isAll); }},
+        {"SKREAD", [this](QString bandwidth, bool isAll) { emit seq128KReadFinished(bandwidth, isAll); }},
+        {"SKWRITE", [this](QString bandwidth, bool isAll) { emit seq128KWriteFinished(bandwidth, isAll); }},
+        {"RGREAD", [this](QString bandwidth, bool isAll) { emit rand4KQ32T1ReadFinished(bandwidth, isAll); }},
+        {"RGWRITE", [this](QString bandwidth, bool isAll) { emit rand4KQ32T1WriteFinished(bandwidth, isAll); }},
+        {"RLREAD", [this](QString bandwidth, bool isAll) { emit rand4KQ1T1ReadFinished(bandwidth, isAll); }},
+        {"RLWRITE", [this](QString bandwidth, bool isAll) { emit rand4KQ1T1WriteFinished(bandwidth, isAll); }}
     };
 
     /// Find the corresponding signal and emit it with the extracted bandwidth.
     auto it = map.find(detect);
-    if (it != map.end()) it->second(bandwidth, is_all);
+    if (it != map.end()) it->second(bandwidth, isAll);
 
     /// Clear the results vector after extracting necessary information.
     _results.clear();
@@ -73,7 +73,7 @@ void Benchmark::run(const QString &options, const QString &detect, bool is_all) 
  * @param detect The type of benchmark being extracted (e.g., "SMREAD").
  * @return The extracted bandwidth as a QString, or an empty QString if not found.
  */
-QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QString &detect) {
+QString Benchmark::extractBandwidth(std::vector<std::string> &results, const QString &detect) {
     for (std::string &logs : results) {
         std::string line;
         std::istringstream log_stream(logs);
@@ -103,7 +103,7 @@ QString Benchmark::extract_bandwidth(std::vector<std::string> &results, const QS
  * @param detect The type of benchmark being extracted (e.g., "SMREAD").
  * @return The extracted bandwidth as a QString, or an empty QString if not found.
  */
-QString Benchmark::extract_iops(std::vector<std::string> &results, const QString &detect) {
+QString Benchmark::extractIOPS(std::vector<std::string> &results, const QString &detect) {
     for (std::string &logs : results) {
         std::string line;
         std::istringstream log_stream(logs);
@@ -131,7 +131,7 @@ QString Benchmark::extract_iops(std::vector<std::string> &results, const QString
  *
  * @return A vector of strings containing the FIO result logs.
  */
-std::vector<std::string> Benchmark::get_results() {
+std::vector<std::string> Benchmark::getResults() {
     return _results;
 }
 
@@ -140,11 +140,11 @@ std::vector<std::string> Benchmark::get_results() {
  *
  * @param command The FIO command to run the benchmark.
  * @param detect The type of benchmark being run.
- * @param is_all If true, the benchmark includes all data; otherwise, it includes important data only.
+ * @param isAll If true, the benchmark includes all data; otherwise, it includes important data only.
  */
-void Benchmark::start(const QString &command, const QString &detect, bool is_all) {
+void Benchmark::start(const QString &command, const QString &detect, bool isAll) {
     /// Start the benchmark asynchronously and store the future object.
-    _future = std::async(std::launch::async, &Benchmark::run, this, command, detect, is_all);
+    _future = std::async(std::launch::async, &Benchmark::run, this, command, detect, isAll);
 }
 
 /**
@@ -153,7 +153,7 @@ void Benchmark::start(const QString &command, const QString &detect, bool is_all
  * @param variant The QVariant containing the value to be extracted.
  * @return The extracted QString value if conversion is successful, otherwise an empty QString.
  */
-QString Benchmark::extract_qstring_from_variant(const QVariant &variant) const {
+QString Benchmark::extractQStringFromVariant(const QVariant &variant) const {
     if (variant.canConvert<QString>()) {
         /// Convert the QVariant to QString and return it.
         return variant.toString();

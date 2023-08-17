@@ -7,8 +7,8 @@ System::System(QObject *parent) : QObject(parent) { }
  *
  * @return A QString containing the extracted CPU information.
  */
-QString System::extract_cpu() {
-    std::string model_name { "model name" }, cpu_info { };
+QString System::extractCPU() {
+    std::string modelName { "model name" }, cpuInfo { };
     std::ifstream file { "/proc/cpuinfo" };
 
     /// Check if the file can be opened,
@@ -17,17 +17,17 @@ QString System::extract_cpu() {
 
     /// Iterate through the lines of the file to find the CPU model information.
     for (std::string line; (std::getline(file, line)); ) {
-        if (line.find(model_name) != std::string::npos) {
-            const std::size_t start_pos = line.find(model_name);
-            std::string temp = line.substr(start_pos + 13);
-            const std::size_t stop_pos = temp.find("CPU");
-            cpu_info = temp.substr(0, stop_pos);
+        if (line.find(modelName) != std::string::npos) {
+            const std::size_t startPos = line.find(modelName);
+            std::string temp = line.substr(startPos + 13);
+            const std::size_t stopPos = temp.find("CPU");
+            cpuInfo = temp.substr(0, stopPos);
         }
     }
 
     file.close();
     ///Convert the extracted CPU information to a QString.
-    return QString::fromStdString(cpu_info);
+    return QString::fromStdString(cpuInfo);
 }
 
 /**
@@ -36,21 +36,21 @@ QString System::extract_cpu() {
  * @param path The path to the device's directory.
  * @return True if the device is an SSD, false otherwise.
  */
-bool System::is_ssd(const std::filesystem::path &path) {
-    std::string model_name;
-    std::ifstream model_file(path / "device/model");
+bool System::isSSD(const std::filesystem::path &path) {
+    std::string modelName;
+    std::ifstream modelFile(path / "device/model");
 
     /// Check if the model file can be opened,
     /// indicating the device exists.
-    if (!model_file.is_open()) return false;
+    if (!modelFile.is_open()) return false;
 
     /// Read the model name from the model file.
-    if (std::getline(model_file, model_name)) {
+    if (std::getline(modelFile, modelName)) {
         /// Define a regular expression pattern to identify SSDs.
-        std::regex ssd_regex("\\bSSD\\b",
+        std::regex ssdRegex("\\bSSD\\b",
                              std::regex_constants::icase);
         /// Search for the SSD pattern in the model name.
-        if (std::regex_search(model_name, ssd_regex)) {
+        if (std::regex_search(modelName, ssdRegex)) {
             return true;
         }
     }
@@ -65,25 +65,25 @@ bool System::is_ssd(const std::filesystem::path &path) {
  * @return A QString containing the model name of the first detected SSD,
  * or "<unknown>" if none is found.
  */
-QString System::extract_ssd() {
-    const std::filesystem::path block_dir = "/sys/block/";
+QString System::extractSSD() {
+    const std::filesystem::path blockDir = "/sys/block/";
     std::vector<std::filesystem::directory_entry> entries;
 
     /// Collect information about block devices in the system.
     for (const auto &entry :
-         std::filesystem::directory_iterator(block_dir)) {
+         std::filesystem::directory_iterator(blockDir)) {
         entries.push_back(entry);
     }
 
     /// Iterate through block devices to find the first SSD.
     for (const auto &entry : entries) {
-        if (is_ssd(entry)) {
-            std::ifstream model_file(entry.path() / "device/model");
-            if (model_file.is_open()) {
-                std::string ssd_name;
-                if (std::getline(model_file, ssd_name)) {
+        if (isSSD(entry)) {
+            std::ifstream modelFile(entry.path() / "device/model");
+            if (modelFile.is_open()) {
+                std::string ssdName;
+                if (std::getline(modelFile, ssdName)) {
                     ///Return the model name of the detected SSD.
-                    return QString::fromStdString(ssd_name);
+                    return QString::fromStdString(ssdName);
                 }
             }
         }
@@ -98,15 +98,15 @@ QString System::extract_ssd() {
  *
  * @return A QString containing the storage usage information.
  */
-QString System::extract_storage() {
+QString System::extractStorage() {
     /// Get information about the available
     /// and total storage space on the root filesystem.
-    std::filesystem::space_info storage_info = std::filesystem::space("/");
+    std::filesystem::space_info storageInfo = std::filesystem::space("/");
 
-    const double bytes_to_gib = 1024 * 1024 * 1024.0;
-    double available_gb = storage_info.available / bytes_to_gib;
-    double capacity_gb = storage_info.capacity / bytes_to_gib;
-    double percentage = (available_gb / capacity_gb) * 100.0;
+    const double bytesToGib = 1024 * 1024 * 1024.0;
+    double availableGb = storageInfo.available / bytesToGib;
+    double capacityGb = storageInfo.capacity / bytesToGib;
+    double percentage = (availableGb / capacityGb) * 100.0;
 
     QString result;
     QTextStream stream(&result);
@@ -115,8 +115,8 @@ QString System::extract_storage() {
 
     /// Construct the storage information string.
     stream << '/' << ": " << percentage << "% "
-           << '(' << available_gb << '/'
-           << capacity_gb << " GiB" << ')';
+           << '(' << availableGb << '/'
+           << capacityGb << " GiB" << ')';
 
     return result;
 }
@@ -126,10 +126,10 @@ QString System::extract_storage() {
  *
  * @return Version string
  */
-QString System::check_fio_version() {
+QString System::checkFIOVersion() {
     std::string command = "fio --version";
 
-    std::ostringstream output_stream;
+    std::ostringstream outputStream;
     std::array<char, 128> buffer;
     std::string result;
 
@@ -141,11 +141,11 @@ QString System::check_fio_version() {
 
     /// Read the command output into the output stream
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-        output_stream << buffer.data();
+        outputStream << buffer.data();
     }
 
     /// Extract the result from the output stream
-    result = output_stream.str();
+    result = outputStream.str();
 
     /// Return the version
     return QString::fromStdString(result);
