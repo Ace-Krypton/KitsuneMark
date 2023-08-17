@@ -543,8 +543,8 @@ Item {
                     isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.seq1mq8t1Read(parseInt(gibText), comboText,
-                                          benchmark, false)
+                    builder.sequential(parseInt(gibText), comboText, benchmark,
+                                       false, "1M", "read")
                   }
                 }
               }
@@ -673,8 +673,8 @@ Item {
                     isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.seq128Kq8t1Read(parseInt(gibText), comboText,
-                                            benchmark, false)
+                    builder.sequential(parseInt(gibText), comboText, benchmark,
+                                       false, "128K", "read")
                   }
                 }
               }
@@ -794,15 +794,15 @@ Item {
                   }
 
                   onClicked: {
-                    resetBenchmarking(
+                    utils.resetBenchmarking(
                           mainPage,
                           ["rand4KQ32T1Read", "rand4KQ32T1ReadIOPS", "rand4KQ32T1ReadGB", "rand4KQ32T1Write", "rand4KQ32T1WriteIOPS", "rand4KQ32T1WriteGB"])
 
                     isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.rnd4kq32t1Read(parseInt(gibText), comboText,
-                                           benchmark, false)
+                    builder.random(parseInt(gibText), comboText, benchmark,
+                                   false, "32", "read", "8")
                   }
                 }
               }
@@ -923,15 +923,15 @@ Item {
                   }
 
                   onClicked: {
-                    resetBenchmarking(
+                    utils.resetBenchmarking(
                           mainPage,
                           ["rand4KQ1T1Read", "rand4KQ1T1ReadIOPS", "rand4KQ1T1ReadGB", "rand4KQ1T1Write", "rand4KQ1T1WriteIOPS", "rand4KQ1T1WriteGB"])
 
                     isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.rnd4kq1t1Read(parseInt(gibText), comboText,
-                                          benchmark, false)
+                    builder.random(parseInt(gibText), comboText, benchmark,
+                                   false, "1", "read", "256")
                   }
                 }
               }

@@ -13,8 +13,8 @@ QtObject {
     resetBenchmarking(mainPage, benchmarksToReset)
 
     mainPage.isBenchmarkingInProgress = true
-    builder.seq1mq8t1Read(parseInt(comboGibCurrentText), comboLoopCurrentText,
-                          benchmark, true)
+    builder.sequential(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                       benchmark, true, "1M", "read")
   }
 
   function changeWallpaper(theme, mainPage) {
@@ -148,8 +148,8 @@ QtObject {
       mainPage.seq1MReadIOPS = iops
     }
 
-    builder.seq1mq8t1Write(parseInt(comboGibCurrentText), comboLoopCurrentText,
-                           benchmark, isAll)
+    builder.sequential(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                       benchmark, isAll, "1M", "write")
   }
 
   function runSeq1MWrite(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
@@ -172,8 +172,8 @@ QtObject {
                                   mainPage[benchmark] = ""
                                 })
 
-      builder.seq128Kq8t1Read(parseInt(comboGibCurrentText),
-                              comboLoopCurrentText, benchmark, isAll)
+      builder.sequential(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                         benchmark, isAll, "128K", "read")
     } else {
       mainPage.isBenchmarkingInProgress = false
     }
@@ -190,8 +190,8 @@ QtObject {
       mainPage.seq128KReadIOPS = iops
     }
 
-    builder.seq128Kq8t1Write(parseInt(comboGibCurrentText),
-                             comboLoopCurrentText, benchmark, isAll)
+    builder.sequential(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                       benchmark, isAll, "128K", "write")
   }
 
   function runSeq128KWrite(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
@@ -214,8 +214,8 @@ QtObject {
                                   mainPage[benchmark] = ""
                                 })
 
-      builder.rnd4kq32t1Read(parseInt(comboGibCurrentText),
-                             comboLoopCurrentText, benchmark, isAll)
+      builder.random(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                     benchmark, isAll, "32", "read", "8")
     } else {
       mainPage.isBenchmarkingInProgress = false
     }
@@ -232,8 +232,8 @@ QtObject {
       mainPage.rand4KQ32T1ReadIOPS = iops
     }
 
-    builder.rnd4kq32t1Write(parseInt(comboGibCurrentText),
-                            comboLoopCurrentText, benchmark, isAll)
+    builder.random(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                   benchmark, isAll, "32", "write", "8")
   }
 
   function runRand4KQ32T1Write(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
@@ -256,8 +256,8 @@ QtObject {
                                   mainPage[benchmark] = ""
                                 })
 
-      builder.rnd4kq1t1Read(parseInt(comboGibCurrentText),
-                            comboLoopCurrentText, benchmark, isAll)
+      builder.random(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                     benchmark, isAll, "1", "read", "256")
     } else {
       mainPage.isBenchmarkingInProgress = false
     }
@@ -274,8 +274,8 @@ QtObject {
       mainPage.rand4KQ1T1ReadIOPS = iops
     }
 
-    builder.rnd4kq1t1Write(parseInt(comboGibCurrentText), comboLoopCurrentText,
-                           benchmark, isAll)
+    builder.random(parseInt(comboGibCurrentText), comboLoopCurrentText,
+                   benchmark, isAll, "1", "write", "256")
   }
 
   function runRand4KQ1T1Write(bandwidth, isAll, comboGibCurrentText, comboLoopCurrentText, mainPage) {
