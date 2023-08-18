@@ -42,9 +42,29 @@ void Benchmark::run(const QString &options, const QString &detect, bool isAll) {
     std::remove("test");
     std::remove("fio_results.txt");
 
+    /// Extract the IOPS result using the extractIOPS function
+    QString iopsResult = extractIOPS(_results, detect);
+    /// Find the index of the character 'k' in the IOPS result
+    int kIndex = iopsResult.indexOf(QLatin1Char('k'));
+
+    if (kIndex != -1) {
+        bool ok = false;
+        /// Get a pointer to the internal character data of the QString
+        const QChar *data = iopsResult.constData();
+        /// Convert the substring before 'k' to a double using fromRawData
+        double iopsValue = QString::fromRawData(data, kIndex).toDouble(&ok);
+
+        if (ok) {
+            /// Multiply the IOPS value by 1000 to convert from kilo to non-kilo
+            iopsValue *= 1000;
+            /// Convert the modified IOPS value to a QString without decimal places
+            iopsResult = QString::fromLatin1(QByteArray::number(iopsValue, 'f', 0));
+        }
+    }
+
     /// Extract bandwidth information from results.
     QString bandwidth = extractBandwidth(_results, detect)
-                        + " = " + extractIOPS(_results, detect);
+                        + " = " + iopsResult;
 
     /// Define a map of benchmark types to corresponding signals.
     std::unordered_map<QString, std::function<void(QString, bool)>> map = {
