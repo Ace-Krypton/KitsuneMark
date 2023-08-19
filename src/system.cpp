@@ -134,10 +134,10 @@ QString System::checkFIOVersion() {
     std::string result;
 
     /// Open a pipe and execute the command
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
-    if (!pipe) {
-        return "<unknown>";
-    }
+    std::unique_ptr<FILE, decltype(&pclose)>
+        pipe(popen(command.c_str(), "r"), pclose);
+
+    if (!pipe) return "<unknown>";
 
     /// Read the command output into the output stream
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {

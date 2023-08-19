@@ -19,19 +19,11 @@ ApplicationWindow {
       title: qsTr("File")
 
       Action {
-        text: qsTr("New...")
-      }
-
-      Action {
-        text: qsTr("Open...")
+        text: qsTr("Copy")
       }
 
       Action {
         text: qsTr("Save")
-      }
-
-      Action {
-        text: qsTr("Save As...")
       }
 
       MenuSeparator {}
@@ -45,20 +37,36 @@ ApplicationWindow {
       title: qsTr("Settings")
 
       Action {
-        text: qsTr("Cut")
+        text: qsTr("Standard Present")
       }
 
       Action {
-        text: qsTr("Copy")
+        text: qsTr("NVMe SSD")
       }
 
       Action {
-        text: qsTr("Paste")
+        text: qsTr("Queues & Threads")
       }
     }
 
     Menu {
       title: qsTr("Profile")
+
+      Action {
+        text: qsTr("Default")
+      }
+
+      Action {
+        text: qsTr("Peak Performance")
+      }
+
+      Action {
+        text: qsTr("Real World Performance")
+      }
+
+      Action {
+        text: qsTr("DEMO")
+      }
     }
 
     Menu {
