@@ -199,9 +199,15 @@ Item {
                   }
 
                   onClicked: {
-                    utils.runAllBenchmarks(comboGiB.currentText.match(
-                                             /\d+/)[0],
-                                           combo.currentText, mainPage)
+                    const gibText = comboGiB.currentText.match(/\d+/)[0]
+                    const comboText = combo.currentText
+
+                    if (system.hasEnoughSpace(comboGiB.currentText)) {
+                      utils.runAllBenchmarks(gibText, comboText, mainPage)
+                    } else {
+                      console.log(
+                            "You don't have enough space on your system, please lower the test size")
+                    }
                   }
                 }
               }
