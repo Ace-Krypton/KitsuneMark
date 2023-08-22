@@ -32,38 +32,61 @@ QString System::extractCPU() {
     return QString::fromStdString(cpuInfo);
 }
 
+/**
+ * @brief Checks if the system has enough space based on the provided test size.
+ *
+ * This function checks if the available storage space on the system is sufficient
+ * for the specified test size. The test size should be provided in the format
+ * "1 GiB" or "1 MB".
+ *
+ * @param testSize The test size to check against, in the format "1 GiB" or "1 MB".
+ * @return True if there's enough space, false otherwise.
+ */
 bool System::hasEnoughSpace(const QString &testSize) {
-    qDebug() << testSize << '\n';
+    /// Parse the test size string to get the required bytes
     qint64 requiredBytes = parseTestSize(testSize);
 
+    /// Get storage information for the root filesystem
     QStorageInfo storageInfo = QStorageInfo::root();
-    qDebug() << storageInfo.bytesAvailable() << '\n';
 
+    /// Check if the system is in read-only mode or if there's enough space
     return storageInfo.isReadOnly() || storageInfo.bytesAvailable() >= requiredBytes;
 }
 
+/**
+ * @brief Parses a test size string and returns the size in bytes.
+ *
+ * This function parses a test size string in the format "1 GiB" or "1 MB"
+ * and converts it into the corresponding size in bytes.
+ *
+ * @param testSize The test size to parse, in the format "1 GiB" or "1 MB".
+ * @return The size in bytes.
+ */
 qint64 System::parseTestSize(const QString &testSize) {
+    /// Regular expression pattern to match the test size format
     static QRegularExpression sizePattern("(\\d+)\\s*(MB|GiB)?",
                                           QRegularExpression::CaseInsensitiveOption);
+
+    /// Attempt to match the pattern against the provided test size
     QRegularExpressionMatch match = sizePattern.match(testSize);
 
     if (match.hasMatch()) {
+        /// Extract the numeric value and unit from the match
         qint64 size = match.captured(1).toLongLong();
+        /// Convert unit to uppercase
         QString unit = match.captured(2).toUpper();
 
-        qDebug() << "Captured size:" << match.captured(1);
-        qDebug() << "Captured unit:" << match.captured(2);
-
+        /// Unit multipliers for converting to bytes
         static const QHash<QString, qint64> unitMultipliers = {
             {"MB", 1024 * 1024},
             {"GIB", 1024 * 1024 * 1024}
         };
 
-        qDebug() << "Returned value" << size * unitMultipliers.value(unit, 1);
-
+        /// Return the calculated size in bytes
         return size * unitMultipliers.value(unit, 1);
     }
 
+    /// If the test size format doesn't match, return 0
     return 0;
 }
 
