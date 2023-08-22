@@ -537,15 +537,22 @@ Item {
                   }
 
                   onClicked: {
-                    utils.resetBenchmarking(
-                          mainPage,
-                          ["seq1MRead", "seq1MReadIOPS", "seq1MReadGB", "seq1MWrite", "seq1MWriteIOPS", "seq1MWriteGB"])
-
-                    isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.sequential(parseInt(gibText), comboText, benchmark,
-                                       false, "1M", "read")
+
+                    if (system.hasEnoughSpace(comboGiB.currentText)) {
+                      utils.resetBenchmarking(
+                            mainPage,
+                            ["seq1MRead", "seq1MReadIOPS", "seq1MReadGB", "seq1MWrite", "seq1MWriteIOPS", "seq1MWriteGB"])
+
+                      isBenchmarkingInProgress = true
+
+                      builder.sequential(parseInt(gibText), comboText,
+                                         benchmark, false, "1M", "read")
+                    } else {
+                      console.log(
+                            "You don't have enough space on your system, please lower the test size")
+                    }
                   }
                 }
               }
@@ -667,15 +674,21 @@ Item {
                   }
 
                   onClicked: {
-                    utils.resetBenchmarking(
-                          mainPage,
-                          ["seq128KRead", "seq128KReadIOPS", "seq128KReadGB", "seq128KWrite", "seq128KWriteIOPS", "seq128KWriteGB"])
-
-                    isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.sequential(parseInt(gibText), comboText, benchmark,
-                                       false, "128K", "read")
+
+                    if (system.hasEnoughSpace(comboGiB.currentText)) {
+                      const benchmarks = ["seq128KRead", "seq128KReadIOPS", "seq128KReadGB", "seq128KWrite", "seq128KWriteIOPS", "seq128KWriteGB"]
+
+                      utils.resetBenchmarking(mainPage, benchmarks)
+                      isBenchmarkingInProgress = true
+
+                      builder.sequential(parseInt(gibText), comboText,
+                                         benchmark, false, "128K", "read")
+                    } else {
+                      console.log(
+                            "You don't have enough space on your system, please lower the test size")
+                    }
                   }
                 }
               }
@@ -795,15 +808,21 @@ Item {
                   }
 
                   onClicked: {
-                    utils.resetBenchmarking(
-                          mainPage,
-                          ["rand4KQ32T1Read", "rand4KQ32T1ReadIOPS", "rand4KQ32T1ReadGB", "rand4KQ32T1Write", "rand4KQ32T1WriteIOPS", "rand4KQ32T1WriteGB"])
-
-                    isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.random(parseInt(gibText), comboText, benchmark,
-                                   false, "32", "read", "8")
+
+                    if (system.hasEnoughSpace(comboGiB.currentText)) {
+                      const benchmarks = ["rand4KQ32T1Read", "rand4KQ32T1ReadIOPS", "rand4KQ32T1ReadGB", "rand4KQ32T1Write", "rand4KQ32T1WriteIOPS", "rand4KQ32T1WriteGB"]
+
+                      utils.resetBenchmarking(mainPage, benchmarks)
+                      isBenchmarkingInProgress = true
+
+                      builder.random(parseInt(gibText), comboText, benchmark,
+                                     false, "32", "read", "8")
+                    } else {
+                      console.log(
+                            "You don't have enough space on your system, please lower the test size")
+                    }
                   }
                 }
               }
@@ -924,15 +943,21 @@ Item {
                   }
 
                   onClicked: {
-                    utils.resetBenchmarking(
-                          mainPage,
-                          ["rand4KQ1T1Read", "rand4KQ1T1ReadIOPS", "rand4KQ1T1ReadGB", "rand4KQ1T1Write", "rand4KQ1T1WriteIOPS", "rand4KQ1T1WriteGB"])
-
-                    isBenchmarkingInProgress = true
                     const gibText = comboGiB.currentText.match(/\d+/)[0]
                     const comboText = combo.currentText
-                    builder.random(parseInt(gibText), comboText, benchmark,
-                                   false, "1", "read", "256")
+
+                    if (system.hasEnoughSpace(comboGiB.currentText)) {
+                      const benchmarks = ["rand4KQ1T1Read", "rand4KQ1T1ReadIOPS", "rand4KQ1T1ReadGB", "rand4KQ1T1Write", "rand4KQ1T1WriteIOPS", "rand4KQ1T1WriteGB"]
+
+                      utils.resetBenchmarking(mainPage, benchmarks)
+                      isBenchmarkingInProgress = true
+
+                      builder.random(parseInt(gibText), comboText, benchmark,
+                                     false, "1", "read", "256")
+                    } else {
+                      console.log(
+                            "You don't have enough space on your system, please lower the test size")
+                    }
                   }
                 }
               }

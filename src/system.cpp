@@ -32,6 +32,41 @@ QString System::extractCPU() {
     return QString::fromStdString(cpuInfo);
 }
 
+bool System::hasEnoughSpace(const QString &testSize) {
+    qDebug() << testSize << '\n';
+    qint64 requiredBytes = parseTestSize(testSize);
+
+    QStorageInfo storageInfo = QStorageInfo::root();
+    qDebug() << storageInfo.bytesAvailable() << '\n';
+
+    return storageInfo.isReadOnly() || storageInfo.bytesAvailable() >= requiredBytes;
+}
+
+qint64 System::parseTestSize(const QString &testSize) {
+    static QRegularExpression sizePattern("(\\d+)\\s*(MB|GiB)?",
+                                          QRegularExpression::CaseInsensitiveOption);
+    QRegularExpressionMatch match = sizePattern.match(testSize);
+
+    if (match.hasMatch()) {
+        qint64 size = match.captured(1).toLongLong();
+        QString unit = match.captured(2).toUpper();
+
+        qDebug() << "Captured size:" << match.captured(1);
+        qDebug() << "Captured unit:" << match.captured(2);
+
+        static const QHash<QString, qint64> unitMultipliers = {
+            {"MB", 1024 * 1024},
+            {"GIB", 1024 * 1024 * 1024}
+        };
+
+        qDebug() << "Returned value" << size * unitMultipliers.value(unit, 1);
+
+        return size * unitMultipliers.value(unit, 1);
+    }
+
+    return 0;
+}
+
 /**
  * @brief Checks if the device at the specified path is an SSD.
  *

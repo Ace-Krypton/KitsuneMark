@@ -11,6 +11,9 @@
 #include <QString>
 #include <QIODevice>
 #include <QTextStream>
+#include <QStorageInfo>
+#include <QRegularExpression>
+#include <QRegularExpressionMatch>
 
 class System : public QObject {
     Q_OBJECT
@@ -23,6 +26,8 @@ public:
     Q_INVOKABLE QString extractCPU();
     Q_INVOKABLE QString extractStorage();
     Q_INVOKABLE QString checkFIOVersion();
+    Q_INVOKABLE bool hasEnoughSpace(const QString &testSize);
+    Q_INVOKABLE qint64 parseTestSize(const QString &testSize);
     Q_INVOKABLE bool isSSD(const std::filesystem::path &path);
     Q_INVOKABLE void writeToAFile(const QString &data, const QString &fileUrl);
 };
