@@ -2,7 +2,7 @@
 
 ---
 
-![image](https://github.com/Ace-Krypton/KitsuneMarkUI/assets/75210504/6fc1f887-8648-44e1-afff-6ec9fe972a01)
+![image](https://github.com/Ace-Krypton/KitsuneMark/assets/75210504/61cbea8e-5138-4ee5-9872-6125135b7d9a)
 
 <h2 align="center">まだ開発中です</h2>
 
