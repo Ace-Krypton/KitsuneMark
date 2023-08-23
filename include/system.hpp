@@ -10,8 +10,11 @@
 #include <QObject>
 #include <QString>
 #include <QIODevice>
+#include <QClipboard>
 #include <QTextStream>
 #include <QStorageInfo>
+#include <QStandardPaths>
+#include <QGuiApplication>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 
@@ -26,6 +29,7 @@ public:
     Q_INVOKABLE QString extractCPU();
     Q_INVOKABLE QString extractStorage();
     Q_INVOKABLE QString checkFIOVersion();
+    Q_INVOKABLE void copyData(const QString &data);
     Q_INVOKABLE bool hasEnoughSpace(const QString &testSize);
     Q_INVOKABLE qint64 parseTestSize(const QString &testSize);
     Q_INVOKABLE bool isSSD(const std::filesystem::path &path);

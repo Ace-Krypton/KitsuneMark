@@ -1,7 +1,5 @@
 #include "../include/system.hpp"
 
-#include <QStandardPaths>
-
 System::System(QObject *parent) : QObject(parent) { }
 
 /**
@@ -232,6 +230,11 @@ void System::writeToAFile(const QString &data, const QString &fileUrl) {
             file.close();
         }
     }
+}
+
+void System::copyData(const QString &data) {
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    clipboard->setText(data);
 }
 
 QString System::getUser() {

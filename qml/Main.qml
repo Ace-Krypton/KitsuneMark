@@ -21,6 +21,7 @@ ApplicationWindow {
 
       Action {
         text: qsTr("Copy")
+        onTriggered: mainPage.system.copyData(utils.properties(mainPage))
       }
 
       Action {
