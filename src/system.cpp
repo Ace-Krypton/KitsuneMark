@@ -232,11 +232,24 @@ void System::writeToAFile(const QString &data, const QString &fileUrl) {
     }
 }
 
+/**
+ * @brief Copies the provided data to the system clipboard.
+ * @param data The data to be copied to the clipboard.
+ */
 void System::copyData(const QString &data) {
+    /// Create a QClipboard object to interact with the system clipboard.
     QClipboard *clipboard = QGuiApplication::clipboard();
+
+    /// Set the provided data as text on the clipboard.
     clipboard->setText(data);
 }
 
+/**
+ * @brief This function retrieves the username of the current system user.
+ * @return A QString containing the username of the current user.
+ */
 QString System::getUser() {
+    /// Retrieve the username from the
+    /// environment variables using qgetenv function.
     return qgetenv("USER");
 }
